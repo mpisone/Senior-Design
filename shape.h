@@ -7,3 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
+void triangleDeclare(void);
+
+#endif
