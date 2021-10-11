@@ -16,7 +16,7 @@
 void triangleDeclare(){
   int choice, valid;
   //array for holding triangle values
-  float tVals[3];
+  float vals[5];
   printf("\nHow would you like to define your triangle?\n");
   printf("1. Three Side Lengths\n2. SAS: Side Angle Side. Two sides and the included angle.\n3. ASA: Angle Side Angle. Two angles and the included side.\n");
   scanf("%d",&choice);
@@ -28,35 +28,35 @@ void triangleDeclare(){
   if(choice ==1){
     //3 Side Lengths
     printf("\n3 Side Lengths\n");
-    printf("\nLength of side 1(in inches): ");
-    scanf("%f", &tVals[0]);
-    printf("\nLength of side 2(in inches): ");
-    scanf("%f", &tVals[1]);
-    printf("\nLength of side 3(in inches): ");
-    scanf("%f", &tVals[2]);
+    printf("\nLength of side A(in inches): ");
+    scanf("%f", &vals[0]);
+    printf("\nLength of side B(in inches): ");
+    scanf("%f", &vals[1]);
+    printf("\nLength of side C(in inches): ");
+    scanf("%f", &vals[2]);
     //TODO: Call to validate triangle inputs
-    valid = validate('t');
+    valid = validate(1, vals);
 
   }else if(choice ==2){
     //SAS
     printf("\nSide Angle Side\n");
-    printf("\nLength of side 1(in inches): ");
-    scanf("%f", &tVals[0]);
+    printf("\nLength of side A(in inches): ");
+    scanf("%f", &vals[0]);
     printf("\nDegree of the included angle(in inches): ");
-    scanf("%f", &tVals[1]);
-    printf("\nLength of side 3(in inches): ");
-    scanf("%f", &tVals[2]);
+    scanf("%f", &vals[1]);
+    printf("\nLength of side B(in inches): ");
+    scanf("%f", &vals[2]);
     //TODO: Call to validate triangle inputs
 
   }else{
     //ASA
     printf("\nAngle Side Angle\n");
     printf("\nDegree of Angle 1 ");
-    scanf("%f", &tVals[0]);
-    printf("\nLength of included side: ");
-    scanf("%f", &tVals[1]);
+    scanf("%f", &vals[0]);
+    printf("\nLength of included side A: ");
+    scanf("%f", &vals[1]);
     printf("\nDegree of Angle 2: ");
-    scanf("%f", &tVals[2]);
+    scanf("%f", &vals[2]);
     //TODO: Call to validate triangle inputs
 
   }

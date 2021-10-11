@@ -12,7 +12,7 @@ void triangleDeclare(void);
 //use same method for rectangle +  square
 void rectangleDeclare(int ifSquare);
 void trapezoidDeclare(void);
-int validate(char whichShape);
+int validate(int whichShape, float vals[]);
 
 
 #endif
