@@ -14,50 +14,61 @@
 //2 = SAS: Side Angle Side
 //3 = ASA: Angle Side Angle
 void triangleDeclare(){
-  int choice, valid;
+  int choice, validity;
   //array for holding triangle values
   float vals[5];
   printf("\nHow would you like to define your triangle?\n");
-  printf("1. Three Side Lengths\n2. SAS: Side Angle Side. Two sides and the included angle.\n3. ASA: Angle Side Angle. Two angles and the included side.\n");
+  printf("1. Two Side Lengths\n2. Right Angle Triangle; Side + Angle.\n");
   scanf("%d",&choice);
+  while(choice < 1 || choice > 2){
+    printf("Please enter a valid input: ");
+    scanf("%d",&choice);
+  }
 
-  printf("\nchoice = %d", choice);
+  //printf("\nchoice = %d", choice);
 
   //get user inputs
 
-  if(choice ==1){
-    //3 Side Lengths
-    printf("\n3 Side Lengths\n");
-    printf("\nLength of side A(in inches): ");
-    scanf("%f", &vals[0]);
-    printf("\nLength of side B(in inches): ");
-    scanf("%f", &vals[1]);
-    printf("\nLength of side C(in inches): ");
-    scanf("%f", &vals[2]);
-    //TODO: Call to validate triangle inputs
-    valid = validate(1, vals);
+  if(choice == 1){
 
-  }else if(choice ==2){
-    //SAS
-    printf("\nSide Angle Side\n");
-    printf("\nLength of side A(in inches): ");
+    //3 Side Lengths
+    printf("\n2 Side Lengths\n");
+    printf("Length of side C (in inches): ");
     scanf("%f", &vals[0]);
-    printf("\nDegree of the included angle(in inches): ");
+    while(vals[0] >= 8.5|| vals[0] < 0){
+      printf("\nThe side length must be less than 8.5 inches. Please enter a new value.");
+      scanf("%f", &vals[0]);
+    }
+    //printf("%.2f", vals[0]);
+    printf("Length of side B(in inches): ");
     scanf("%f", &vals[1]);
-    printf("\nLength of side B(in inches): ");
-    scanf("%f", &vals[2]);
-    //TODO: Call to validate triangle inputs
+    while(vals[1] >= 8.5|| vals[1] < 0){
+      printf("\nThe side length must be less than 8.5 inches. Please enter a new value.\n");
+      scanf("%f", &vals[1]);
+    }
+
+    //find length of side c
+    validity = validate(1, vals);
 
   }else{
-    //ASA
-    printf("\nAngle Side Angle\n");
-    printf("\nDegree of Angle 1 ");
+    //SAS
+    printf("\nRight Triangle by Side Angle\n");
+    printf("\nLength of side C (in inches): ");
     scanf("%f", &vals[0]);
-    printf("\nLength of included side A: ");
+    while(vals[0] >= 8.5 || vals[0] < 0){
+      printf("The side length must be less than 8.5 inches and larger than 0. Please enter a new value.\n");
+      scanf("%f", &vals[0]);
+    }
+    printf("Degree of the angle(in degrees): ");
     scanf("%f", &vals[1]);
-    printf("\nDegree of Angle 2: ");
-    scanf("%f", &vals[2]);
+    while(vals[1] >= 90|| vals[1] < 0){
+      printf("The angle must be smaller that 90 Degrees and larger than 0. Please enter a new value for the anlge(in Degrees).\n");
+      scanf("%f", &vals[1]);
+    }
+
     //TODO: Call to validate triangle inputs
+    //find length of side C
+    validity = validate(2, vals);
 
   }
 
@@ -67,22 +78,89 @@ void triangleDeclare(){
 
 //For defining a rectanlge OR square
 void rectangleDeclare(int ifSquare){
-  float sideOne, sideTwo;
+  float vals[5];
+  int choice, validity, rotate;
   //is a rectangle
   if(ifSquare == 0){
-    printf("\nLength of side 1(in inches):\n");
-    scanf("%f", &sideOne);
-    printf("\nLength of side 2(in inches):\n");
-    scanf("%f", &sideTwo);
+    printf("\nLength of side 1(in inches): ");
+    scanf("%f", &vals[0]);
+    while(vals[0] >= 8.5|| vals[0] < 0){
+      printf("The side length must be less than 8.5 inches and larger than 0. Please enter a new value.\n");
+      scanf("%f", &vals[0]);
+    }
+    printf("Length of side 2(in inches): ");
+    scanf("%f", &vals[1]);
+    while(vals[1] >= 8.5|| vals[1] < 0){
+      printf("The side length must be less than 8.5 inches and larger than 0. Please enter a new value.\n");
+      scanf("%f", &vals[1]);
+    }
+    printf("Would you like to rotate your rectangle? Enter 1 for YES or 0 for NO. \n");
+    scanf("%d", &rotate);
+    while(rotate != 1 && rotate != 0){
+      printf("Please enter a valid input.\n");
+      scanf("%d", &rotate);
+    }
+
+
+    if(rotate == 1){
+      printf("How many degrees to the right would you like to rotate your rectangle? \n");
+      scanf("%f", &vals[2]);
+      while(vals[2] < 1 || vals[2] > 359){
+        printf("Please enter a degree rotation between 1 degree and 359 degrees.\n");
+        scanf("%f", &vals[2]);
+      }
+      //indicate rotation is TRUE
+      vals[3] = 1;
+    }
+    validity = validate(3, vals);
+
 
   }else{
     //is a square; ifSquare = 1;
-    printf("\nSide length(in inches):\n");
-    scanf("%f", &sideOne);
+    printf("\nSide length(in inches): ");
+    scanf("%f", &vals[0]);
+    while(vals[0] >= 8.5 || vals[0] < 0){
+      printf("The side length must be greater than 0 and less than 8.5. Please enter a valid input: ");
+      scanf("%f", &vals[0]);
+    }
+
+    printf("Would you like to rotate your square? Enter 1 for YES or 0 for NO. \n");
+    scanf("%d", &rotate);
+    while(rotate != 1 && rotate != 0){
+      printf("Please enter a valid input.\n");
+      scanf("%d", &rotate);
+    }
+
+
+    if(rotate == 1){
+      printf("How many degrees to the right would you like to rotate your square? \n");
+      scanf("%f", &vals[1]);
+      while(vals[1] < 1 || vals[1] > 359){
+        printf("Please enter a degree rotation between 1 degree and 359 degrees.\n");
+        scanf("%f", &vals[1]);
+      }
+      //indicate rotation is TRUE
+      vals[2] = 1;
+    }
+    validity = validate(4, vals);
 
   }
 
   //ask for rotation
+  //printf("Would you like to rotate the shape? Enter 1 for YES, 0 for NO.")
+}
+
+void circleDeclare(){
+  //float radius;
+  float vals[5];
+  int validity;
+  printf("What is the radius of your circle (in inches): ");
+  scanf("%f", &vals[0]);
+  while(vals[0] >= 8.5 || vals[0] < 0){
+    printf("The side length must be greater than 0 and less than 8.5. Please enter a valid input: ");
+    scanf("%f", &vals[0]);
+  }
+  validity = validate(5, vals);
 }
 
 void trapezoidDeclare(){
