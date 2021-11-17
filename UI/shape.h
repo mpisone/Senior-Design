@@ -13,12 +13,12 @@ void triangleDeclare(void);
 //use same method for rectangle +  square
 void rectangleDeclare(int ifSquare);
 void ellipseDeclare(void);
-void trapezoidDeclare(void);
 
 //validate.c
-int validate(int whichShape, float vals[]);
-//float toDraw();
-//void printTriangle(float height);
+void validate(int whichShape, float vals[]);
+void Confirmation(int whichShape, float vals[]);
+
+void rotate(void);
 
 
 #endif

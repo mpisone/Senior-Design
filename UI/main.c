@@ -6,12 +6,12 @@
 #include <stdlib.h>
 #include "shape.h"
 #include "shape.c"
-#include "validate.c"
+#include "end.c"
 
 
 int main(){
   int shape, ifSquare, goAgain = 1, options =4;
-  float mainVals[20];
+  float vals[20];
 
 
   printf("\nRobotic Arm for Drawing 2D Geometric Shapes\n");
@@ -29,7 +29,7 @@ int main(){
 
     //mainVals = toDraw();
 
-    if(shape == 1){
+    if(shape == 1 || shape ==2){
       //triangle
       triangleDeclare();
 
@@ -42,6 +42,7 @@ int main(){
       //square
       ifSquare = 1;
       rectangleDeclare(ifSquare);
+
     }else{
       //ellipse
       ellipseDeclare();

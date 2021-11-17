@@ -11,8 +11,7 @@
 //return 1 for valid Shape
 //return 0 for invalid shape
 //assuming starting point of 1,1
-int validate(int whichShape, float vals[]){
-  int valid;
+void Confirmation(int whichShape, float vals[]){
   float points[100];
   #define PI 3.142857
 
@@ -23,58 +22,32 @@ int validate(int whichShape, float vals[]){
     float b = vals[1];
     float c;
     c = pow(a,2)+pow(b,2);
-    vals[2] = sqrt(c);
+    vals[5] = sqrt(c);
 
     //Heron's formula
     float p = a+b+c; //perimeter
     float area = sqrt(p*(p-a)*(p-b)*(p-c));
     float height = 2*(area*a);
 
-    printf("\nCongratulations, the robot will draw your triangle of dimensions:\nSide A = %.2f inches, Side B = %.2f inches, and side C = %.2f inches\n", vals[0], vals[1], vals[2]);
-    if(vals[5] == 1){
-      printf("And a degree rotation of %.2f degrees\n", vals[4]);
-    }
+    printf("\nCongratulations, the robot will draw your triangle of dimensions:\nSide A = %.2f inches, Side B = %.2f inches, and side C = %.2f inches\n", vals[0], vals[1], vals[5]);
+    printf("And a degree rotation of %.2f degrees\n", vals[2]);
 
-
-    printf("Your points are: (1,1)\n");
-
-    valid = 1;
-    return valid;
-  }else if(whichShape ==2){
-    //Triangle by SAS
-    float c = vals[0];
-    float degrees = vals[1];
-    float radians = degrees * M_PI/ 180.0;
-    //side a
-    vals[2] = c * sin(radians);
-    //side b
-    vals[3] = c*cos(radians);
-    printf("\nCongratulations, the robot will draw your triangle of dimensions:\nSide A = %.2f inches, Side B = %.2f inches, and side C = %.2f inches\n", vals[2], vals[3], vals[0]);
-    if(vals[5] == 1){
-      printf("And a degree rotation of %.2f degrees\n", vals[4]);
-    }
-    return 1;
-
-  }else if(whichShape == 3){
+  }else if(whichShape == 2){
     //RECTANGLE
     //side length 1 = vals[0]
     //side length 2 = vals[1]
-    printf("\nCongratulations, the robot will draw your reactangle of dimensions:\nSide 1 = %.2f inches, Side 2 = %.2f inches. ", vals[0], vals[1]);
-    if(vals[3] == 1){
-      printf("And a degree rotation of %.2f degrees\n", vals[2]);
-    }
-    return 1;
-  }else if(whichShape == 4){
+    //rotation degree = vals[3]
+    printf("\nCongratulations, the robot will draw your reactangle of dimensions:\nSide A = %.2f inches, Side B = %.2f inches. ", vals[0], vals[1]);
+    printf("And a degree rotation of %.2f degrees\n", vals[2]);
+  }else if(whichShape == 3){
     //SQUARE
     //side length = vals[0]
-    
-    printf("\nCongratulations, the robot will draw your square of dimensions:\nSide 1 = %.2f inches, Side 2 = %.2f inches. ", vals[0], vals[0]);
-    if(vals[2] == 1){
-      printf("And a degree rotation of %.2f degrees\n", vals[1]);
-    }
-    return 1;
+    //rotation degree = vals[3]
+    printf("\nCongratulations, the robot will draw your square of dimensions:\nSide A = %.2f inches, Side B = %.2f inches. ", vals[0], vals[0]);
+    printf("And a degree rotation of %.2f degrees\n", vals[2]);
+
   }else{
-    //ellipse
+    //ELLIPSE
     //radius = vals[0]
     /*
     step = 2*PI/20;
@@ -101,8 +74,8 @@ int validate(int whichShape, float vals[]){
     float dx, dy, d1, d2, x, y, rx, ry, xc, yc;
     ry = vals[0];
     rx = vals[1];
-    xc = vals[2];
-    yc = vals[3];
+    xc = vals[3];
+    yc = vals[4];
     x = 0;
     y = ry;
 
@@ -171,9 +144,6 @@ int validate(int whichShape, float vals[]){
 
 
     printf("\nCongratulations, the robot will draw you ellipse of y radius %.2f inches and x radius %.2f\n", vals[0], vals[1]);
-    return 1;
+    printf("And a degree rotation of %.2f degrees\n", vals[2]);
   }
-
-
-  return valid;
 }
