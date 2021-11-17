@@ -1,7 +1,7 @@
 //-------------------------------MPU6050 Accelerometer and Gyroscope C++ library-----------------------------
- /*	Arduino like Wiring library for the Raspberry Pi.
- /*	Copyright (c) 2012-2017 Gordon Henderson
-*/
+// Arduino like Wiring library for the Raspberry Pi.
+//	Copyright (c) 2012-2017 Gordon Henderson
+
 //-----------------------MODIFY THESE PARAMETERS-----------------------
 
 #define GYRO_RANGE 0 //Select which gyroscope range to use (see the table below) - Default is 0

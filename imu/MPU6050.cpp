@@ -1,7 +1,7 @@
 //-------------------------------MPU6050 Accelerometer and Gyroscope C++ library-----------------------------
- /*	Arduino like Wiring library for the Raspberry Pi.
-*	Copyright (c) 2012-2017 Gordon Henderson
-*/
+
+// Arduino like Wiring library for the Raspberry Pi.
+//	Copyright (c) 2012-2017 Gordon Henderson
 
 //Include the header file for this class
 #include "MPU6050.h"
