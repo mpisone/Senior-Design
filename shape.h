@@ -12,7 +12,7 @@
 void triangleDeclare(void);
 //use same method for rectangle +  square
 void rectangleDeclare(int ifSquare);
-void circleDeclare(void);
+void ellipseDeclare(void);
 void trapezoidDeclare(void);
 
 //validate.c

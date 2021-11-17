@@ -9,16 +9,16 @@
 #include "validate.c"
 
 
-int main(void){
+int main(){
   int shape, ifSquare, goAgain = 1, options =4;
-  float mainVals[10];
+  float mainVals[20];
 
 
   printf("\nRobotic Arm for Drawing 2D Geometric Shapes\n");
 
   while(goAgain == 1){
     printf("Welcome! What shape would you like to draw?\n");
-    printf("1. Triangle\n2. Rectangle\n3. Square\n4. Circle\n");
+    printf("1. Triangle\n2. Rectangle\n3. Square\n4. Ellipse\n");
     scanf("%d", &shape);
     //printf("choice = %d", shape);
     //error check for user input
@@ -43,11 +43,11 @@ int main(void){
       ifSquare = 1;
       rectangleDeclare(ifSquare);
     }else{
-      //circle
-      circleDeclare();
+      //ellipse
+      ellipseDeclare();
     }
     int temp;
-    printf("\nWoud you like to draw another shape? Enter 1 for YES or 0 for NO.\n");
+    printf("\nDraw another shape? 1 for YES or 0 for NO.\n");
     scanf("%d", &temp);
     while(temp != 1 && temp != 0){
       printf("Please enter either 1 or 0: ");
