@@ -6,10 +6,11 @@
 #include <stdlib.h>
 #include "shape.h"
 #include "shape.c"
-#include "end.c"
 
 
-int main(){
+
+
+int main(void){
   int shape, ifSquare, goAgain = 1, options =4;
   float vals[20];
 
