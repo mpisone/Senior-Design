@@ -29,7 +29,7 @@ int main(){
 
     //mainVals = toDraw();
 
-    if(shape == 1 || shape ==2){
+    if(shape == 1){
       //triangle
       triangleDeclare();
 

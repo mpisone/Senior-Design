@@ -19,6 +19,8 @@ void validate(int whichShape, float vals[]);
 void Confirmation(int whichShape, float vals[]);
 
 void rotate(void);
+void center(void);
+void HandW(void);
 
 
 #endif
