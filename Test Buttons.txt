@@ -1,0 +1,29 @@
+	if(_RA0 == 0)
+        {
+        Show("RA0 Pressed             ");
+        }
+        
+        if(_RA1 == 0)
+        {
+        Show("RA1 Pressed             ");
+        }
+        
+        if(_RB2 == 0)
+        {
+        Show("RB2 Pressed             ");
+        }
+        
+         if(_RB3 == 0)
+        {
+        Show("RB3 Pressed             ");
+        }
+        
+        if(_RA2 == 0)
+        {
+        Show("RA2 Pressed             ");
+        }
+        
+        else
+        {
+         Show("Please Press Button            ");   
+        }
