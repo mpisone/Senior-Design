@@ -109,7 +109,6 @@ int countX, countY, headingVectorInt[2], ind, indX, indY, tempValA, tempValB, te
 double pi, delayX, delayY, startX, startY, endX, endY, headingVector[2], Nx, Ny, pitch, stepSize; //delay in ms and start/end in inches
 _Bool directionX, directionY, clockwise, counter_clockwise; //0 for CW?, 1 for CCW?
 
-/*
 void HandW(void){
   //Height = Y radius = vals[0]
   //Width = X radius = vals[1]
@@ -249,7 +248,7 @@ void ellipseDeclare(void){
   rotate();
   validate(4, vals);
 }
-*/
+
 int update_direction1(_Bool direction)
 {
     _RB7 = direction;

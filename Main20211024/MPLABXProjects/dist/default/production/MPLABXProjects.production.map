@@ -25,6 +25,7 @@ Command:
   build/default/production/mcc_generated_files/interrupt_manager.o \
   build/default/production/mcc_generated_files/system.o \
   build/default/production/main.o \
+  build/default/production/shape.o \
   --local-stack \
   --defsym=__MPLAB_BUILD=1 \
   -Tp24FJ256GA702.gld.00 \
@@ -620,6 +621,7 @@ LOAD build/default/production/mcc_generated_files/mcc.o
 LOAD build/default/production/mcc_generated_files/interrupt_manager.o
 LOAD build/default/production/mcc_generated_files/system.o
 LOAD build/default/production/main.o
+LOAD build/default/production/shape.o
                     0x0001                  __MPLAB_BUILD = 0x1
 LOAD pPIC24Fxxx
 LOAD c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libfx-elf.a
@@ -897,7 +899,7 @@ __FDEVOPT1
  .debug_info      0x001023        0xf3d build/default/production/main.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x4cc
+.debug_abbrev     0x000000        0x4cd
  *(.debug_abbrev)
  .debug_abbrev    0x000000         0x59 build/default/production/mcc_generated_files/pin_manager.o
  .debug_abbrev    0x000059         0x6a build/default/production/mcc_generated_files/clock.o
@@ -906,8 +908,9 @@ __FDEVOPT1
  .debug_abbrev    0x0001c4         0x34 build/default/production/mcc_generated_files/interrupt_manager.o
  .debug_abbrev    0x0001f8         0xb4 build/default/production/mcc_generated_files/system.o
  .debug_abbrev    0x0002ac        0x220 build/default/production/main.o
+ .debug_abbrev    0x0004cc          0x1 build/default/production/shape.o
 
-.debug_line       0x000000        0x765
+.debug_line       0x000000        0x77f
  *(.debug_line)
  .debug_line      0x000000        0x124 build/default/production/mcc_generated_files/pin_manager.o
  .debug_line      0x000124        0x124 build/default/production/mcc_generated_files/clock.o
@@ -916,6 +919,7 @@ __FDEVOPT1
  .debug_line      0x0003ab         0x55 build/default/production/mcc_generated_files/interrupt_manager.o
  .debug_line      0x000400        0x117 build/default/production/mcc_generated_files/system.o
  .debug_line      0x000517        0x24e build/default/production/main.o
+ .debug_line      0x000765         0x1a build/default/production/shape.o
 
 .debug_frame      0x000000        0x57c
  *(.debug_frame)
@@ -2329,7 +2333,7 @@ LOAD data_init
                   0x00019f         0x9f build/default/production/main.o
 
 __c30_signature
-                  0x00023e        0x1aa
+                  0x00023e        0x1b0
  __c30_signature
                   0x00023e          0x6 build/default/production/mcc_generated_files/pin_manager.o
  __c30_signature
@@ -2345,133 +2349,135 @@ __c30_signature
  __c30_signature
                   0x000262          0x6 build/default/production/main.o
  __c30_signature
-                  0x000268          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libpic30-elf.a(crt0_extended24.o)
+                  0x000268          0x6 build/default/production/shape.o
  __c30_signature
-                  0x00026e          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libpic30-elf.a(data_init_24.o)
+                  0x00026e          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libpic30-elf.a(crt0_extended24.o)
  __c30_signature
-                  0x000274          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libpic30-elf.a(delay32da.eo)
+                  0x000274          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libpic30-elf.a(data_init_24.o)
  __c30_signature
-                  0x00027a          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(addsf3.daeo)
+                  0x00027a          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libpic30-elf.a(delay32da.eo)
  __c30_signature
-                  0x000280          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(cosf.daeo)
+                  0x000280          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(addsf3.daeo)
  __c30_signature
-                  0x000286          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(divsf3.daeo)
+                  0x000286          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(cosf.daeo)
  __c30_signature
-                  0x00028c          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(feqltle.daeo)
+                  0x00028c          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(divsf3.daeo)
  __c30_signature
-                  0x000292          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fgtge.daeo)
+                  0x000292          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(feqltle.daeo)
  __c30_signature
-                  0x000298          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fpack.daeo)
+                  0x000298          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fgtge.daeo)
  __c30_signature
-                  0x00029e          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(funpack2.daeo)
+                  0x00029e          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fpack.daeo)
  __c30_signature
-                  0x0002a4          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(futil.daeo)
+                  0x0002a4          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(funpack2.daeo)
  __c30_signature
-                  0x0002aa          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(mulsf3.daeo)
+                  0x0002aa          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(futil.daeo)
  __c30_signature
-                  0x0002b0          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(sincosf.daeo)
+                  0x0002b0          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(mulsf3.daeo)
  __c30_signature
-                  0x0002b6          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(sinf.daeo)
+                  0x0002b6          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(sincosf.daeo)
  __c30_signature
-                  0x0002bc          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(errno.daeo)
+                  0x0002bc          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(sinf.daeo)
  __c30_signature
-                  0x0002c2          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fcompare.daeo)
+                  0x0002c2          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(errno.daeo)
  __c30_signature
-                  0x0002c8          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fixsfsi.daeo)
+                  0x0002c8          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fcompare.daeo)
  __c30_signature
-                  0x0002ce          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(floatsisf.daeo)
+                  0x0002ce          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fixsfsi.daeo)
  __c30_signature
-                  0x0002d4          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fmodf.daeo)
+                  0x0002d4          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(floatsisf.daeo)
  __c30_signature
-                  0x0002da          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fmodrem.daeo)
+                  0x0002da          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fmodf.daeo)
  __c30_signature
-                  0x0002e0          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(funpack.daeo)
+                  0x0002e0          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fmodrem.daeo)
  __c30_signature
-                  0x0002e6          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(floatdisf.daeo)
+                  0x0002e6          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(funpack.daeo)
  __c30_signature
-                  0x0002ec          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(floatundisf.daeo)
+                  0x0002ec          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(floatdisf.daeo)
  __c30_signature
-                  0x0002f2          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(ltoa.daeo)
+                  0x0002f2          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(floatundisf.daeo)
  __c30_signature
-                  0x0002f8          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(printf_fF.DAeo)
+                  0x0002f8          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(ltoa.daeo)
  __c30_signature
-                  0x0002fe          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(scanf_fF.DAeo)
+                  0x0002fe          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(printf_fF.DAeo)
  __c30_signature
-                  0x000304          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(printf_s.DAeo)
+                  0x000304          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(scanf_fF.DAeo)
  __c30_signature
-                  0x00030a          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(fputc.daeo)
+                  0x00030a          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(printf_s.DAeo)
  __c30_signature
-                  0x000310          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(puts.daeo)
+                  0x000310          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(fputc.daeo)
  __c30_signature
-                  0x000316          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(_iob.daeo)
+                  0x000316          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(puts.daeo)
  __c30_signature
-                  0x00031c          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(powers.dDAeo)
+                  0x00031c          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(_iob.daeo)
  __c30_signature
-                  0x000322          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(doscan_fF.DAeo)
+                  0x000322          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(powers.dDAeo)
  __c30_signature
-                  0x000328          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(atof.daeo)
+                  0x000328          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(doscan_fF.DAeo)
  __c30_signature
-                  0x00032e          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(atoi.daeo)
+                  0x00032e          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(atof.daeo)
  __c30_signature
-                  0x000334          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(fgetc.daeo)
+                  0x000334          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(atoi.daeo)
  __c30_signature
-                  0x00033a          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(filbuf.daeo)
+                  0x00033a          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(fgetc.daeo)
  __c30_signature
-                  0x000340          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(flsbuf.daeo)
+                  0x000340          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(filbuf.daeo)
  __c30_signature
-                  0x000346          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(ungetc.daeo)
+                  0x000346          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(flsbuf.daeo)
  __c30_signature
-                  0x00034c          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(fflush.daeo)
+                  0x00034c          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(ungetc.daeo)
  __c30_signature
-                  0x000352          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libpic30-elf.a(readda.eo)
+                  0x000352          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(fflush.daeo)
  __c30_signature
-                  0x000358          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libpic30-elf.a(writeda.eo)
+                  0x000358          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libpic30-elf.a(readda.eo)
  __c30_signature
-                  0x00035e          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libpic30-elf.a(c30_uartda.eo)
+                  0x00035e          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libpic30-elf.a(writeda.eo)
  __c30_signature
-                  0x000364          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(adddf3.daeo)
+                  0x000364          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libpic30-elf.a(c30_uartda.eo)
  __c30_signature
-                  0x00036a          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(deqltle.daeo)
+                  0x00036a          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(adddf3.daeo)
  __c30_signature
-                  0x000370          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(dgtge.daeo)
+                  0x000370          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(deqltle.daeo)
  __c30_signature
-                  0x000376          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(divdf3.daeo)
+                  0x000376          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(dgtge.daeo)
  __c30_signature
-                  0x00037c          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(dne.daeo)
+                  0x00037c          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(divdf3.daeo)
  __c30_signature
-                  0x000382          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(dpack.daeo)
+                  0x000382          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(dne.daeo)
  __c30_signature
-                  0x000388          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(dunpack2.daeo)
+                  0x000388          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(dpack.daeo)
  __c30_signature
-                  0x00038e          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(extendsfdf.daeo)
+                  0x00038e          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(dunpack2.daeo)
  __c30_signature
-                  0x000394          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fixunsdfdi.daeo)
+                  0x000394          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(extendsfdf.daeo)
  __c30_signature
-                  0x00039a          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(floatunsidf.daeo)
+                  0x00039a          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fixunsdfdi.daeo)
  __c30_signature
-                  0x0003a0          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(frexp.daeo)
+                  0x0003a0          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(floatunsidf.daeo)
  __c30_signature
-                  0x0003a6          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(muldf3.daeo)
+                  0x0003a6          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(frexp.daeo)
  __c30_signature
-                  0x0003ac          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(subdf3.daeo)
+                  0x0003ac          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(muldf3.daeo)
  __c30_signature
-                  0x0003b2          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(udivsi3.daeo)
+                  0x0003b2          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(subdf3.daeo)
  __c30_signature
-                  0x0003b8          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(umodsi3.daeo)
+                  0x0003b8          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(udivsi3.daeo)
  __c30_signature
-                  0x0003be          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(mulsi3.daeo)
+                  0x0003be          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(umodsi3.daeo)
  __c30_signature
-                  0x0003c4          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(dcompare.daeo)
+                  0x0003c4          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(mulsi3.daeo)
  __c30_signature
-                  0x0003ca          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(dpropagateNaN.daeo)
+                  0x0003ca          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(dcompare.daeo)
  __c30_signature
-                  0x0003d0          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(dtype.daeo)
+                  0x0003d0          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(dpropagateNaN.daeo)
  __c30_signature
-                  0x0003d6          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(dunpack.daeo)
+                  0x0003d6          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(dtype.daeo)
  __c30_signature
-                  0x0003dc          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(floatundidf.daeo)
+                  0x0003dc          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(dunpack.daeo)
  __c30_signature
-                  0x0003e2          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(doprnt_fFs.DAeo)
+                  0x0003e2          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(floatundidf.daeo)
+ __c30_signature
+                  0x0003e8          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libc-elf.a(doprnt_fFs.DAeo)
 
 .nbss               0x0800         0x54
  .nbss              0x0800         0x54 build/default/production/main.o
