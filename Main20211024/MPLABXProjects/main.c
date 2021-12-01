@@ -721,10 +721,16 @@ int main(void)
             ellipseDeclare();
           }else{
             clear_LCD();
+            delay_cycles(5);
             reset_cursor(); //put cursor back to 0,0
+            delay_cycles(5);
             Show("No selection made");
 
           }
+          clear_LCD();
+          reset_cursor(); //put cursor back to 0,0
+          Show("Go again?");
+
         }
 
         controlLoop(0.0, 0.0, 3.4, 4.5);
