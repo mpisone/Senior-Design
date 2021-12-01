@@ -87,23 +87,24 @@ void clear_LCD();
 void move_cursor(unsigned char, unsigned char);
 void reset_cursor();
 void Show(unsigned char *);
-int i2c_delay;
-int counter;
-unsigned char buffer[20];
+
 
 //Shape verification methods
 void triangleDeclare(void);
 void rectangleDeclare(int ifSquare);
 void ellipseDeclare(void);
-void validate(int whichShape, float vals[]);
+void validate(int whichShape, double vals[]);
 void rotate(void);
 void center(void);
 void HandW(void);
 
 //Global Variables
 #define M_PI 3.14
-float vals[20];
+double vals[20];
 int choice, validity;
+int i2c_delay;
+int counter;
+unsigned char buffer[20];
 // Define parameters for motor control
 int countX, countY, headingVectorInt[2], ind, indX, indY, tempValA, tempValB, tempVal;
 double pi, delayX, delayY, startX, startY, endX, endY, headingVector[2], Nx, Ny, pitch, stepSize; //delay in ms and start/end in inches
@@ -143,8 +144,8 @@ void rotate(void){
     scanf("%f", &vals[2]);
   }
 }
-void validate(int whichShape, float vals[]){
-  float h = vals[0],w = vals[1], a = vals[2], cx = vals[3], cy = vals[4];
+void validate(int whichShape, double vals[]){
+  double h = vals[0],w = vals[1], a = vals[2], cx = vals[3], cy = vals[4];
 
   if(whichShape == 1){
     //TRIANGLE
@@ -153,17 +154,17 @@ void validate(int whichShape, float vals[]){
     a = a * (M_PI/180);
 
     //point a before Rotation
-    float a1 = cx;
-    float a2 = cy + (h/2);
+    double a1 = cx;
+    double a2 = cy + (h/2);
 
-    float Ax = cos(a)*cx - sin(a)*cy;
-    float Ay = (h/2)+cos(a)*cx + sin(a)*cy;
+    double Ax = cos(a)*cx - sin(a)*cy;
+    double Ay = (h/2)+cos(a)*cx + sin(a)*cy;
 
-    float Bx = cx + cos(a)*(-h/2) - sin(a)*(-w/2);
-    float By = cy + cos(a)*(-h/2) + sin(a)*(-w/2);
+    double Bx = cx + cos(a)*(-h/2) - sin(a)*(-w/2);
+    double By = cy + cos(a)*(-h/2) + sin(a)*(-w/2);
 
-    float Cx = cx + cos(a)*(-h/2) - sin(a)*(w/2);
-    float Cy = cy + cos(a)*(-h/2) + sin(a)*(w/2);
+    double Cx = cx + cos(a)*(-h/2) - sin(a)*(w/2);
+    double Cy = cy + cos(a)*(-h/2) + sin(a)*(w/2);
 
     printf("ax = %f\nay = %f\nbx = %f\nby = %f\ncx = %f\ncy = %f", Ax,Ay,Bx,By,Cx,Cy);
 
@@ -175,20 +176,20 @@ void validate(int whichShape, float vals[]){
     a = a * (M_PI/180);
 
     //top right vertex
-    float tRx = cx + ((w/2)*cos(a))-((h/2)*cos(a));
-    float tRy = cy + ((w/2)*cos(a))+((h/2)*cos(a));
+    double tRx = cx + ((w/2)*cos(a))-((h/2)*cos(a));
+    double tRy = cy + ((w/2)*cos(a))+((h/2)*cos(a));
 
     //top left vertex
-    float tLx = cx - ((w/2)*cos(a))-((h/2)*cos(a));
-    float tLy = cy - ((w/2)*cos(a))+((h/2)*cos(a));
+    double tLx = cx - ((w/2)*cos(a))-((h/2)*cos(a));
+    double tLy = cy - ((w/2)*cos(a))+((h/2)*cos(a));
 
     //bottom left vertex
-    float bLx = cx - ((w/2)*cos(a))+((h/2)*cos(a));
-    float bLy = cy - ((w/2)*cos(a))-((h/2)*cos(a));
+    double bLx = cx - ((w/2)*cos(a))+((h/2)*cos(a));
+    double bLy = cy - ((w/2)*cos(a))-((h/2)*cos(a));
 
     //bottom right vertex
-    float bRx = cx + ((w/2)*cos(a))+((h/2)*cos(a));
-    float bRy = cy + ((w/2)*cos(a))-((h/2)*cos(a));
+    double bRx = cx + ((w/2)*cos(a))+((h/2)*cos(a));
+    double bRy = cy + ((w/2)*cos(a))-((h/2)*cos(a));
 
     vals[0] = tRx;
     vals[1] = tRy;
@@ -596,7 +597,7 @@ void controlLoop(double startX, double startY, double endX, double endY){
 			}
 
 		}
-      
+
 }
 /*
                          Main application
@@ -605,7 +606,7 @@ void controlLoop(double startX, double startY, double endX, double endY){
 
 int main(void)
 {
-    int goAgain;
+    int shape, ifSquare, goAgain = 1, options =4;
     // initialize the device
     SYSTEM_Initialize();
 
@@ -681,12 +682,42 @@ int main(void)
         delay_cycles(5);
         counter = counter +1;
         __delay_ms(5);
-        
+
         //Get User inputs
-        
-        
+        while(goAgain == 1){
+          printf("Welcome! What shape would you like to draw?\n");
+          printf("1. Triangle\n2. Rectangle\n3. Square\n4. Ellipse\n");
+
+          delay_cycles(5);
+          reset_cursor(); //put cursor back to 0,0
+          delay_cycles(5);
+          ultoa(buffer, counter, 10);//convert int to unsigned char.
+          Show("What shape to draw?");
+          move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
+          Show("1.Triangle 2.Rectangle 3.Square");
+          
+          if(shape == 1){
+            //triangle
+            triangleDeclare();
+
+          }else if(shape ==2){
+            //rectangle
+            ifSquare = 0;
+            rectangleDeclare(ifSquare);
+
+          }else if(shape == 3){
+            //square
+            ifSquare = 1;
+            rectangleDeclare(ifSquare);
+
+          }else{
+            //ellipse
+            ellipseDeclare();
+          }
+        }
+
         controlLoop(0.0, 0.0, 3.4, 4.5);
-		
+
 
     }
 
