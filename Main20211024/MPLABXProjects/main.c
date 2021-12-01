@@ -548,7 +548,7 @@ void controlLoop(double startX, double startY, double endX, double endY){
 		// convert heading in inches to be whole numbers (1/4 inch is smallest interval of shape placement)
 		// absolute value since direction is already set
 		//headingVectorInt = 4*abs(headingVector);
-        
+
         numDP = 2;
         headingFrac = abs(round(countX/countY * pow(10,numDP-1)/ pow(10,numDP-1)));
         factor = pow(10,numDP*2);
@@ -559,8 +559,8 @@ void controlLoop(double startX, double startY, double endX, double endY){
         tempD = factor/ratGCD;
         headingVectorInt[0] = ratInt*tempD + tempN;
         headingVectorInt[1] = tempD;
-        
-        
+
+
 
 		// cycle for the total number of steps necessary
         tempValA = countX/headingVectorInt[0];
@@ -573,7 +573,7 @@ void controlLoop(double startX, double startY, double endX, double endY){
         {
             tempVal = tempValB;
         }
-        
+
         if (headingVectorInt[0] >= headingVectorInt[1])
         {
             tempValMin = headingVectorInt[1];
@@ -601,22 +601,22 @@ void controlLoop(double startX, double startY, double endX, double endY){
 			// cycle thru several steps of only Y motor
 			for (ind3 = 1; ind3 < tempValMax; ind3 = ind3 + 1)
 			{
-                
+
                 if (headingVectorInt[0] >= headingVectorInt[1])
                 {
                     _RB6 = 1;
                     __delay_ms(1);
                     _RB6 = 0;
-                    __delay_ms(1);                    
+                    __delay_ms(1);
                 }
                 else if (headingVectorInt[0] < headingVectorInt[1])
                 {
                     _RB10 = 1;
                     __delay_ms(1);
                     _RB10 = 0;
-                    __delay_ms(1); 
+                    __delay_ms(1);
                 }
-               
+
 			}
 
 		}
@@ -630,10 +630,10 @@ int gcd (int a, int b)
 {
     /*
      Function Citation:
-     
+
      https://www.geeksforgeeks.org/convert-given-decimal-number-into-an-irreducible-fraction/
      */
-    
+
     int gcf = 1;
     int i;
     for (i = 1; (i <= a) && (i <= b); i=i+1)
@@ -644,7 +644,7 @@ int gcd (int a, int b)
         }
     }
     return gcf;
-    
+
 }
 
 
@@ -659,7 +659,7 @@ double round (double Val)
     {
         double roundVal = floor(Val);
     }
-    
+
     return roundVal;
 }
 
@@ -762,38 +762,56 @@ int main(void)
           //RB2 = enter,
           //RB3 = bottom,
           //RA2 = right
-          while(_RA1 == 1 && _RB2 == 1 && _RA2 == 1 && _RB3 == 1){
-              
+          while(1){
+            if(shape == 1 || _RA1 == 0){
+              //triangle
+              triangleDeclare();
+              break;
+
+            }else if(shape ==2 || _RB2 == 0){
+              //rectangle
+              ifSquare = 0;
+              rectangleDeclare(ifSquare);
+              break;
+
+            }else if(shape == 3 ||  _RA2 == 0){
+              //square
+              ifSquare = 1;
+              rectangleDeclare(ifSquare);
+              break;
+
+            }else if(shape == 4 ||  _RB3 == 0){
+              //ellipse
+              ellipseDeclare();
+              break;
+            }else{
+              clear_LCD();
+              delay_cycles(5);
+              reset_cursor(); //put cursor back to 0,0
+              delay_cycles(5);
+              Show("No selection made");
+              delay_cycles(5);
+              break;
+            }
           }
 
-          if(shape == 1 || _RA1 == 0){
-            //triangle
-            triangleDeclare();
-
-          }else if(shape ==2 || _RB2 == 0){
-            //rectangle
-            ifSquare = 0;
-            rectangleDeclare(ifSquare);
-
-          }else if(shape == 3 ||  _RA2 == 0){
-            //square
-            ifSquare = 1;
-            rectangleDeclare(ifSquare);
-
-          }else if(shape == 4 ||  _RB3 == 0){
-            //ellipse
-            ellipseDeclare();
-          }else{
-            clear_LCD();
-            delay_cycles(5);
-            reset_cursor(); //put cursor back to 0,0
-            delay_cycles(5);
-            Show("No selection made");
-
-          }
           clear_LCD();
+          delay_cycles(5);
           reset_cursor(); //put cursor back to 0,0
+          delay_cycles(5);
           Show("Go again?");
+          while(1){
+
+            if(_RA0 == 0){
+              //top button for yes
+              goAgain = 1;
+              break;
+            }else if(_RB3 == 0){
+              //bottom button for no
+              goAgain = 0;
+              break;
+            }
+          }
 
         }
 
