@@ -72,8 +72,12 @@ c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(feqltle.daeo)
                               build/default/production/main.o (___ltsf2)
 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fgtge.daeo)
                               build/default/production/main.o (___gtsf2)
+c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fixsfsi.daeo)
+                              build/default/production/main.o (_(float, int, long long, short, float, short, int))
 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fpack.daeo)
                               c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(addsf3.daeo) (__fpack)
+c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(funpack.daeo)
+                              c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fixsfsi.daeo) (__funpack)
 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(funpack2.daeo)
                               c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(addsf3.daeo) (__funpack2)
 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(futil.daeo)
@@ -88,16 +92,12 @@ c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(errno.daeo)
                               c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(sincosf.daeo) (_errno)
 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fcompare.daeo)
                               c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(feqltle.daeo) (__fcompare)
-c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fixsfsi.daeo)
-                              c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(sincosf.daeo) (_(float, int, long long, short, float, short, int))
 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(floatsisf.daeo)
                               c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(sincosf.daeo) (___floatsisf)
 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fmodf.daeo)
                               c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(sincosf.daeo) (_fmodf)
 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fmodrem.daeo)
                               c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fmodf.daeo) (__fmodrem)
-c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(funpack.daeo)
-                              c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(funpack2.daeo) (__funpack)
 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(floatdisf.daeo)
                               c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(floatsisf.daeo) (___floatdisf)
 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(floatundisf.daeo)
@@ -231,13 +231,13 @@ section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x100              0x21ca          0x32af  (12975)
 .const                      0x22ca               0x126           0x1b9  (441)
-.text                       0x23f0               0x978           0xe34  (3636)
-.dinit                      0x2d68               0x17a           0x237  (567)
-.text                       0x2ee2                0x6a            0x9f  (159)
-.init.delay32               0x2f4c                0x1c            0x2a  (42)
-.text                       0x2f68                0x2a            0x3f  (63)
+.text                       0x23f0               0xba4          0x1176  (4470)
+.dinit                      0x2f94               0x17a           0x237  (567)
+.text                       0x310e                0x6a            0x9f  (159)
+.init.delay32               0x3178                0x1c            0x2a  (42)
+.text                       0x3194                0x2a            0x3f  (63)
 
-                 Total "program" memory used (bytes):         0x45db  (17883) 6%
+                 Total "program" memory used (bytes):         0x491d  (18717) 7%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x4000]
@@ -356,8 +356,8 @@ External Symbols in Program Memory (by address):
 
                   0x000100                  __resetPRI
                   0x00013c                  __psv_init
-                  0x000152                  __data_init
                   0x000152                  __data_init_da
+                  0x000152                  __data_init
                   0x000204                  __OscillatorFail
                   0x000224                  __StackError
                   0x000246                  __AddressError
@@ -373,32 +373,32 @@ External Symbols in Program Memory (by address):
                   0x0004ba                  _cosf
                   0x0004be                  ___divsf3
                   0x000542                  ___eqsf2
-                  0x000542                  ___lesf2
                   0x000542                  ___ltsf2
-                  0x000546                  ___gesf2
+                  0x000542                  ___lesf2
                   0x000546                  ___gtsf2
-                  0x00054a                  __fpack
-                  0x000596                  __funpack2
-                  0x0005a6                  __fPropagateNaN
-                  0x0005b8                  __fbopExit
-                  0x0005c0                  __fbopReturnNaN
-                  0x0005c6                  ___mulsf3
-                  0x00062e                  __sincosf
-                  0x000700                  _sinf
-                  0x000704                  __fcompare
-                  0x00073a                  ___fixsfsi
-                  0x00077c                  ___floatsisf
-                  0x000782                  _fmodf
-                  0x000786                  __fmodrem
-                  0x000824                  __funpack
+                  0x000546                  ___gesf2
+                  0x00054a                  ___fixsfsi
+                  0x00058c                  __fpack
+                  0x0005d8                  __funpack
+                  0x000602                  __funpack2
+                  0x000612                  __fPropagateNaN
+                  0x000624                  __fbopExit
+                  0x00062c                  __fbopReturnNaN
+                  0x000632                  ___mulsf3
+                  0x00069a                  __sincosf
+                  0x00076c                  _sinf
+                  0x000770                  __fcompare
+                  0x0007a6                  ___floatsisf
+                  0x0007ac                  _fmodf
+                  0x0007b0                  __fmodrem
                   0x00084e                  ___floatdisf
                   0x00086e                  ___floatundisf
                   0x0008cc                  _ultoa
                   0x000918                  _ltoa
                   0x000938                  __printf_fF
                   0x000946                  __scanf_fF
-                  0x000954                  __printf_0
                   0x000954                  __printf_s
+                  0x000954                  __printf_0
                   0x0009e8                  _fputs
                   0x000a04                  _puts
                   0x000a7c                  __vfscanf_fF
@@ -465,24 +465,25 @@ External Symbols in Program Memory (by address):
                   0x002c44                  _I2C_Start
                   0x002c5c                  _I2C_Stop
                   0x002c9a                  _Show
-                  0x002ccc                  _main
-                  0x002ee2                  _CLOCK_Initialize
-                  0x002f28                  _PIN_MANAGER_Initialize
-                  0x002f4c                  ___delay32
-                  0x002f80                  _SYSTEM_Initialize
-                  0x002f8c                  _INTERRUPT_Initialize
+                  0x002ccc                  _controlLoop
+                  0x002ef8                  _main
+                  0x00310e                  _CLOCK_Initialize
+                  0x003154                  _PIN_MANAGER_Initialize
+                  0x003178                  ___delay32
+                  0x0031ac                  _SYSTEM_Initialize
+                  0x0031b8                  _INTERRUPT_Initialize
                   0x02af00                  __FSEC.sec
 
 External Symbols in Program Memory (by name):
 
-                  0x002ee2                  _CLOCK_Initialize
+                  0x00310e                  _CLOCK_Initialize
                   0x0023f0                  _HandW
                   0x002c44                  _I2C_Start
                   0x002c5c                  _I2C_Stop
                   0x002bee                  _I2C_out
-                  0x002f8c                  _INTERRUPT_Initialize
-                  0x002f28                  _PIN_MANAGER_Initialize
-                  0x002f80                  _SYSTEM_Initialize
+                  0x0031b8                  _INTERRUPT_Initialize
+                  0x003154                  _PIN_MANAGER_Initialize
+                  0x0031ac                  _SYSTEM_Initialize
                   0x002c9a                  _Show
                   0x000246                  __AddressError
                   0x0002a6                  __DefaultInterrupt
@@ -493,16 +494,16 @@ External Symbols in Program Memory (by name):
                   0x000224                  __StackError
                   0x001298                  ___adddf3
                   0x000400                  ___addsf3
-                  0x002f4c                  ___delay32
+                  0x003178                  ___delay32
                   0x0013a8                  ___divdf3
                   0x0004be                  ___divsf3
                   0x001394                  ___eqdf2
                   0x000542                  ___eqsf2
                   0x0014f0                  ___extendsfdf2
-                  0x00073a                  ___fixsfsi
+                  0x00054a                  ___fixsfsi
                   0x00152e                  ___fixunsdfdi
                   0x00084e                  ___floatdisf
-                  0x00077c                  ___floatsisf
+                  0x0007a6                  ___floatsisf
                   0x0017d2                  ___floatundidf
                   0x00086e                  ___floatundisf
                   0x001590                  ___floatunsidf
@@ -517,7 +518,7 @@ External Symbols in Program Memory (by name):
                   0x0015d0                  ___muldf3
                   0x0016e6                  ___mulp32eds3
                   0x0016e6                  ___mulp32peds3
-                  0x0005c6                  ___mulsf3
+                  0x000632                  ___mulsf3
                   0x0016e6                  ___mulsi3
                   0x00145c                  ___nedf2
                   0x0016bc                  ___subdf3
@@ -534,22 +535,22 @@ External Symbols in Program Memory (by name):
                   0x001784                  __dunpack
                   0x0014be                  __dunpack2
                   0x0014e6                  __dunpack2exit
-                  0x0005a6                  __fPropagateNaN
-                  0x0005b8                  __fbopExit
-                  0x0005c0                  __fbopReturnNaN
-                  0x000704                  __fcompare
+                  0x000612                  __fPropagateNaN
+                  0x000624                  __fbopExit
+                  0x00062c                  __fbopReturnNaN
+                  0x000770                  __fcompare
                   0x0010e6                  __filbuf
-                  0x000786                  __fmodrem
-                  0x00054a                  __fpack
-                  0x000824                  __funpack
-                  0x000596                  __funpack2
+                  0x0007b0                  __fmodrem
+                  0x00058c                  __fpack
+                  0x0005d8                  __funpack
+                  0x000602                  __funpack2
                   0x000954                  __printf_0
                   0x000938                  __printf_fF
                   0x000954                  __printf_s
                   0x00013c                  __psv_init
                   0x000100                  __resetPRI
                   0x000946                  __scanf_fF
-                  0x00062e                  __sincosf
+                  0x00069a                  __sincosf
                   0x0019b8                  __vfprintf_0
                   0x0019b8                  __vfprintf_fF
                   0x0019b8                  __vfprintf_fFs
@@ -559,12 +560,13 @@ External Symbols in Program Memory (by name):
                   0x001046                  _atoi
                   0x00249e                  _center
                   0x002b54                  _clear_LCD
+                  0x002ccc                  _controlLoop
                   0x0004ba                  _cosf
                   0x002bdc                  _delay_cycles
                   0x002a64                  _ellipseDeclare
                   0x00123a                  _fflush
                   0x001084                  _fgetc
-                  0x000782                  _fmodf
+                  0x0007ac                  _fmodf
                   0x0009e8                  _fputs
                   0x001594                  _frexp
                   0x001594                  _frexpl
@@ -574,7 +576,7 @@ External Symbols in Program Memory (by name):
                   0x0002be                  _isspace
                   0x0002ce                  _isupper
                   0x000918                  _ltoa
-                  0x002ccc                  _main
+                  0x002ef8                  _main
                   0x002b22                  _move_cursor
                   0x002a94                  _pulse_ntimes1
                   0x002ad6                  _pulse_ntimes2
@@ -583,7 +585,7 @@ External Symbols in Program Memory (by name):
                   0x0029de                  _rectangleDeclare
                   0x002b6a                  _reset_cursor
                   0x0024cc                  _rotate
-                  0x000700                  _sinf
+                  0x00076c                  _sinf
                   0x001040                  _strtod
                   0x000e80                  _strtof
                   0x0002da                  _tolower
@@ -700,40 +702,40 @@ LOAD c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libfx-elf.a
  .libm.gtsf2      0x000546          0x4 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fgtge.daeo)
                   0x000546                  ___gesf2
                   0x000546                  ___gtsf2
- .libm.fpack      0x00054a         0x4c c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fpack.daeo)
-                  0x00054a                  __fpack
+ .libm.fixsfsi    0x00054a         0x42 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fixsfsi.daeo)
+                  0x00054a                  _(float, int, long long, short, float, short, int)
+ .libm.fpack      0x00058c         0x4c c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fpack.daeo)
+                  0x00058c                  __fpack
+ .libm.funpack    0x0005d8         0x2a c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(funpack.daeo)
+                  0x0005d8                  __funpack
  .libm.funpack2
-                  0x000596         0x10 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(funpack2.daeo)
-                  0x000596                  __funpack2
+                  0x000602         0x10 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(funpack2.daeo)
+                  0x000602                  __funpack2
  .libm.fPropagateNaN
-                  0x0005a6         0x12 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(futil.daeo)
-                  0x0005a6                  __fPropagateNaN
+                  0x000612         0x12 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(futil.daeo)
+                  0x000612                  __fPropagateNaN
  .libm.fbobExit
-                  0x0005b8          0x8 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(futil.daeo)
-                  0x0005b8                  __fbopExit
+                  0x000624          0x8 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(futil.daeo)
+                  0x000624                  __fbopExit
  .libm.fbopReturnNaN
-                  0x0005c0          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(futil.daeo)
-                  0x0005c0                  __fbopReturnNaN
- .libm.mulsf3     0x0005c6         0x68 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(mulsf3.daeo)
-                  0x0005c6                  ___mulsf3
- .libm.sincosf    0x00062e         0xd2 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(sincosf.daeo)
-                  0x00062e                  __sincosf
- .libm.sinf       0x000700          0x4 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(sinf.daeo)
-                  0x000700                  _sinf
+                  0x00062c          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(futil.daeo)
+                  0x00062c                  __fbopReturnNaN
+ .libm.mulsf3     0x000632         0x68 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(mulsf3.daeo)
+                  0x000632                  ___mulsf3
+ .libm.sincosf    0x00069a         0xd2 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(sincosf.daeo)
+                  0x00069a                  __sincosf
+ .libm.sinf       0x00076c          0x4 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(sinf.daeo)
+                  0x00076c                  _sinf
  .libm.fcompare
-                  0x000704         0x36 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fcompare.daeo)
-                  0x000704                  __fcompare
- .libm.fixsfsi    0x00073a         0x42 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fixsfsi.daeo)
-                  0x00073a                  _(float, int, long long, short, float, short, int)
+                  0x000770         0x36 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fcompare.daeo)
+                  0x000770                  __fcompare
  .libm.floatsisf
-                  0x00077c          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(floatsisf.daeo)
-                  0x00077c                  ___floatsisf
- .libm.fmodf      0x000782          0x4 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fmodf.daeo)
-                  0x000782                  _fmodf
- .libm.fmodrem    0x000786         0x9e c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fmodrem.daeo)
-                  0x000786                  __fmodrem
- .libm.funpack    0x000824         0x2a c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(funpack.daeo)
-                  0x000824                  __funpack
+                  0x0007a6          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(floatsisf.daeo)
+                  0x0007a6                  ___floatsisf
+ .libm.fmodf      0x0007ac          0x4 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fmodf.daeo)
+                  0x0007ac                  _fmodf
+ .libm.fmodrem    0x0007b0         0x9e c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fmodrem.daeo)
+                  0x0007b0                  __fmodrem
  .libm.floatdisf
                   0x00084e         0x20 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(floatdisf.daeo)
                   0x00084e                  ___floatdisf
@@ -889,14 +891,14 @@ __FDEVOPT1
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x1f60
+.debug_info       0x000000       0x2073
  *(.debug_info)
  .debug_info      0x000000        0x348 build/default/production/mcc_generated_files/pin_manager.o
  .debug_info      0x000348        0x39a build/default/production/mcc_generated_files/clock.o
  .debug_info      0x0006e2        0x455 build/default/production/mcc_generated_files/traps.o
  .debug_info      0x000b37        0x190 build/default/production/mcc_generated_files/interrupt_manager.o
  .debug_info      0x000cc7        0x35c build/default/production/mcc_generated_files/system.o
- .debug_info      0x001023        0xf3d build/default/production/main.o
+ .debug_info      0x001023       0x1050 build/default/production/main.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x4cd
@@ -910,7 +912,7 @@ __FDEVOPT1
  .debug_abbrev    0x0002ac        0x220 build/default/production/main.o
  .debug_abbrev    0x0004cc          0x1 build/default/production/shape.o
 
-.debug_line       0x000000        0x77f
+.debug_line       0x000000        0x7c4
  *(.debug_line)
  .debug_line      0x000000        0x124 build/default/production/mcc_generated_files/pin_manager.o
  .debug_line      0x000124        0x124 build/default/production/mcc_generated_files/clock.o
@@ -918,24 +920,24 @@ __FDEVOPT1
  .debug_line      0x000391         0x1a build/default/production/mcc_generated_files/mcc.o
  .debug_line      0x0003ab         0x55 build/default/production/mcc_generated_files/interrupt_manager.o
  .debug_line      0x000400        0x117 build/default/production/mcc_generated_files/system.o
- .debug_line      0x000517        0x24e build/default/production/main.o
- .debug_line      0x000765         0x1a build/default/production/shape.o
+ .debug_line      0x000517        0x293 build/default/production/main.o
+ .debug_line      0x0007aa         0x1a build/default/production/shape.o
 
-.debug_frame      0x000000        0x57c
+.debug_frame      0x000000        0x59e
  *(.debug_frame)
  .debug_frame     0x000000         0x2e build/default/production/mcc_generated_files/pin_manager.o
  .debug_frame     0x00002e         0x2e build/default/production/mcc_generated_files/clock.o
  .debug_frame     0x00005c        0x17e build/default/production/mcc_generated_files/traps.o
  .debug_frame     0x0001da         0x2e build/default/production/mcc_generated_files/interrupt_manager.o
  .debug_frame     0x000208         0x2e build/default/production/mcc_generated_files/system.o
- .debug_frame     0x000236        0x346 build/default/production/main.o
+ .debug_frame     0x000236        0x368 build/default/production/main.o
 
-.debug_str        0x000000         0x74
+.debug_str        0x000000         0xe0
  *(.debug_str)
  .debug_str       0x000000         0x12 build/default/production/mcc_generated_files/clock.o
  .debug_str       0x000012         0x18 build/default/production/mcc_generated_files/traps.o
  .debug_str       0x00002a          0xc build/default/production/mcc_generated_files/system.o
- .debug_str       0x000036         0x3e build/default/production/main.o
+ .debug_str       0x000036         0xaa build/default/production/main.o
 
 .debug_loc
  *(.debug_loc)
@@ -944,7 +946,7 @@ __FDEVOPT1
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x40f
+                  0x000000        0x41f
  *(.debug_pubnames)
  .debug_pubnames
                   0x000000         0x2d build/default/production/mcc_generated_files/pin_manager.o
@@ -957,7 +959,7 @@ __FDEVOPT1
  .debug_pubnames
                   0x0000fc         0x28 build/default/production/mcc_generated_files/system.o
  .debug_pubnames
-                  0x000124        0x2eb build/default/production/main.o
+                  0x000124        0x2fb build/default/production/main.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -2367,31 +2369,31 @@ __c30_signature
  __c30_signature
                   0x000298          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fgtge.daeo)
  __c30_signature
-                  0x00029e          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fpack.daeo)
+                  0x00029e          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fixsfsi.daeo)
  __c30_signature
-                  0x0002a4          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(funpack2.daeo)
+                  0x0002a4          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fpack.daeo)
  __c30_signature
-                  0x0002aa          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(futil.daeo)
+                  0x0002aa          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(funpack.daeo)
  __c30_signature
-                  0x0002b0          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(mulsf3.daeo)
+                  0x0002b0          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(funpack2.daeo)
  __c30_signature
-                  0x0002b6          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(sincosf.daeo)
+                  0x0002b6          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(futil.daeo)
  __c30_signature
-                  0x0002bc          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(sinf.daeo)
+                  0x0002bc          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(mulsf3.daeo)
  __c30_signature
-                  0x0002c2          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(errno.daeo)
+                  0x0002c2          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(sincosf.daeo)
  __c30_signature
-                  0x0002c8          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fcompare.daeo)
+                  0x0002c8          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(sinf.daeo)
  __c30_signature
-                  0x0002ce          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fixsfsi.daeo)
+                  0x0002ce          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(errno.daeo)
  __c30_signature
-                  0x0002d4          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(floatsisf.daeo)
+                  0x0002d4          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fcompare.daeo)
  __c30_signature
-                  0x0002da          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fmodf.daeo)
+                  0x0002da          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(floatsisf.daeo)
  __c30_signature
-                  0x0002e0          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fmodrem.daeo)
+                  0x0002e0          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fmodf.daeo)
  __c30_signature
-                  0x0002e6          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(funpack.daeo)
+                  0x0002e6          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(fmodrem.daeo)
  __c30_signature
                   0x0002ec          0x6 c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libm-elf.a(floatdisf.daeo)
  __c30_signature
@@ -2599,8 +2601,8 @@ __c30_signature
 .const              0xa2ca        0x126 load address 0x0022ca  
  .const             0xa2ca        0x126 build/default/production/main.o
 
-.text             0x0023f0        0x978
- .text            0x0023f0        0x978 build/default/production/main.o
+.text             0x0023f0        0xba4
+ .text            0x0023f0        0xba4 build/default/production/main.o
                   0x0023f0                  _HandW
                   0x00249e                  _center
                   0x0024cc                  _rotate
@@ -2623,25 +2625,26 @@ __c30_signature
                   0x002c44                  _I2C_Start
                   0x002c5c                  _I2C_Stop
                   0x002c9a                  _Show
-                  0x002ccc                  _main
+                  0x002ccc                  _controlLoop
+                  0x002ef8                  _main
 
-.dinit            0x002d68        0x17a
- .dinit           0x002d68        0x17a data_init
+.dinit            0x002f94        0x17a
+ .dinit           0x002f94        0x17a data_init
 
-.text             0x002ee2         0x6a
- .text            0x002ee2         0x46 build/default/production/mcc_generated_files/clock.o
-                  0x002ee2                  _CLOCK_Initialize
- .text            0x002f28         0x24 build/default/production/mcc_generated_files/pin_manager.o
-                  0x002f28                  _PIN_MANAGER_Initialize
+.text             0x00310e         0x6a
+ .text            0x00310e         0x46 build/default/production/mcc_generated_files/clock.o
+                  0x00310e                  _CLOCK_Initialize
+ .text            0x003154         0x24 build/default/production/mcc_generated_files/pin_manager.o
+                  0x003154                  _PIN_MANAGER_Initialize
 
-.init.delay32     0x002f4c         0x1c
- .init.delay32    0x002f4c         0x1c c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libpic30-elf.a(delay32da.eo)
-                  0x002f4c                  ___delay32
+.init.delay32     0x003178         0x1c
+ .init.delay32    0x003178         0x1c c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libpic30-elf.a(delay32da.eo)
+                  0x003178                  ___delay32
 
-.text             0x002f68         0x2a
- .text            0x002f68         0x18 build/default/production/mcc_generated_files/traps.o
-                  0x002f68                  _TRAPS_halt_on_error
- .text            0x002f80          0xc build/default/production/mcc_generated_files/system.o
-                  0x002f80                  _SYSTEM_Initialize
- .text            0x002f8c          0x6 build/default/production/mcc_generated_files/interrupt_manager.o
-                  0x002f8c                  _INTERRUPT_Initialize
+.text             0x003194         0x2a
+ .text            0x003194         0x18 build/default/production/mcc_generated_files/traps.o
+                  0x003194                  _TRAPS_halt_on_error
+ .text            0x0031ac          0xc build/default/production/mcc_generated_files/system.o
+                  0x0031ac                  _SYSTEM_Initialize
+ .text            0x0031b8          0x6 build/default/production/mcc_generated_files/interrupt_manager.o
+                  0x0031b8                  _INTERRUPT_Initialize
