@@ -106,8 +106,10 @@ int i2c_delay;
 int counter;
 unsigned char buffer[20];
 // Define parameters for motor control
-int countX, countY, headingVectorInt[2], ind, indX, indY, tempValA, tempValB, tempVal;
-double pi, delayX, delayY, startX, startY, endX, endY, headingVector[2], Nx, Ny, pitch, stepSize; //delay in ms and start/end in inches
+int headingVectorInt[2], ind, ind2, ind3, tempValA, tempValB, tempVal, tempValMin, tempValMax, numDP, a, b;
+int ratGCD, tempN, tempD;
+double delayX, delayY, startX, startY, endX, endY, headingVector[2], Nx, Ny, pitch, stepSize; //delay in ms and start/end in inches
+double headingFrac, factor, ratInt, ratDec, Val, roundVal, countX, countY;
 _Bool directionX, directionY, clockwise, counter_clockwise; //0 for CW?, 1 for CCW?
 
 void HandW(void){
@@ -546,23 +548,19 @@ void controlLoop(double startX, double startY, double endX, double endY){
 		// convert heading in inches to be whole numbers (1/4 inch is smallest interval of shape placement)
 		// absolute value since direction is already set
 		//headingVectorInt = 4*abs(headingVector);
-        if (headingVector[0] <0)
-        {
-            headingVectorInt[0] = -4* (int) headingVector[0];
-        }
-        else
-        {
-            headingVectorInt[0] = 4* (int) headingVector[0];
-        }
-        if (headingVector[1] <0)
-        {
-            headingVectorInt[1] = -4* (int) headingVector[1];
-        }
-        else
-        {
-            headingVectorInt[1] = 4* (int) headingVector[1];
-        }
-
+        
+        numDP = 2;
+        headingFrac = abs(round(countX/countY * pow(10,numDP-1)/ pow(10,numDP-1)));
+        factor = pow(10,numDP*2);
+        ratInt = floor(headingFrac);
+        ratDec = headingFrac - ratInt;
+        ratGCD = gcd((int) ratDec*factor, (int) factor);
+        tempN = ratDec*factor/ratGCD;
+        tempD = factor/ratGCD;
+        headingVectorInt[0] = ratInt*tempD + tempN;
+        headingVectorInt[1] = tempD;
+        
+        
 
 		// cycle for the total number of steps necessary
         tempValA = countX/headingVectorInt[0];
@@ -575,25 +573,50 @@ void controlLoop(double startX, double startY, double endX, double endY){
         {
             tempVal = tempValB;
         }
+        
+        if (headingVectorInt[0] >= headingVectorInt[1])
+        {
+            tempValMin = headingVectorInt[1];
+            tempValMax = headingVectorInt[0];
+        }
+        else
+        {
+            tempValMin = headingVectorInt[0];
+            tempValMax = headingVectorInt[1];
+        }
 
 		for (ind = 1; ind < tempVal; ind = ind + 1)
 		{
 			// cycle thru several steps of only X motor
-			for (indX = 1; indX < headingVectorInt[0]; indX = indX + 1)
+			for (ind2 = 1; ind2 < tempValMin; ind2 = ind2 + 1)
 			{
 				_RB6 = 1;
+                _RB10 = 1;
 				__delay_ms(1);
 				_RB6 = 0;
+                _RB10 = 0;
 				__delay_ms(1);
 			}
 
 			// cycle thru several steps of only Y motor
-			for (indY = 1; indY < headingVectorInt[1]; indY = indY + 1)
+			for (ind3 = 1; ind3 < tempValMax; ind3 = ind3 + 1)
 			{
-				_RB10 = 1;
-				__delay_ms(1);
-				_RB10 = 0;
-				__delay_ms(1);
+                
+                if (headingVectorInt[0] >= headingVectorInt[1])
+                {
+                    _RB6 = 1;
+                    __delay_ms(1);
+                    _RB6 = 0;
+                    __delay_ms(1);                    
+                }
+                else if (headingVectorInt[0] < headingVectorInt[1])
+                {
+                    _RB10 = 1;
+                    __delay_ms(1);
+                    _RB10 = 0;
+                    __delay_ms(1); 
+                }
+               
 			}
 
 		}
@@ -602,6 +625,43 @@ void controlLoop(double startX, double startY, double endX, double endY){
 /*
                          Main application
  */
+
+int gcd (int a, int b)
+{
+    /*
+     Function Citation:
+     
+     https://www.geeksforgeeks.org/convert-given-decimal-number-into-an-irreducible-fraction/
+     */
+    
+    int gcf = 1;
+    int i;
+    for (i = 1; (i <= a) && (i <= b); i=i+1)
+    {
+        if (a % i == 0 && b % i == 0)
+        {
+            gcf = i;
+        }
+    }
+    return gcf;
+    
+}
+
+
+
+double round (double Val)
+{
+    if (Val - (double) floor(Val) >= 0.5)
+    {
+        double roundVal = ceil(Val);
+    }
+    else if (Val - (double) floor(Val) < 0.5)
+    {
+        double roundVal = floor(Val);
+    }
+    
+    return roundVal;
+}
 
 
 int main(void)
@@ -629,7 +689,7 @@ int main(void)
     _RB15 = 0;
     while (1)
     {
-
+        /*
         _RB15 = 1;
         __delay_ms(10);
         _RB15 = 0;
@@ -682,6 +742,7 @@ int main(void)
         delay_cycles(5);
         counter = counter +1;
         __delay_ms(5);
+        */
 
         //Get User inputs
         while(goAgain == 1){
@@ -691,32 +752,35 @@ int main(void)
           delay_cycles(5);
           reset_cursor(); //put cursor back to 0,0
           delay_cycles(5);
-          ultoa(buffer, counter, 10);//convert int to unsigned char.
+          //ultoa(buffer, counter, 10);//convert int to unsigned char.
           Show("What shape to draw?");
           move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
-          Show("1.Triangle 2.Rectangle 3.Square");
+          Show("1.Triangle 2.Rectangle");
           //Buttons
           //RA0 = top,
           //RA1 = left,
           //RB2 = enter,
           //RB3 = bottom,
           //RA2 = right
+          while(_RA1 == 1 && _RB2 == 1 && _RA2 == 1 && _RB3 == 1){
+              
+          }
 
-          if(shape == 1 || RA1 == 0){
+          if(shape == 1 || _RA1 == 0){
             //triangle
             triangleDeclare();
 
-          }else if(shape ==2 || RB2 == 0){
+          }else if(shape ==2 || _RB2 == 0){
             //rectangle
             ifSquare = 0;
             rectangleDeclare(ifSquare);
 
-          }else if(shape == 3 || || RA2 == 0){
+          }else if(shape == 3 ||  _RA2 == 0){
             //square
             ifSquare = 1;
             rectangleDeclare(ifSquare);
 
-          }else if(shape == 4 || || RB3 == 0){
+          }else if(shape == 4 ||  _RB3 == 0){
             //ellipse
             ellipseDeclare();
           }else{
