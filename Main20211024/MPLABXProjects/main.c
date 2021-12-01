@@ -45,7 +45,7 @@
 /**
   Section: Included Files
 */
-/** These 3 lines are from 1st try at LCD with Dan 
+/** These 3 lines are from 1st try at LCD with Dan
 #include "mcc_generated_files/system.h"
 #include "mcc_generated_files/i2c1.h"
 #include "mcc_generated_files/interrupt_manager.h"
@@ -55,8 +55,9 @@
 #include "mcc_generated_files/mcc.h"
 #include <stdlib.h>
 #include <stdio.h>
-#define SDA _RB14 //changed this for my Pic 24 
-#define SCL _RB13 //changed this for my Pic 24 
+#include <math.h>
+#define SDA _RB14 //changed this for my Pic 24
+#define SCL _RB13 //changed this for my Pic 24
 #define SDA_DIR _TRISB14 //changed this for my Pic 24
 #define SCL_DIR _TRISB13 //changed this for my Pic 24
 #define Set_SDA_Low		SDA_DIR = 0
@@ -64,7 +65,7 @@
 #define Set_SCL_Low		SCL_DIR = 0
 #define Set_SCL_High	SCL_DIR = 1
 #define LCDRST _RB12
- 
+
 
 //#define _XTAL_FREQ 64000000
 #define FCY 8000000UL
@@ -90,228 +91,164 @@ int i2c_delay;
 int counter;
 unsigned char buffer[20];
 
+//Shape verification methods
+void triangleDeclare(void);
+void rectangleDeclare(int ifSquare);
+void ellipseDeclare(void);
+void validate(int whichShape, float vals[]);
+void rotate(void);
+void center(void);
+void HandW(void);
 
+//Global Variables
+#define M_PI 3.14
+float vals[20];
+int choice, validity;
 // Define parameters for motor control
 int countX, countY, headingVectorInt[2], ind, indX, indY, tempValA, tempValB, tempVal;
 double pi, delayX, delayY, startX, startY, endX, endY, headingVector[2], Nx, Ny, pitch, stepSize; //delay in ms and start/end in inches
 _Bool directionX, directionY, clockwise, counter_clockwise; //0 for CW?, 1 for CCW?
 
 
-
-/*
-                         Main application
- */
-int main(void)
-{
-    // initialize the device
-    SYSTEM_Initialize();
-    
-    i2c_delay = 2; //delay for i2c timing. Tweak as needed. Should be divisible by 2. 
-    buffer[20] = ""; //initialize buffer for writing out numbers.
-    counter = 1; 
-  
-    init_I2C(); //configure ports for I2C.
-
-    delay_cycles(20000);
-    init_LCD(); //startup code from NHD datasheet
-    delay_cycles(20000); 
-    
-    
-    
-    _RB6 = 0;
-    _RB7 = 0;
-    _RB10 = 0;
-    _RB11 = 0;
-    _RB15 = 0;
-    while (1)
-    {
-        
-        _RB15 = 1;
-        __delay_ms(10);
-        _RB15 = 0;
-        __delay_ms(10);
-        
-        //***** Motor control *****
-        update_direction1(0);
-        pulse_ntimes1(50); //16 full revs
-        __delay_ms(5);
-        update_direction2(0);
-        pulse_ntimes2(50);
-        //update_direction2(1);
-        //pulse_ntimes2(50);
-        //update_direction1(0);
-        //pulse_ntimes1(50);
-        //update_direction2(0);
-        //pulse_ntimes2(50);
-        
-        __delay_ms(5);
-        //update_direction2(1);
-        pulse_simultaneous_ntimes(50);
-        //*************************************
-        
-        
-        //***** LCD Control in main *****
-         //clear_LCD();
-        delay_cycles(5);
-        reset_cursor(); //put cursor back to 0,0
-        delay_cycles(5);
-        ultoa(buffer, counter, 10);//convert int to unsigned char.
-        //have to set -no-legacy-libc in XC16 global properties to get this function 
-        
-        if(_RA0 == 0)
-        {
-        Show("RA0 Pressed             ");
-        }
-        
-        else
-        {
-         Show("Please Press Button            ");   
-        }
-        //move_cursor(0, 7); //move cursor to 0,7. 
-        //Show(buffer); //display current count
-        //delay_cycles(500);
-        //move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
-        //Show("Team 5, Checkoff 2            ");
-        move_cursor(1, 8);
-        Show(buffer);
-        //Show(buffer); //display current count
-        delay_cycles(5);        
-        counter = counter +1;
-        __delay_ms(5);
-        //**************************************
-    
-    /*    
-        
-        pi = 3.14;
-		//*************************************
-		//********* Open Loop Control *********
-		
-        
-		//General Parameters
-		pitch = 1/1.25;
-		Nx = 2*pi*pitch;
-		Ny = 2*pi*pitch;
-		stepSize = 1.8*pi/180;
-		clockwise = 1;
-		counter_clockwise = 0;
-		
-		
-		// Desired heading
-		startX = 0;
-		startY = 0;
-		endX = 5;
-		endY = 3;
-		headingVector[0] = endX - startX;
-		headingVector[1] = endY - startY;
-		
-		
-		// Motor Direction
-		// X Motor
-		if (headingVector[0] > 0)
-		{
-			directionX = clockwise;
-		}
-		else if (headingVector[0] < 0)
-		{
-			directionX = counter_clockwise;
-		}
-		else //headingVector[1] == 0
-		{
-			directionX = clockwise;
-		}
-		
-		// Y Motor
-		if (headingVector[1] > 0)
-		{
-			directionY = clockwise;
-		}
-		else if (headingVector[1] < 0)
-		{
-			directionY = counter_clockwise;
-		}
-		else //headingVector[2] == 0
-		{
-			directionY = clockwise;
-		}
-		
-        
-		//_RB7 = directionX;
-        _RB7 = 1;
-        __delay_ms(5);
-		//_RB11 = directionY;
-        _RB11 = 1;
-        __delay_ms(5);
-        
-        
-        // Motor step count
-		countX = headingVector[0]*25.4*Nx/stepSize;
-		countY = headingVector[1]*25.4*Ny/stepSize;
-        
-        
-        // Motor Speed
-		// calculate relative number of steps for x vs y
-		
-		// convert heading in inches to be whole numbers (1/4 inch is smallest interval of shape placement)
-		// absolute value since direction is already set
-		//headingVectorInt = 4*abs(headingVector);
-        if (headingVector[0] <0)
-        {
-            headingVectorInt[0] = -4* (int) headingVector[0];
-        }
-        else
-        {
-            headingVectorInt[0] = 4* (int) headingVector[0];
-        }
-        if (headingVector[1] <0)
-        {
-            headingVectorInt[1] = -4* (int) headingVector[1];
-        }
-        else
-        {
-            headingVectorInt[1] = 4* (int) headingVector[1];
-        }
-		
-		
-		// cycle for the total number of steps necessary	
-        tempValA = countX/headingVectorInt[0];
-        tempValB = countY/headingVectorInt[1]; 
-        if (tempValA > tempValB)
-        {
-            tempVal = tempValA;
-        }
-        else
-        {
-            tempVal = tempValB;
-        }
-        
-		for (ind = 1; ind < tempVal; ind = ind + 1)
-		{
-			// cycle thru several steps of only X motor		
-			for (indX = 1; indX < headingVectorInt[0]; indX = indX + 1)
-			{
-				_RB6 = 1;
-				__delay_ms(1); 
-				_RB6 = 0;
-				__delay_ms(1);
-			}
-			
-			// cycle thru several steps of only Y motor
-			for (indY = 1; indY < headingVectorInt[1]; indY = indY + 1)
-			{
-				_RB10 = 1;
-				__delay_ms(1); 
-				_RB10 = 0;
-				__delay_ms(1); 
-			}
-			
-		}
-      */
-        
-    }
-    
-    return 1;
+void HandW(void){
+  //Height = Y radius = vals[0]
+  //Width = X radius = vals[1]
+  printf("Height: ");
+  scanf("%f", &vals[0]);
+  while(vals[0] >= 8.5|| vals[0] < 0){
+    //The side length must be less than 8.5 inches.
+    printf("\nPlease enter a new value.");
+    scanf("%f", &vals[0]);
+  }
+  printf("Width: ");
+  scanf("%f", &vals[1]);
+  while(vals[1] >= 8.5|| vals[1] < 0){
+    //The side length must be less than 8.5 inches.
+    printf("\nPlease enter a new value.\n");
+    scanf("%f", &vals[1]);
+  }
 }
+void center(void){
+  //Starting Coordinates
+  printf("\nCX: ");
+  scanf("%f", &vals[3]);
+  printf("CY: ");
+  scanf("%f", &vals[4]);
+}
+void rotate(void){
+  //Rotation Degree = vals[2]
+  printf("Rotation Deg: ");
+  scanf("%f", &vals[2]);
+  while(vals[2] < 0 || vals[2] > 360){
+    printf("Please enter a valid input.\n");
+    scanf("%f", &vals[2]);
+  }
+}
+void validate(int whichShape, float vals[]){
+  float h = vals[0],w = vals[1], a = vals[2], cx = vals[3], cy = vals[4];
 
+  if(whichShape == 1){
+    //TRIANGLE
+
+    //convert to radians
+    a = a * (M_PI/180);
+
+    //point a before Rotation
+    float a1 = cx;
+    float a2 = cy + (h/2);
+
+    float Ax = cos(a)*cx - sin(a)*cy;
+    float Ay = (h/2)+cos(a)*cx + sin(a)*cy;
+
+    float Bx = cx + cos(a)*(-h/2) - sin(a)*(-w/2);
+    float By = cy + cos(a)*(-h/2) + sin(a)*(-w/2);
+
+    float Cx = cx + cos(a)*(-h/2) - sin(a)*(w/2);
+    float Cy = cy + cos(a)*(-h/2) + sin(a)*(w/2);
+
+    printf("ax = %f\nay = %f\nbx = %f\nby = %f\ncx = %f\ncy = %f", Ax,Ay,Bx,By,Cx,Cy);
+
+  }else if(whichShape == 2 || whichShape == 3){
+    //Rectangle + Square
+    //float h = vals[0],w = vals[1], a = vals[2], cx = vals[3], cy = vals[4];
+
+    //convert angle to radians for c
+    a = a * (M_PI/180);
+
+    //top right vertex
+    float tRx = cx + ((w/2)*cos(a))-((h/2)*cos(a));
+    float tRy = cy + ((w/2)*cos(a))+((h/2)*cos(a));
+
+    //top left vertex
+    float tLx = cx - ((w/2)*cos(a))-((h/2)*cos(a));
+    float tLy = cy - ((w/2)*cos(a))+((h/2)*cos(a));
+
+    //bottom left vertex
+    float bLx = cx - ((w/2)*cos(a))+((h/2)*cos(a));
+    float bLy = cy - ((w/2)*cos(a))-((h/2)*cos(a));
+
+    //bottom right vertex
+    float bRx = cx + ((w/2)*cos(a))+((h/2)*cos(a));
+    float bRy = cy + ((w/2)*cos(a))-((h/2)*cos(a));
+
+    vals[0] = tRx;
+    vals[1] = tRy;
+    vals[2] = tLx;
+    vals[3] = tLy;
+    vals[4] = bLx;
+    vals[5] = bLy;
+    vals[6] = bRx;
+    vals[7] = bRy;
+    printf("tRx = %f\ntRy = %f\ntLx = %f\ntLy = %f\nbLx = %f\nbLy = %f\nbRx = %f\nbRy = %f\n", tRx, tRy, tLx, tLy, bLx, bLy, bRx, bRy);
+  }
+}
+void triangleDeclare(void){
+  //TRIANGLE
+  //find center points
+  center();
+  //Declare side lengths
+  HandW();
+  rotate();
+  validate(1, vals);
+}
+//For defining a rectangle OR square
+void rectangleDeclare(int ifSquare){
+
+  if(ifSquare == 0){
+    //RECTANGLE
+    //find center points
+    center();
+    //Declare side lengths
+    HandW();
+    rotate();
+    validate(2, vals);
+  }else{
+    //SQUARE
+    //find center points
+    center();
+    //Declare side length
+    //Sides = vals[0]
+    printf("Side Length: ");
+    scanf("%f", &vals[0]);
+    while(vals[0] >= 8.5|| vals[0] < 0){
+      //The side length must be less than 8.5 inches.
+      printf("\nPlease enter a new value.");
+      scanf("%f", &vals[0]);
+    }
+    vals[1] = vals[0];
+    rotate();
+    validate(3, vals);
+  }
+
+}
+void ellipseDeclare(void){
+  //ELLIPSE
+  center();
+  //Declare Radius lengths
+  HandW();
+  rotate();
+  validate(4, vals);
+}
 int update_direction1(_Bool direction)
 {
     _RB7 = direction;
@@ -324,9 +261,9 @@ int pulse_ntimes1(int n)
     while (n > 0)
     {
         _RB6 = 1;
-        __delay_ms(1); 
+        __delay_ms(1);
         _RB6 = 0;
-        __delay_ms(1); 
+        __delay_ms(1);
         n = n-1;
     }
     return 0;
@@ -343,9 +280,9 @@ int pulse_ntimes2(int n)
     while (n > 0)
     {
         _RB10 = 1;
-        __delay_ms(1); 
+        __delay_ms(1);
         _RB10 = 0;
-        __delay_ms(1); 
+        __delay_ms(1);
         n = n-1;
     }
     return 0;
@@ -357,38 +294,38 @@ int pulse_simultaneous_ntimes(int n)
     {
         _RB10 = 1;
         _RB6 = 1;
-        __delay_ms(1); 
+        __delay_ms(1);
         _RB10 = 0;
         _RB6 = 0;
-        __delay_ms(1); 
+        __delay_ms(1);
         n = n-1;
     }
     return 0;
 }
 
-//the function below will move the cursor to a desired location. 
+//the function below will move the cursor to a desired location.
 //line input is zero-referenced (i.e. line = 0 -> top line, line = 1 -> bottom line)
-//x is the x-position of the cursor. 
+//x is the x-position of the cursor.
 void move_cursor(unsigned char line,unsigned char x)
 {
-   
+
     unsigned char out = 0x00;
     if (line == 1)
     {
         out = 0x40 + 0x80 + x;
-        
+
     }
     else
     {
         out = 0x00 + 0x80 + x;
     }
-    
+
     I2C_Start();
     I2C_out(0x78);//Slave=0x78
     I2C_out(0x00);//Comsend = 0x00
     I2C_out(out);//Comsend = 0x01
     I2C_Stop();
-    
+
 }
 
 void clear_LCD()
@@ -407,19 +344,19 @@ void reset_cursor()
     I2C_out(0x78);//Slave=0x78
     I2C_out(0x00);//Comsend = 0x00
     I2C_out(0x02);//Comsend = 0x02
-    I2C_Stop();    
+    I2C_Stop();
 }
 
 void init_I2C()
 {
-    
-    LCDRST = 0; //reset the LCD module. 
+
+    LCDRST = 0; //reset the LCD module.
     delay_cycles(20000);
     LCDRST = 1; //pull LCD module out of reset
-    
+
     SDA = 0;
     SCL = 0;
-    Set_SDA_Low; //macro to pull down I2C data line. Set to output. 
+    Set_SDA_Low; //macro to pull down I2C data line. Set to output.
     Set_SCL_Low; //macro to pull down I2C clock line. Set to output.
 }
 
@@ -451,21 +388,21 @@ void delay_cycles(int cycles)
     {
         //cycles = cycles;
         cycles = cycles - 1;
-        
+
     }
-    
+
     return;
-    
+
 }
 
 void I2C_out(unsigned char Byte) //I2C Output
 {
 	unsigned char i;		// Variable to be used in for loop
-	
+
 	for(i=0;i<8;i++)		// Repeat for every bit
 	{
 		Set_SCL_Low;		// Make SCL pin low
-		
+
 		delay_cycles(i2c_delay/2);	// Data pin should change it's value,
 									// when it is confirm that SCL is low
 
@@ -478,7 +415,7 @@ void I2C_out(unsigned char Byte) //I2C Output
 		Set_SCL_High;				// So that slave can
 		delay_cycles(i2c_delay);	// latch data bit
     }
-		
+
 	// Get ACK from slave
 	Set_SCL_Low;
     Set_SDA_High;
@@ -492,7 +429,7 @@ void I2C_out(unsigned char Byte) //I2C Output
 *****************************************************/
 void I2C_Start(void)
 {
-	SDA = 0;	// Write zero in output register 
+	SDA = 0;	// Write zero in output register
 	SCL = 0;	// of SDA and SCL pin
 
 	Set_SCL_High;				// Make SCL pin high
@@ -512,7 +449,7 @@ void I2C_Stop(void)
 	delay_cycles(i2c_delay/2);	// Data pin should change it's value,
 								// when it is confirm that SCL is low
 	Set_SDA_Low;				// Make SDA pin low
-	
+
 	delay_cycles(i2c_delay/2);	// 1/4 bit delay
 	Set_SCL_High;				// Make SCL pin high
 	delay_cycles(i2c_delay/2);	// 1/4 bit delay
@@ -537,11 +474,227 @@ void Show(unsigned char *text)
     {
         I2C_out(*text);
         ++text;
-    }   
+    }
     I2C_Stop();
 }
+/*
+                         Main application
+ */
+int main(void)
+{
+    // initialize the device
+    SYSTEM_Initialize();
+
+    i2c_delay = 2; //delay for i2c timing. Tweak as needed. Should be divisible by 2.
+    buffer[20] = ""; //initialize buffer for writing out numbers.
+    counter = 1;
+
+    init_I2C(); //configure ports for I2C.
+
+    delay_cycles(20000);
+    init_LCD(); //startup code from NHD datasheet
+    delay_cycles(20000);
+
+
+
+    _RB6 = 0;
+    _RB7 = 0;
+    _RB10 = 0;
+    _RB11 = 0;
+    _RB15 = 0;
+    while (1)
+    {
+
+        _RB15 = 1;
+        __delay_ms(10);
+        _RB15 = 0;
+        __delay_ms(10);
+
+        //***** Motor control *****
+        update_direction1(0);
+        pulse_ntimes1(50); //16 full revs
+        __delay_ms(5);
+        update_direction2(0);
+        pulse_ntimes2(50);
+        //update_direction2(1);
+        //pulse_ntimes2(50);
+        //update_direction1(0);
+        //pulse_ntimes1(50);
+        //update_direction2(0);
+        //pulse_ntimes2(50);
+
+        __delay_ms(5);
+        //update_direction2(1);
+        pulse_simultaneous_ntimes(50);
+        //*************************************
+
+
+        //***** LCD Control in main *****
+         //clear_LCD();
+        delay_cycles(5);
+        reset_cursor(); //put cursor back to 0,0
+        delay_cycles(5);
+        ultoa(buffer, counter, 10);//convert int to unsigned char.
+        //have to set -no-legacy-libc in XC16 global properties to get this function
+
+        if(_RA0 == 0)
+        {
+        Show("RA0 Pressed             ");
+        }
+
+        else
+        {
+         Show("Please Press Button            ");
+        }
+        //move_cursor(0, 7); //move cursor to 0,7.
+        //Show(buffer); //display current count
+        //delay_cycles(500);
+        //move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
+        //Show("Team 5, Checkoff 2            ");
+        move_cursor(1, 8);
+        Show(buffer);
+        //Show(buffer); //display current count
+        delay_cycles(5);
+        counter = counter +1;
+        __delay_ms(5);
+        //**************************************
+
+    /*
+
+        pi = 3.14;
+		//*************************************
+		//********* Open Loop Control *********
+
+
+		//General Parameters
+		pitch = 1/1.25;
+		Nx = 2*pi*pitch;
+		Ny = 2*pi*pitch;
+		stepSize = 1.8*pi/180;
+		clockwise = 1;
+		counter_clockwise = 0;
+
+
+		// Desired heading
+		startX = 0;
+		startY = 0;
+		endX = 5;
+		endY = 3;
+		headingVector[0] = endX - startX;
+		headingVector[1] = endY - startY;
+
+
+		// Motor Direction
+		// X Motor
+		if (headingVector[0] > 0)
+		{
+			directionX = clockwise;
+		}
+		else if (headingVector[0] < 0)
+		{
+			directionX = counter_clockwise;
+		}
+		else //headingVector[1] == 0
+		{
+			directionX = clockwise;
+		}
+
+		// Y Motor
+		if (headingVector[1] > 0)
+		{
+			directionY = clockwise;
+		}
+		else if (headingVector[1] < 0)
+		{
+			directionY = counter_clockwise;
+		}
+		else //headingVector[2] == 0
+		{
+			directionY = clockwise;
+		}
+
+
+		//_RB7 = directionX;
+        _RB7 = 1;
+        __delay_ms(5);
+		//_RB11 = directionY;
+        _RB11 = 1;
+        __delay_ms(5);
+
+
+        // Motor step count
+		countX = headingVector[0]*25.4*Nx/stepSize;
+		countY = headingVector[1]*25.4*Ny/stepSize;
+
+
+        // Motor Speed
+		// calculate relative number of steps for x vs y
+
+		// convert heading in inches to be whole numbers (1/4 inch is smallest interval of shape placement)
+		// absolute value since direction is already set
+		//headingVectorInt = 4*abs(headingVector);
+        if (headingVector[0] <0)
+        {
+            headingVectorInt[0] = -4* (int) headingVector[0];
+        }
+        else
+        {
+            headingVectorInt[0] = 4* (int) headingVector[0];
+        }
+        if (headingVector[1] <0)
+        {
+            headingVectorInt[1] = -4* (int) headingVector[1];
+        }
+        else
+        {
+            headingVectorInt[1] = 4* (int) headingVector[1];
+        }
+
+
+		// cycle for the total number of steps necessary
+        tempValA = countX/headingVectorInt[0];
+        tempValB = countY/headingVectorInt[1];
+        if (tempValA > tempValB)
+        {
+            tempVal = tempValA;
+        }
+        else
+        {
+            tempVal = tempValB;
+        }
+
+		for (ind = 1; ind < tempVal; ind = ind + 1)
+		{
+			// cycle thru several steps of only X motor
+			for (indX = 1; indX < headingVectorInt[0]; indX = indX + 1)
+			{
+				_RB6 = 1;
+				__delay_ms(1);
+				_RB6 = 0;
+				__delay_ms(1);
+			}
+
+			// cycle thru several steps of only Y motor
+			for (indY = 1; indY < headingVectorInt[1]; indY = indY + 1)
+			{
+				_RB10 = 1;
+				__delay_ms(1);
+				_RB10 = 0;
+				__delay_ms(1);
+			}
+
+		}
+      */
+
+    }
+
+    return 1;
+}
+
+
+
+
 
 /**
  End of File
 */
-
