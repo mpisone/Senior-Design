@@ -762,7 +762,7 @@ int main(void)
           //RB2 = enter,
           //RB3 = bottom,
           //RA2 = right
-          while(1){
+          while(_RA1 == 1 && _RB2 == 0 && _RA2 == 0 && _RB3 == 0){
             if(shape == 1 || _RA1 == 0){
               //triangle
               triangleDeclare();
