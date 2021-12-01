@@ -45,7 +45,7 @@
 /**
   Section: Included Files
 */
-/** These 3 lines are from 1st try at LCD with Dan 
+/** These 3 lines are from 1st try at LCD with Dan
 #include "mcc_generated_files/system.h"
 #include "mcc_generated_files/i2c1.h"
 #include "mcc_generated_files/interrupt_manager.h"
@@ -55,8 +55,8 @@
 #include "mcc_generated_files/mcc.h"
 #include <stdlib.h>
 #include <stdio.h>
-#define SDA _RB14 //changed this for my Pic 24 
-#define SCL _RB13 //changed this for my Pic 24 
+#define SDA _RB14 //changed this for my Pic 24
+#define SCL _RB13 //changed this for my Pic 24
 #define SDA_DIR _TRISB14 //changed this for my Pic 24
 #define SCL_DIR _TRISB13 //changed this for my Pic 24
 #define Set_SDA_Low		SDA_DIR = 0
@@ -64,7 +64,7 @@
 #define Set_SCL_Low		SCL_DIR = 0
 #define Set_SCL_High	SCL_DIR = 1
 #define LCDRST _RB12
- 
+
 
 //#define _XTAL_FREQ 64000000
 #define FCY 8000000UL
@@ -94,20 +94,20 @@ int main(void)
 {
     // initialize the device
     //SYSTEM_Initialize();
-        
+
     pi = 3.14;
     _RB6 = 0;
     _RB7 = 0;
     _RB10 = 0;
     _RB11 = 0;
     _RB15 = 0;
-	
+
     while (1)
     {
-	
+
 		//*************************************
 		//********* Open Loop Control *********
-		
+
 		//General Parameters
 		pitch = 1/1.25;
 		Nx = 2*pi*pitch;
@@ -115,24 +115,24 @@ int main(void)
 		stepSize = 1.8*pi/180;
 		clockwise = 0;
 		counter_clockwise = 1;
-		
-		
+
+
 		// Desired heading
 		startX = 0;
 		startY = 0;
 		endX = 5;
 		endY = 3;
-		headingVector[1] = endX - startX;
-		headingVector[2] = endY - startY;
-		
-		
+		headingVector[0] = endX - startX;
+		headingVector[1] = endY - startY;
+
+
 		// Motor Direction
 		// X Motor
-		if (headingVector[1] > 0)
+		if (headingVector[0] > 0)
 		{
 			directionX = clockwise;
 		}
-		else if (headingVector[1] < 0)
+		else if (headingVector[0] < 0)
 		{
 			directionX = counter_clockwise;
 		}
@@ -140,13 +140,13 @@ int main(void)
 		{
 			directionX = clockwise;
 		}
-		
+
 		// Y Motor
-		if (headingVector[2] > 0)
+		if (headingVector[1] > 0)
 		{
 			directionY = clockwise;
 		}
-		else if (headingVector[2] < 0)
+		else if (headingVector[1] < 0)
 		{
 			directionY = counter_clockwise;
 		}
@@ -154,52 +154,48 @@ int main(void)
 		{
 			directionY = clockwise;
 		}
-		
+
 		_RB7 = directionX;
 		_RB11 = directionY;
-		
-		
+
+
 		// Motor step count
-		countX = headingVector[1]*25.4*Nx/stepSize;
-		countY = headingVector[2]*25.4*Ny/stepSize;
-		
+		countX = headingVector[0]*25.4*Nx/stepSize;
+		countY = headingVector[1]*25.4*Ny/stepSize;
+
 		// Motor Speed
 		// calculate relative number of steps for x vs y
-		
+
 		// convert heading in inches to be whole numbers (1/4 inch is smallest interval of shape placement)
 		// absolute value since direction is already set
-		headingVectorInt = 4*abs(headingVector);
-		
-		
-		// cycle for the total number of steps necessary	
-		for (ind = 1; ind < (max(countX/headingVectorInt[1], countY/headingVectorInt[2])); ind = ind + 1)
+		headingVectorInt[0] = 4*abs(headingVector[0]);
+		headingVectorInt[1] = 4*abs(headingVector[1]);
+
+		// cycle for the total number of steps necessary
+		for (ind = 1; ind < (max(countX/headingVectorInt[0], countY/headingVectorInt[1])); ind = ind + 1)
 		{
-			// cycle thru several steps of only X motor		
-			for (indX = 1; indX < headingVectorInt[1]; indX = indX + 1)
+			// cycle thru several steps of only X motor
+			for (indX = 1; indX < headingVectorInt[0]; indX = indX + 1)
 			{
 				_RB6 = 1;
-				__delay_ms(1); 
+				__delay_ms(1);
 				_RB6 = 0;
 				__delay_ms(1);
 			}
-			
+
 			// cycle thru several steps of only Y motor
-			for (indY = 1; indY < headingVectorInt[2]; indY = indY + 1)
+			for (indY = 1; indY < headingVectorInt[1]; indY = indY + 1)
 			{
 				_RB10 = 1;
-				__delay_ms(1); 
+				__delay_ms(1);
 				_RB10 = 0;
-				__delay_ms(1); 
+				__delay_ms(1);
 			}
-			
+
 		}
-		
-		
-		
-		
-        
+
     }
-    
+
     return 1;
 }
 
