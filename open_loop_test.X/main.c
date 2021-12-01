@@ -54,6 +54,7 @@
 
 //#include "mcc_generated_files/mcc.h"
 #include <stdlib.h>
+#include <math.h>
 #include <stdio.h>
 #define SDA _RB14 //changed this for my Pic 24 
 #define SCL _RB13 //changed this for my Pic 24 
