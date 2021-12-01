@@ -50,6 +50,7 @@
 #include "mcc_generated_files/i2c1.h"
 #include "mcc_generated_files/interrupt_manager.h"
 */
+
 #include <xc.h>
 #include "shape.c"
 #include "mcc_generated_files/mcc.h"
@@ -201,7 +202,7 @@ void validate(int whichShape, double vals[]){
     vals[5] = bLy;
     vals[6] = bRx;
     vals[7] = bRy;
-    printf("tRx = %f\ntRy = %f\ntLx = %f\ntLy = %f\nbLx = %f\nbLy = %f\nbRx = %f\nbRy = %f\n", tRx, tRy, tLx, tLy, bLx, bLy, bRx, bRy);
+    //printf("tRx = %f\ntRy = %f\ntLx = %f\ntLy = %f\nbLx = %f\nbLy = %f\nbRx = %f\nbRy = %f\n", tRx, tRy, tLx, tLy, bLx, bLy, bRx, bRy);
   }
 }
 void triangleDeclare(void){
@@ -689,7 +690,7 @@ int main(void)
     _RB15 = 0;
     while (1)
     {
-        /*
+        
         _RB15 = 1;
         __delay_ms(10);
         _RB15 = 0;
@@ -742,13 +743,10 @@ int main(void)
         delay_cycles(5);
         counter = counter +1;
         __delay_ms(5);
-        */
+        
 
         //Get User inputs
         while(goAgain == 1){
-          printf("Welcome! What shape would you like to draw?\n");
-          printf("1. Triangle\n2. Rectangle\n3. Square\n4. Ellipse\n");
-
           delay_cycles(5);
           reset_cursor(); //put cursor back to 0,0
           delay_cycles(5);
@@ -762,28 +760,27 @@ int main(void)
           //RB2 = enter,
           //RB3 = bottom,
           //RA2 = right
-          while(_RA1 == 1 && _RB2 == 0 && _RA2 == 0 && _RB3 == 0){
             if(shape == 1 || _RA1 == 0){
               //triangle
               triangleDeclare();
-              break;
+              
 
             }else if(shape ==2 || _RB2 == 0){
               //rectangle
               ifSquare = 0;
               rectangleDeclare(ifSquare);
-              break;
+              
 
             }else if(shape == 3 ||  _RA2 == 0){
               //square
               ifSquare = 1;
               rectangleDeclare(ifSquare);
-              break;
+              
 
             }else if(shape == 4 ||  _RB3 == 0){
               //ellipse
               ellipseDeclare();
-              break;
+             
             }else{
               clear_LCD();
               delay_cycles(5);
@@ -791,16 +788,15 @@ int main(void)
               delay_cycles(5);
               Show("No selection made");
               delay_cycles(5);
-              break;
             }
-          }
+          
 
           clear_LCD();
           delay_cycles(5);
           reset_cursor(); //put cursor back to 0,0
           delay_cycles(5);
           Show("Go again?");
-          while(1){
+          
 
             if(_RA0 == 0){
               //top button for yes
@@ -811,7 +807,7 @@ int main(void)
               goAgain = 0;
               break;
             }
-          }
+          
 
         }
 
@@ -819,8 +815,6 @@ int main(void)
 
 
     }
-
-    return 1;
 }
 
 
