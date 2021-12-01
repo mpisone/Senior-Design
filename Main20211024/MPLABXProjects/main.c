@@ -689,7 +689,7 @@ int main(void)
     _RB15 = 0;
     while (1)
     {
-
+        /*
         _RB15 = 1;
         __delay_ms(10);
         _RB15 = 0;
@@ -742,6 +742,7 @@ int main(void)
         delay_cycles(5);
         counter = counter +1;
         __delay_ms(5);
+        */
 
         //Get User inputs
         while(goAgain == 1){
@@ -751,37 +752,42 @@ int main(void)
           delay_cycles(5);
           reset_cursor(); //put cursor back to 0,0
           delay_cycles(5);
-          ultoa(buffer, counter, 10);//convert int to unsigned char.
+          //ultoa(buffer, counter, 10);//convert int to unsigned char.
           Show("What shape to draw?");
           move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
-          Show("1.Triangle 2.Rectangle 3.Square");
+          Show("1.Triangle 2.Rectangle");
           //Buttons
           //RA0 = top,
           //RA1 = left,
           //RB2 = enter,
           //RB3 = bottom,
           //RA2 = right
+          while(_RA1 == 1 && _RB2 == 1 && _RA2 == 1 && _RB3 == 1){
+              
+          }
 
-          if(shape == 1 || RA1 == 0){
+          if(shape == 1 || _RA1 == 0){
             //triangle
             triangleDeclare();
 
-          }else if(shape ==2 || RB2 == 0){
+          }else if(shape ==2 || _RB2 == 0){
             //rectangle
             ifSquare = 0;
             rectangleDeclare(ifSquare);
 
-          }else if(shape == 3 || || RA2 == 0){
+          }else if(shape == 3 ||  _RA2 == 0){
             //square
             ifSquare = 1;
             rectangleDeclare(ifSquare);
 
-          }else if(shape == 4 || || RB3 == 0){
+          }else if(shape == 4 ||  _RB3 == 0){
             //ellipse
             ellipseDeclare();
           }else{
             clear_LCD();
+            delay_cycles(5);
             reset_cursor(); //put cursor back to 0,0
+            delay_cycles(5);
             Show("No selection made");
 
           }
