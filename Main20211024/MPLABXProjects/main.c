@@ -107,10 +107,11 @@ int i2c_delay;
 int counter;
 unsigned char buffer[20];
 // Define parameters for motor control
-int headingVectorInt[2], ind, ind2, ind3, tempValA, tempValB, tempVal, tempValMin, tempValMax, numDP, a, b;
-int ratGCD, tempN, tempD;
+int headingVectorInt[2], ind, ind2, ind3, tempValA, tempValB, tempVal, tempValMin, tempValMax, numDP;
+int tempN, tempD, tempA, tempB;
 double delayX, delayY, startX, startY, endX, endY, headingVector[2], Nx, Ny, pitch, stepSize; //delay in ms and start/end in inches
-double headingFrac, factor, ratInt, ratDec, Val, roundVal, countX, countY;
+double headingFrac, factor, ratInt, ratDec, Val, roundVal, countX, countY, tempValRound;
+double a,b, ratGCD;
 _Bool directionX, directionY, clockwise, counter_clockwise; //0 for CW?, 1 for CCW?
 
 void HandW(void){
@@ -481,7 +482,6 @@ void Show(unsigned char *text)
     }
     I2C_Stop();
 }
-
 void controlLoop(double startX, double startY, double endX, double endY){
     //********* Open Loop Control *********
 
@@ -530,11 +530,11 @@ void controlLoop(double startX, double startY, double endX, double endY){
 		}
 
 
-		//_RB7 = directionX;
-        _RB7 = 1;
+		_RB7 = directionX;
+        //_RB7 = 1;
         __delay_ms(5);
-		//_RB11 = directionY;
-        _RB11 = 1;
+		_RB11 = directionY;
+        //_RB11 = 1;
         __delay_ms(5);
 
 
@@ -551,11 +551,17 @@ void controlLoop(double startX, double startY, double endX, double endY){
 		//headingVectorInt = 4*abs(headingVector);
 
         numDP = 2;
-        headingFrac = abs(round(countX/countY * pow(10,numDP-1)/ pow(10,numDP-1)));
-        factor = pow(10,numDP*2);
+        headingFrac = abs(round(countX/countY * pow(10,numDP-1))/ pow(10,numDP-1));
+        //if (headingFrac < 0)
+        //{
+        //    headingFrac = -1*headingFrac;
+        //}
+        factor = pow(10,numDP);
         ratInt = floor(headingFrac);
-        ratDec = headingFrac - ratInt;
-        ratGCD = gcd((int) ratDec*factor, (int) factor);
+        ratDec = headingFrac - (double) ratInt;
+        tempA = (int) (ratDec*factor);
+        tempB = (int) factor;
+        ratGCD = (double) gcd( tempA, tempB);
         tempN = ratDec*factor/ratGCD;
         tempD = factor/ratGCD;
         headingVectorInt[0] = ratInt*tempD + tempN;
@@ -623,10 +629,6 @@ void controlLoop(double startX, double startY, double endX, double endY){
 		}
 
 }
-/*
-                         Main application
- */
-
 int gcd (int a, int b)
 {
     /*
@@ -639,7 +641,7 @@ int gcd (int a, int b)
     int i;
     for (i = 1; (i <= a) && (i <= b); i=i+1)
     {
-        if (a % i == 0 && b % i == 0)
+        if ((int)a % i == 0 && (int)b % i == 0)
         {
             gcf = i;
         }
@@ -647,18 +649,17 @@ int gcd (int a, int b)
     return gcf;
 
 }
-
-
-
 double round (double Val)
 {
+    //tempValRound = Val - (double) floor(Val);
+    //roundVal = ceil(Val);
     if (Val - (double) floor(Val) >= 0.5)
     {
-        double roundVal = ceil(Val);
+        roundVal = ceil(Val);
     }
     else if (Val - (double) floor(Val) < 0.5)
     {
-        double roundVal = floor(Val);
+        roundVal = floor(Val);
     }
 
     return roundVal;
@@ -688,6 +689,31 @@ int main(void)
     _RB10 = 0;
     _RB11 = 0;
     _RB15 = 0;
+    while(1){
+        
+        /*
+        _RB7 = 0;
+        _RB11 = 0;
+        __delay_ms(5);
+        
+        
+        for(ind = 1; ind<100; ind = ind+1)
+        {
+            _RB6 = 1;
+            _RB10 = 1;
+            __delay_ms(1);
+            _RB6 = 0;
+            _RB10 = 0;
+            __delay_ms(1);
+            
+        }
+         */
+        
+        controlLoop(2.0, 3.0, 0.0, 0.0);
+        return 1;
+    }
+
+    /*
     while (1)
     {
         
@@ -744,7 +770,7 @@ int main(void)
         counter = counter +1;
         __delay_ms(5);
         
-
+         
         //Get User inputs
         while(goAgain == 1){
           delay_cycles(5);
@@ -795,7 +821,7 @@ int main(void)
           delay_cycles(5);
           reset_cursor(); //put cursor back to 0,0
           delay_cycles(5);
-          Show("Go again?");
+          Show("Go again?        ");
           
 
             if(_RA0 == 0){
@@ -810,11 +836,14 @@ int main(void)
           
 
         }
-
-        controlLoop(0.0, 0.0, 3.4, 4.5);
+        
+        
+        
 
 
     }
+     */
+    
 }
 
 
