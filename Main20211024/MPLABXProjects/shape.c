@@ -5,7 +5,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "shape.h"
 #include <math.h>
 
 #define M_PI 3.14
