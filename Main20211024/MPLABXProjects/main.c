@@ -109,7 +109,6 @@ int countX, countY, headingVectorInt[2], ind, indX, indY, tempValA, tempValB, te
 double pi, delayX, delayY, startX, startY, endX, endY, headingVector[2], Nx, Ny, pitch, stepSize; //delay in ms and start/end in inches
 _Bool directionX, directionY, clockwise, counter_clockwise; //0 for CW?, 1 for CCW?
 
-/*
 void HandW(void){
   //Height = Y radius = vals[0]
   //Width = X radius = vals[1]
@@ -249,7 +248,7 @@ void ellipseDeclare(void){
   rotate();
   validate(4, vals);
 }
-*/
+
 int update_direction1(_Bool direction)
 {
     _RB7 = direction;
@@ -478,109 +477,21 @@ void Show(unsigned char *text)
     }
     I2C_Stop();
 }
-/*
-                         Main application
- */
-int main(void)
-{
-    // initialize the device
-    SYSTEM_Initialize();
 
-    i2c_delay = 2; //delay for i2c timing. Tweak as needed. Should be divisible by 2.
-    buffer[20] = ""; //initialize buffer for writing out numbers.
-    counter = 1;
-
-    init_I2C(); //configure ports for I2C.
-
-    delay_cycles(20000);
-    init_LCD(); //startup code from NHD datasheet
-    delay_cycles(20000);
-
-
-
-    _RB6 = 0;
-    _RB7 = 0;
-    _RB10 = 0;
-    _RB11 = 0;
-    _RB15 = 0;
-    while (1)
-    {
-
-        _RB15 = 1;
-        __delay_ms(10);
-        _RB15 = 0;
-        __delay_ms(10);
-
-        //***** Motor control *****
-        update_direction1(0);
-        pulse_ntimes1(50); //16 full revs
-        __delay_ms(5);
-        update_direction2(0);
-        pulse_ntimes2(50);
-        //update_direction2(1);
-        //pulse_ntimes2(50);
-        //update_direction1(0);
-        //pulse_ntimes1(50);
-        //update_direction2(0);
-        //pulse_ntimes2(50);
-
-        __delay_ms(5);
-        //update_direction2(1);
-        pulse_simultaneous_ntimes(50);
-        //*************************************
-
-
-        //***** LCD Control in main *****
-         //clear_LCD();
-        delay_cycles(5);
-        reset_cursor(); //put cursor back to 0,0
-        delay_cycles(5);
-        ultoa(buffer, counter, 10);//convert int to unsigned char.
-        //have to set -no-legacy-libc in XC16 global properties to get this function
-
-        if(_RA0 == 0)
-        {
-        Show("RA0 Pressed             ");
-        }
-
-        else
-        {
-         Show("Please Press Button            ");
-        }
-        //move_cursor(0, 7); //move cursor to 0,7.
-        //Show(buffer); //display current count
-        //delay_cycles(500);
-        //move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
-        //Show("Team 5, Checkoff 2            ");
-        move_cursor(1, 8);
-        Show(buffer);
-        //Show(buffer); //display current count
-        delay_cycles(5);
-        counter = counter +1;
-        __delay_ms(5);
-        //**************************************
-
-    /*
-
-        pi = 3.14;
-		//*************************************
-		//********* Open Loop Control *********
+void controlLoop(double startX, double startY, double endX, double endY){
+    //********* Open Loop Control *********
 
 
 		//General Parameters
 		pitch = 1/1.25;
-		Nx = 2*pi*pitch;
-		Ny = 2*pi*pitch;
-		stepSize = 1.8*pi/180;
+		Nx = 2*M_PI*pitch;
+		Ny = 2*M_PI*pitch;
+		stepSize = 1.8*M_PI/180;
 		clockwise = 1;
 		counter_clockwise = 0;
 
 
 		// Desired heading
-		startX = 0;
-		startY = 0;
-		endX = 5;
-		endY = 3;
 		headingVector[0] = endX - startX;
 		headingVector[1] = endY - startY;
 
@@ -685,7 +596,97 @@ int main(void)
 			}
 
 		}
-      */
+      
+}
+/*
+                         Main application
+ */
+
+
+int main(void)
+{
+    int goAgain;
+    // initialize the device
+    SYSTEM_Initialize();
+
+    i2c_delay = 2; //delay for i2c timing. Tweak as needed. Should be divisible by 2.
+    buffer[20] = ""; //initialize buffer for writing out numbers.
+    counter = 1;
+
+    init_I2C(); //configure ports for I2C.
+
+    delay_cycles(20000);
+    init_LCD(); //startup code from NHD datasheet
+    delay_cycles(20000);
+
+
+
+    _RB6 = 0;
+    _RB7 = 0;
+    _RB10 = 0;
+    _RB11 = 0;
+    _RB15 = 0;
+    while (1)
+    {
+
+        _RB15 = 1;
+        __delay_ms(10);
+        _RB15 = 0;
+        __delay_ms(10);
+
+        //***** Motor control *****
+        update_direction1(0);
+        pulse_ntimes1(50); //16 full revs
+        __delay_ms(5);
+        update_direction2(0);
+        pulse_ntimes2(50);
+        //update_direction2(1);
+        //pulse_ntimes2(50);
+        //update_direction1(0);
+        //pulse_ntimes1(50);
+        //update_direction2(0);
+        //pulse_ntimes2(50);
+
+        __delay_ms(5);
+        //update_direction2(1);
+        pulse_simultaneous_ntimes(50);
+        //*************************************
+
+
+        //***** LCD Control in main *****
+         //clear_LCD();
+        delay_cycles(5);
+        reset_cursor(); //put cursor back to 0,0
+        delay_cycles(5);
+        ultoa(buffer, counter, 10);//convert int to unsigned char.
+        //have to set -no-legacy-libc in XC16 global properties to get this function
+
+        if(_RA0 == 0)
+        {
+        Show("RA0 Pressed             ");
+        }
+
+        else
+        {
+         Show("Please Press Button            ");
+        }
+        //move_cursor(0, 7); //move cursor to 0,7.
+        //Show(buffer); //display current count
+        //delay_cycles(500);
+        //move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
+        //Show("Team 5, Checkoff 2            ");
+        move_cursor(1, 8);
+        Show(buffer);
+        //Show(buffer); //display current count
+        delay_cycles(5);
+        counter = counter +1;
+        __delay_ms(5);
+        
+        //Get User inputs
+        
+        
+        controlLoop(0.0, 0.0, 3.4, 4.5);
+		
 
     }
 

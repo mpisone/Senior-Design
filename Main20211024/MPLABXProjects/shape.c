@@ -1,7 +1,7 @@
 //Senior Design Fall 2021
 //Written By Madison Pisone
 //Shape Framework File
-
+/*
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,6 +9,14 @@
 
 #define M_PI 3.14
 
+//Shape verification methods
+void triangleDeclare(void);
+void rectangleDeclare(int ifSquare);
+void ellipseDeclare(void);
+void validate(int whichShape, float vals[]);
+void rotate(void);
+void center(void);
+void HandW(void);
 
 //Global Variables
 float vals[20];
@@ -160,3 +168,4 @@ void ellipseDeclare(void){
   rotate();
   validate(4, vals);
 }
+*/
