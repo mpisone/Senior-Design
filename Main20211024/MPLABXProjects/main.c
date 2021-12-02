@@ -705,14 +705,6 @@ int main(void)
       Show("1.Triangle 2.Rect");
       move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
       Show("3.Square 3.Ellipse");
-      while(1){
-        //move to next screen
-        if(!BR_GetValue()){
-          break;
-        }
-      }
-
-
 
       //Buttons
       //BT = top,
