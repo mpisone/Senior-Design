@@ -253,7 +253,6 @@ void ellipseDeclare(void){
   rotate();
   validate(4, vals);
 }
-
 int update_direction1(_Bool direction)
 {
     _RB7 = direction;
@@ -345,7 +344,6 @@ void reset_cursor()
     I2C_out(0x02);//Comsend = 0x02
     I2C_Stop();
 }
-
 void init_I2C()
 {
 
@@ -358,7 +356,6 @@ void init_I2C()
     Set_SDA_Low; //macro to pull down I2C data line. Set to output.
     Set_SCL_Low; //macro to pull down I2C clock line. Set to output.
 }
-
 void init_LCD()
 {
     I2C_Start();
@@ -380,7 +377,6 @@ void init_LCD()
     delay_cycles(10000);
 
 }
-
 void delay_cycles(int cycles)
 {
     while(cycles > 0)
@@ -698,6 +694,7 @@ int main(void)
       Show("What shape to draw?");
       move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
       Show("1.Triangle 2.Rectangle");
+      __delay_ms(700000); //700 seconds
       //Buttons
       //BT = top,
       //BL = left,
@@ -763,7 +760,7 @@ int main(void)
           delay_cycles(5);
           reset_cursor(); //put cursor back to 0,0
           delay_cycles(5);
-          Show("No selection made");
+          Show("No selection made      ");
           delay_cycles(5);
 
         }
@@ -793,7 +790,7 @@ int main(void)
 
 
     }
-    controlLoop(2.0, 3.0, 0.0, 0.0);
+    //controlLoop(2.0, 3.0, 0.0, 0.0);
     return 1;
 }
 
