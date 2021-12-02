@@ -692,9 +692,28 @@ int main(void)
       delay_cycles(5);
       //ultoa(buffer, counter, 10);//convert int to unsigned char.
       Show("What shape to draw?");
+      while(1){
+        //move to next screen
+        if(!BR_GetValue()){
+          break;
+        }
+      }
+      clear_LCD();
+      delay_cycles(5);
+      reset_cursor(); //put cursor back to 0,0
+      delay_cycles(5);
+      Show("1.Triangle 2.Rect");
       move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
-      Show("1.Triangle 2.Rectangle");
-      __delay_ms(700000); //700 seconds
+      Show("3.Square 3.Ellipse");
+      while(1){
+        //move to next screen
+        if(!BR_GetValue()){
+          break;
+        }
+      }
+
+
+
       //Buttons
       //BT = top,
       //BL = left,
@@ -710,7 +729,7 @@ int main(void)
           reset_cursor(); //put cursor back to 0,0
           delay_cycles(5);
           Show("triangle        ");
-          delay_cycles(5);
+          __delay_ms(20000); //20 seconds
 
           triangleDeclare();
 
@@ -722,7 +741,7 @@ int main(void)
           reset_cursor(); //put cursor back to 0,0
           delay_cycles(5);
           Show("rectangle        ");
-          delay_cycles(5);
+          __delay_ms(20000); //20 seconds
 
           ifSquare = 0;
           rectangleDeclare(ifSquare);
@@ -736,7 +755,7 @@ int main(void)
           reset_cursor(); //put cursor back to 0,0
           delay_cycles(5);
           Show("square        ");
-          delay_cycles(5);
+          __delay_ms(20000); //20 seconds
 
           ifSquare = 1;
           rectangleDeclare(ifSquare);
@@ -749,7 +768,7 @@ int main(void)
           reset_cursor(); //put cursor back to 0,0
           delay_cycles(5);
           Show("ellipse        ");
-          delay_cycles(5);
+          __delay_ms(20000); //20 seconds
 
           ellipseDeclare();
 
@@ -761,7 +780,7 @@ int main(void)
           reset_cursor(); //put cursor back to 0,0
           delay_cycles(5);
           Show("No selection made      ");
-          delay_cycles(5);
+          __delay_ms(20000); //20 seconds
 
         }
       }
@@ -774,6 +793,7 @@ int main(void)
       reset_cursor(); //put cursor back to 0,0
       delay_cycles(5);
       Show("Go again?        ");
+      __delay_ms(20000); //20 seconds
 
       while(1){
         if(!BT_GetValue()){
