@@ -260,7 +260,6 @@ int update_direction1(_Bool direction)
     __delay_ms(5);
     return 0;
 }
-
 int pulse_ntimes1(int n)
 {
     while (n > 0)
@@ -279,7 +278,6 @@ int update_direction2(_Bool direction)
     __delay_ms(5);
     return 0;
 }
-
 int pulse_ntimes2(int n)
 {
     while (n > 0)
@@ -292,7 +290,6 @@ int pulse_ntimes2(int n)
     }
     return 0;
 }
-
 int pulse_simultaneous_ntimes(int n)
 {
     while (n > 0)
@@ -332,7 +329,6 @@ void move_cursor(unsigned char line,unsigned char x)
     I2C_Stop();
 
 }
-
 void clear_LCD()
 {
     I2C_Start();
@@ -341,8 +337,6 @@ void clear_LCD()
     I2C_out(0x01);//Comsend = 0x01
     I2C_Stop();
 }
-
-
 void reset_cursor()
 {
     I2C_Start();
