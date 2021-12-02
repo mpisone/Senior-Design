@@ -777,6 +777,13 @@ int main(void)
     Show("Go again?          ");
 
     while(1){
+      clear_LCD();
+      delay_cycles(5);
+      reset_cursor(); //put cursor back to 0,0
+      delay_cycles(5);
+      Show("IN LOOP            ");
+      __delay_ms(1500); //15 seconds
+
       if(!BT_GetValue()){
         //top button for yes
         clear_LCD();
@@ -784,8 +791,7 @@ int main(void)
         reset_cursor(); //put cursor back to 0,0
         delay_cycles(5);
         Show("Go again picked    ");
-
-        return(0);
+        return(1);
       }else if(!BB_GetValue()){
         //bottom button for no
         clear_LCD();
@@ -793,9 +799,12 @@ int main(void)
         reset_cursor(); //put cursor back to 0,0
         delay_cycles(5);
         Show("End of program     ");
-        exit(0);
+        break;
+      }else if(!BL_GetValue() || !BC_GetValue() || !BC_GetValue()){
+        return(1);
       }
     }
+    return(0);
 }
 
 
