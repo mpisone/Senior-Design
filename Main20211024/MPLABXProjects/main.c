@@ -705,6 +705,7 @@ int main(void)
       Show("1.Triangle 2.Rect");
       move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
       Show("3.Square 3.Ellipse");
+      __delay_ms(1500); //15 seconds
 
       //Buttons
       //BT = top,
@@ -720,8 +721,8 @@ int main(void)
           delay_cycles(5);
           reset_cursor(); //put cursor back to 0,0
           delay_cycles(5);
-          Show("triangle        ");
-          __delay_ms(20000); //20 seconds
+          Show("triangle           ");
+          __delay_ms(1500); //15 seconds
 
           triangleDeclare();
 
@@ -732,8 +733,8 @@ int main(void)
           delay_cycles(5);
           reset_cursor(); //put cursor back to 0,0
           delay_cycles(5);
-          Show("rectangle        ");
-          __delay_ms(20000); //20 seconds
+          Show("rectangle          ");
+          __delay_ms(1500); //15 seconds
 
           ifSquare = 0;
           rectangleDeclare(ifSquare);
@@ -746,8 +747,8 @@ int main(void)
           delay_cycles(5);
           reset_cursor(); //put cursor back to 0,0
           delay_cycles(5);
-          Show("square        ");
-          __delay_ms(20000); //20 seconds
+          Show("square             ");
+          __delay_ms(1500); //15 seconds
 
           ifSquare = 1;
           rectangleDeclare(ifSquare);
@@ -759,8 +760,8 @@ int main(void)
           delay_cycles(5);
           reset_cursor(); //put cursor back to 0,0
           delay_cycles(5);
-          Show("ellipse        ");
-          __delay_ms(20000); //20 seconds
+          Show("ellipse            ");
+          __delay_ms(1500); //15 seconds
 
           ellipseDeclare();
 
@@ -771,8 +772,8 @@ int main(void)
           delay_cycles(5);
           reset_cursor(); //put cursor back to 0,0
           delay_cycles(5);
-          Show("No selection made      ");
-          __delay_ms(20000); //20 seconds
+          Show("No selection made  ");
+          __delay_ms(1500); //15 seconds
 
         }
       }
@@ -784,8 +785,7 @@ int main(void)
       delay_cycles(5);
       reset_cursor(); //put cursor back to 0,0
       delay_cycles(5);
-      Show("Go again?        ");
-      __delay_ms(20000); //20 seconds
+      Show("Go again?          ");
 
       while(1){
         if(!BT_GetValue()){
