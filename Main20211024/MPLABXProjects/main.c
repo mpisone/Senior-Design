@@ -686,7 +686,7 @@ int main(void)
     _RB15 = 0;
 
     //Get User inputs
-    while(goAgain == 1){
+
       delay_cycles(5);
       reset_cursor(); //put cursor back to 0,0
       delay_cycles(5);
@@ -715,7 +715,7 @@ int main(void)
       //BR = right
 
       while(1){
-        if(!BL_GetValue()){
+        if(!BT_GetValue()){
           //triangle
           clear_LCD();
           delay_cycles(5);
@@ -727,7 +727,7 @@ int main(void)
           triangleDeclare();
 
           break;
-        }else if(!BR_GetValue()){
+        }else if(!BL_GetValue()){
           //rectangle
           clear_LCD();
           delay_cycles(5);
@@ -740,7 +740,7 @@ int main(void)
           rectangleDeclare(ifSquare);
 
           break;
-        }else if(!BR_GetValue()){
+        }else if(!BC_GetValue()){
           //square
 
           clear_LCD();
@@ -754,7 +754,7 @@ int main(void)
           rectangleDeclare(ifSquare);
 
           break;
-        }else if(!BB_GetValue()){
+        }else if(!BR_GetValue()){
           //ellipse
           clear_LCD();
           delay_cycles(5);
@@ -768,33 +768,24 @@ int main(void)
           break;
         }
       }
-
-
-
-
-      clear_LCD();
-      delay_cycles(5);
-      reset_cursor(); //put cursor back to 0,0
-      delay_cycles(5);
-      Show("Go again?          ");
-
-      while(1){
-        if(!BT_GetValue()){
-          //top button for yes
-          goAgain = 1;
-          break;
-        }else if(!BB_GetValue()){
-          //bottom button for no
-          goAgain = 0;
-          break;
-        }
-      }
-
-
-
     }
     //controlLoop(2.0, 3.0, 0.0, 0.0);
-    return 1;
+
+    //goAgain loop
+    clear_LCD();
+    delay_cycles(5);
+    reset_cursor(); //put cursor back to 0,0
+    delay_cycles(5);
+    Show("Go again?          ");
+
+    while(1){
+      if(!BT_GetValue()){
+        //top button for yes
+        return 1;
+      }else if(!BB_GetValue()){
+        //bottom button for no
+        return 0;
+      }
 }
 
 
