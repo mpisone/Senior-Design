@@ -108,10 +108,10 @@ int counter;
 unsigned char buffer[20];
 // Define parameters for motor control
 int headingVectorInt[2], ind, ind2, ind3, tempValA, tempValB, tempVal, tempValMin, tempValMax, numDP;
-int tempN, tempD, tempA, tempB;
+int tempN, tempD;
 double delayX, delayY, startX, startY, endX, endY, headingVector[2], Nx, Ny, pitch, stepSize; //delay in ms and start/end in inches
 double headingFrac, factor, ratInt, ratDec, Val, roundVal, countX, countY, tempValRound;
-double a,b, ratGCD;
+double a,b, ratGCD, tempA, tempB;
 _Bool directionX, directionY, clockwise, counter_clockwise; //0 for CW?, 1 for CCW?
 
 void HandW(void){
@@ -541,6 +541,15 @@ void controlLoop(double startX, double startY, double endX, double endY){
         // Motor step count
 		countX = headingVector[0]*25.4*Nx/stepSize;
 		countY = headingVector[1]*25.4*Ny/stepSize;
+        
+        if (countX < 0)
+        {
+            countX = -1.0*countX;
+        }
+        if (countY < 0)
+        {
+            countY = -1.0*countY;
+        }
 
 
         // Motor Speed
@@ -550,18 +559,14 @@ void controlLoop(double startX, double startY, double endX, double endY){
 		// absolute value since direction is already set
 		//headingVectorInt = 4*abs(headingVector);
 
-        numDP = 2;
-        headingFrac = abs(round(countX/countY * pow(10,numDP-1))/ pow(10,numDP-1));
-        //if (headingFrac < 0)
-        //{
-        //    headingFrac = -1*headingFrac;
-        //}
+        numDP = 3;
+        headingFrac = round(countX/countY * pow(10,numDP-1))/ pow(10,numDP-1);
         factor = pow(10,numDP);
-        ratInt = floor(headingFrac);
-        ratDec = headingFrac - (double) ratInt;
-        tempA = (int) (ratDec*factor);
-        tempB = (int) factor;
-        ratGCD = (double) gcd( tempA, tempB);
+        ratInt = (double) floor(headingFrac);
+        ratDec = headingFrac - ratInt;
+        tempA = (ratDec*factor);
+        tempB = factor;
+        ratGCD = (double) gcd( (int) tempA, (int) tempB);
         tempN = ratDec*factor/ratGCD;
         tempD = factor/ratGCD;
         headingVectorInt[0] = ratInt*tempD + tempN;
