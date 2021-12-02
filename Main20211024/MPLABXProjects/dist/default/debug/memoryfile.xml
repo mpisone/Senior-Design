@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <executable name="dist/default/production/MPLABXProjects.production.elf">
+  <executable name="dist/default/debug/MPLABXProjects.debug.elf">
     <memory name="data">
       <units>bytes</units>
       <length>16384</length>
-      <used>742</used>
-      <free>15642</free>
+      <used>820</used>
+      <free>15564</free>
     </memory>
     <memory name="program">
       <units>bytes</units>
       <length>263424</length>
-      <used>20436</used>
-      <free>242988</free>
+      <used>20439</used>
+      <free>242985</free>
     </memory>
   </executable>
 </project>
