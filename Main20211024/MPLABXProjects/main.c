@@ -776,32 +776,30 @@ int main(void)
     delay_cycles(5);
     Show("Go again?          ");
     while(1){
+      if(!BT_GetValue()){
+        //top button for yes
+        clear_LCD();
+        delay_cycles(5);
+        reset_cursor(); //put cursor back to 0,0
+        delay_cycles(5);
+        Show("Go again picked    ");
+        __delay_ms(700); //15 seconds
+        return(1);
+      }else if(!BB_GetValue()){
+        //bottom button for no
+        clear_LCD();
+        delay_cycles(5);
+        reset_cursor(); //put cursor back to 0,0
+        delay_cycles(5);
+        Show("End of program     ");
+        __delay_ms(700); //15 seconds
 
-            if(!BT_GetValue()){
-              //top button for yes
-              clear_LCD();
-              delay_cycles(5);
-              reset_cursor(); //put cursor back to 0,0
-              delay_cycles(5);
-              Show("Go again picked    ");
-              __delay_ms(700); //15 seconds
-
-              return(1);
-            }else if(!BB_GetValue()){
-              //bottom button for no
-              clear_LCD();
-              delay_cycles(5);
-              reset_cursor(); //put cursor back to 0,0
-              delay_cycles(5);
-              Show("End of program     ");
-              __delay_ms(700); //15 seconds
-
-              return(0);
-            }else if(!BL_GetValue() || !BC_GetValue() || !BC_GetValue()){
-              return(1);
-            }
+        break;
+      }else if(!BL_GetValue() || !BC_GetValue() || !BC_GetValue()){
+        return(1);
+      }
     }
-
+    break;
 }
 
 
