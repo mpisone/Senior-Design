@@ -768,7 +768,7 @@ int main(void)
           break;
         }
       }
-    }
+    
     //controlLoop(2.0, 3.0, 0.0, 0.0);
 
     //goAgain loop
@@ -786,6 +786,7 @@ int main(void)
         //bottom button for no
         return 0;
       }
+    }
 }
 
 
