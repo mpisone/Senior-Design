@@ -702,9 +702,9 @@ int main(void)
       delay_cycles(5);
       reset_cursor(); //put cursor back to 0,0
       delay_cycles(5);
-      Show("1.Triangle 2.Rect");
+      Show("1.Triangle 2.Rect  ");
       move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
-      Show("3.Square 3.Ellipse");
+      Show("3.Square 3.Ellipse ");
       __delay_ms(1500); //15 seconds
 
       //Buttons
