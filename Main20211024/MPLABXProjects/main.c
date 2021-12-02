@@ -769,6 +769,40 @@ int main(void)
 
     //controlLoop(2.0, 3.0, 0.0, 0.0);
 
+<<<<<<< Updated upstream
+=======
+    //goAgain loop
+    clear_LCD();
+    delay_cycles(5);
+    reset_cursor(); //put cursor back to 0,0
+    delay_cycles(5);
+    Show("Go again?          ");
+    while(1){
+      if(!BT_GetValue()){
+        //top button for yes
+        clear_LCD();
+        delay_cycles(5);
+        reset_cursor(); //put cursor back to 0,0
+        delay_cycles(5);
+        Show("Go again picked    ");
+        __delay_ms(700); //15 seconds
+        return(1);
+      }else if(!BB_GetValue()){
+        //bottom button for no
+        clear_LCD();
+        delay_cycles(5);
+        reset_cursor(); //put cursor back to 0,0
+        delay_cycles(5);
+        Show("End of program     ");
+        __delay_ms(700); //15 seconds
+
+        break;
+      }else if(!BL_GetValue() || !BC_GetValue() || !BC_GetValue()){
+        return(1);
+      }
+    }
+    exit(0);
+>>>>>>> Stashed changes
 }
 
 
