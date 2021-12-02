@@ -766,15 +766,6 @@ int main(void)
           ellipseDeclare();
 
           break;
-        }else{
-          //display no selection made
-          clear_LCD();
-          delay_cycles(5);
-          reset_cursor(); //put cursor back to 0,0
-          delay_cycles(5);
-          Show("No selection made  ");
-          __delay_ms(1500); //15 seconds
-
         }
       }
 
