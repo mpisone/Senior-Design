@@ -663,7 +663,7 @@ double round (double Val)
 
 int main(void)
 {
-    int shape, ifSquare, goAgain = 1, options =4;
+    int shape, ifSquare;
     // initialize the device
     SYSTEM_Initialize();
 
@@ -676,8 +676,6 @@ int main(void)
     delay_cycles(20000);
     init_LCD(); //startup code from NHD datasheet
     delay_cycles(20000);
-
-
 
     _RB6 = 0;
     _RB7 = 0;
@@ -768,7 +766,7 @@ int main(void)
           break;
         }
       }
-    
+
     //controlLoop(2.0, 3.0, 0.0, 0.0);
 
     //goAgain loop
@@ -784,7 +782,12 @@ int main(void)
         return 1;
       }else if(!BB_GetValue()){
         //bottom button for no
-        return 0;
+        clear_LCD();
+        delay_cycles(5);
+        reset_cursor(); //put cursor back to 0,0
+        delay_cycles(5);
+        Show("end of program     ");
+        exit(0);
       }
     }
 }
