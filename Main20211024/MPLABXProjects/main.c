@@ -277,7 +277,7 @@ void center(void){
   Show("Pick Center Y      ");
   vals[4] = countVal(4,6);
 
-  controlLoop(0.0, 0.0, vals[3], vals[4]);
+  //controlLoop(0.0, 0.0, vals[3], vals[4]);
 
 
 }
@@ -353,11 +353,11 @@ void validate(int whichShape){
     vals[10] = bLy;
     vals[11] = bRx;
     vals[12] = bRy;
-    controlLoop(vals[3], vals[4], vals[7], vals[8]);
-    controlLoop(vals[5], vals[6], vals[7], vals[8]);
-    controlLoop(vals[7], vals[8], vals[9], vals[10]);
-    controlLoop(vals[9], vals[10], vals[11], vals[12]);
-    controlLoop(vals[11], vals[12], vals[5], vals[6]);
+    //controlLoop(vals[3], vals[4], vals[7], vals[8]);
+    //controlLoop(vals[5], vals[6], vals[7], vals[8]);
+    //controlLoop(vals[7], vals[8], vals[9], vals[10]);
+    //controlLoop(vals[9], vals[10], vals[11], vals[12]);
+    //controlLoop(vals[11], vals[12], vals[5], vals[6]);
 
     //printf("tRx = %f\ntRy = %f\ntLx = %f\ntLy = %f\nbLx = %f\nbLy = %f\nbRx = %f\nbRy = %f\n", tRx, tRy, tLx, tLy, bLx, bLy, bRx, bRy);
   }
