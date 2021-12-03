@@ -98,7 +98,7 @@ void validate(int whichShape, double vals[]);
 void rotate(void);
 void center(void);
 void HandW(void);
-void countVal(int lCount, int hCount, double vals);
+double countVal(int lCount, int hCount, double vals);
 
 //Global Variables
 #define M_PI 3.14
@@ -115,7 +115,7 @@ double headingFrac, factor, ratInt, ratDec, Val, roundVal, countX, countY, tempV
 double a,b, ratGCD, tempA, tempB;
 _Bool directionX, directionY, clockwise, counter_clockwise; //0 for CW?, 1 for CCW?
 
-void countVal(int lCount, int hCount, double vals){
+double countVal(int lCount, int hCount, double vals){
   int temp;
   //lCount = lowest value allowed
   //hCount = highest value allowed
@@ -125,6 +125,7 @@ void countVal(int lCount, int hCount, double vals){
   Show("         5         ");
   temp = 5;
   while (1){
+
     if(temp == lCount){
       move_cursor(0, 0);
       Show("  Cannot Go Lower  ");
@@ -133,11 +134,14 @@ void countVal(int lCount, int hCount, double vals){
       Show(" Cannot Go Higher  ");
     }else if(!BT_GetValue()){
       temp++;
+      __delay_ms(500); //15 seconds
+
     }else if(!BB_GetValue()){
       temp--;
+      __delay_ms(500); //15 seconds
+
     }else if(!BC_GetValue()){
-      vals = temp;
-      break;
+      return(temp);
     }else if(temp == 1){
       move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
       Show("         1         ");
@@ -184,150 +188,9 @@ void HandW(void){
   reset_cursor(); //put cursor back to 0,0
   delay_cycles(5);
   Show("Pick Height Value  ");
-  countVal(1,11,vals[0]);
-  /*
-  while(1){
-    if(!BT_GetValue()){
-      //triangle
-      clear_LCD();
-      delay_cycles(5);
-      reset_cursor(); //put cursor back to 0,0
-      delay_cycles(5);
-      Show("Height = 2         ");
-      __delay_ms(700); //15 seconds
-
-      vals[0] = 2;
-      break;
-    }else if(!BL_GetValue()){
-      //rectangle
-      clear_LCD();
-      delay_cycles(5);
-      reset_cursor(); //put cursor back to 0,0
-      delay_cycles(5);
-      Show("Height = 3         ");
-      __delay_ms(700); //15 seconds
-
-      vals[0] = 3;
-      break;
-    }else if(!BC_GetValue()){
-      //square
-
-      clear_LCD();
-      delay_cycles(5);
-      reset_cursor(); //put cursor back to 0,0
-      delay_cycles(5);
-      Show("Height = 4         ");
-      __delay_ms(700); //15 seconds
-
-      vals[0] = 4;
-      break;
-    }else if(!BR_GetValue()){
-      //ellipse
-      clear_LCD();
-      delay_cycles(5);
-      reset_cursor(); //put cursor back to 0,0
-      delay_cycles(5);
-      Show("Height = 5         ");
-      __delay_ms(700); //15 seconds
-
-      vals[0] = 5;
-      break;
-    }else if(!BB_GetValue()){
-      //ellipse
-      clear_LCD();
-      delay_cycles(5);
-      reset_cursor(); //put cursor back to 0,0
-      delay_cycles(5);
-      Show("Height = 6         ");
-      __delay_ms(700); //15 seconds
-
-      vals[0] = 6;
-      break;
-    }
-  }
-
-  //WIDTH = X radius = vals[1]
-  clear_LCD();
-  delay_cycles(5);
-  reset_cursor(); //put cursor back to 0,0
-  delay_cycles(5);
-  Show("Pick Width Value   ");
-
-  while(1){
-    if(!BT_GetValue()){
-      //triangle
-      clear_LCD();
-      delay_cycles(5);
-      reset_cursor(); //put cursor back to 0,0
-      delay_cycles(5);
-      Show("Width = 2          ");
-      __delay_ms(700); //15 seconds
-
-      vals[1] = 2;
-      break;
-    }else if(!BL_GetValue()){
-      //rectangle
-      clear_LCD();
-      delay_cycles(5);
-      reset_cursor(); //put cursor back to 0,0
-      delay_cycles(5);
-      Show("Width = 3          ");
-      __delay_ms(700); //15 seconds
-
-      vals[1] = 3;
-      break;
-    }else if(!BC_GetValue()){
-      //square
-
-      clear_LCD();
-      delay_cycles(5);
-      reset_cursor(); //put cursor back to 0,0
-      delay_cycles(5);
-      Show("Width = 4          ");
-      __delay_ms(700); //15 seconds
-
-      vals[1] = 4;
-      break;
-    }else if(!BR_GetValue()){
-      //ellipse
-      clear_LCD();
-      delay_cycles(5);
-      reset_cursor(); //put cursor back to 0,0
-      delay_cycles(5);
-      Show("Width = 5          ");
-      __delay_ms(700); //15 seconds
-
-      vals[1] = 5;
-      break;
-    }else if(!BB_GetValue()){
-      //ellipse
-      clear_LCD();
-      delay_cycles(5);
-      reset_cursor(); //put cursor back to 0,0
-      delay_cycles(5);
-      Show("Width = 6          ");
-      __delay_ms(700); //15 seconds
-
-      vals[1] = 6;
-      break;
-    }
-  }
-
-  printf("Height: ");
-  scanf("%f", &vals[0]);
-  while(vals[0] >= 8.5|| vals[0] < 0){
-    //The side length must be less than 8.5 inches.
-    printf("\nPlease enter a new value.");
-    scanf("%f", &vals[0]);
-  }
-  printf("Width: ");
-  scanf("%f", &vals[1]);
-  while(vals[1] >= 8.5|| vals[1] < 0){
-    //The side length must be less than 8.5 inches.
-    printf("\nPlease enter a new value.\n");
-    scanf("%f", &vals[1]);
-  }
-  */
+  vals[0] = countVal(1,11,vals[0]);
+  vals[1] = countVal(1,11,vals[1]);
+  
 }
 void center(void){
   //Starting Coordinates
@@ -1096,7 +959,7 @@ int main(void)
           break;
         }
       }
-
+    __delay_ms(700);
     //controlLoop(2.0, 3.0, 0.0, 0.0);
     //goAgain loop
     clear_LCD();
