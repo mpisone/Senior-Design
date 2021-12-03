@@ -909,9 +909,6 @@ int main(void)
       }
 
     //controlLoop(2.0, 3.0, 0.0, 0.0);
-
-<<<<<<< Updated upstream
-=======
     //goAgain loop
     clear_LCD();
     delay_cycles(5);
@@ -943,7 +940,7 @@ int main(void)
       }
     }
     exit(0);
->>>>>>> Stashed changes
+
 }
 
 
