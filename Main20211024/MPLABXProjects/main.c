@@ -126,11 +126,13 @@ double countVal(int lCount, int hCount, double vals){
   temp = 5;
   while (1){
 
-    if(temp == lCount){
+    if(temp < lCount){
       move_cursor(0, 0);
+      temp++;
       Show("  Cannot Go Lower  ");
-    }else if(temp == hCount){
+    }else if(temp > hCount){
       move_cursor(0, 0);
+      temp--;
       Show(" Cannot Go Higher  ");
     }else if(!BT_GetValue()){
       temp++;
