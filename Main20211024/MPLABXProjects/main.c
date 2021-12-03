@@ -171,7 +171,7 @@ double countDeg(int minDeg, int maxDeg){
     }
   }
 }
-double countVal(int lCount, int hCount, double vals){
+double countVal(int lCount, int hCount){
   int temp;
   //lCount = lowest value allowed
   //hCount = highest value allowed
@@ -372,7 +372,9 @@ void rectangleDeclare(int ifSquare){
     __delay_ms(200);
     //Declare side lengths
     HandW();
+    __delay_ms(200);
     rotate();
+    __delay_ms(200);
     validate(2, vals);
   }else{
     //SQUARE
@@ -386,9 +388,11 @@ void rectangleDeclare(int ifSquare){
     reset_cursor(); //put cursor back to 0,0
     delay_cycles(5);
     Show("Pick Side Length   ");
-    vals[0] = countVal(1,8,vals[0]);
+    vals[0] = countVal(1,8);
     vals[1] = vals[0];
+    __delay_ms(200);
     rotate();
+    __delay_ms(200);
     validate(3, vals);
   }
 
