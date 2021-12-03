@@ -996,14 +996,14 @@ int main(void)
     _RB15 = 0;
 
     //Get User inputs
-
+      /*
       delay_cycles(5);
       reset_cursor(); //put cursor back to 0,0
       delay_cycles(5);
       //ultoa(buffer, counter, 10);//convert int to unsigned char.
       Show("What shape to draw?");
       __delay_ms(500); //5 seconds
-      /*
+      
       while(1){
         //move to next screen
         if(!BR_GetValue()){
@@ -1018,7 +1018,7 @@ int main(void)
       Show("1.Triangle 2.Rect  ");
       move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
       Show("3.Square 4.Ellipse ");
-      __delay_ms(500); //15 seconds
+      __delay_ms(1500); //15 seconds
 
       //Buttons
       //BT = top,
