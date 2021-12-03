@@ -94,7 +94,7 @@ void Show(unsigned char *);
 void triangleDeclare(void);
 void rectangleDeclare(int ifSquare);
 void ellipseDeclare(void);
-void validate(int whichShape, double vals[]);
+void validate(int whichShape);
 void rotate(void);
 void center(void);
 void HandW(void);
@@ -295,7 +295,7 @@ void rotate(void){
     scanf("%f", &vals[2]);
   }
 }
-void validate(int whichShape, double vals[]){
+void validate(int whichShape){
   double h = vals[0],w = vals[1], a = vals[2], cx = vals[3], cy = vals[4];
 
   if(whichShape == 1){
@@ -342,14 +342,19 @@ void validate(int whichShape, double vals[]){
     double bRx = cx + ((w/2)*cos(a))+((h/2)*cos(a));
     double bRy = cy + ((w/2)*cos(a))-((h/2)*cos(a));
 
-    vals[0] = tRx;
-    vals[1] = tRy;
-    vals[2] = tLx;
-    vals[3] = tLy;
-    vals[4] = bLx;
-    vals[5] = bLy;
-    vals[6] = bRx;
-    vals[7] = bRy;
+    vals[5] = tRx;
+    vals[6] = tRy;
+    vals[7] = tLx;
+    vals[8] = tLy;
+    vals[9] = bLx;
+    vals[10] = bLy;
+    vals[11] = bRx;
+    vals[12] = bRy;
+    controlLoop(vals[5], vals[6], vals[7], vals[8]);
+    controlLoop(vals[7], vals[8], vals[9], vals[10]);
+    controlLoop(vals[9], vals[10], vals[11], vals[12]);
+    controlLoop(vals[11], vals[12], vals[5], vals[6]);
+
     //printf("tRx = %f\ntRy = %f\ntLx = %f\ntLy = %f\nbLx = %f\nbLy = %f\nbRx = %f\nbRy = %f\n", tRx, tRy, tLx, tLy, bLx, bLy, bRx, bRy);
   }
 }
@@ -360,7 +365,7 @@ void triangleDeclare(void){
   //Declare side lengths
   HandW();
   rotate();
-  validate(1, vals);
+  validate(1);
 }
 //For defining a rectangle OR square
 void rectangleDeclare(int ifSquare){
@@ -375,7 +380,7 @@ void rectangleDeclare(int ifSquare){
     __delay_ms(200);
     rotate();
     __delay_ms(200);
-    validate(2, vals);
+    validate(2);
   }else{
     //SQUARE
     //find center points
@@ -393,7 +398,7 @@ void rectangleDeclare(int ifSquare){
     __delay_ms(200);
     rotate();
     __delay_ms(200);
-    validate(3, vals);
+    validate(3);
   }
 
 }
@@ -403,7 +408,7 @@ void ellipseDeclare(void){
   //Declare Radius lengths
   HandW();
   rotate();
-  validate(4, vals);
+  validate(4);
 }
 int update_direction1(_Bool direction)
 {
@@ -925,7 +930,10 @@ int main(void)
         }
       }
     __delay_ms(700);
-    //controlLoop(2.0, 3.0, 0.0, 0.0);
+
+
+
+    controlLoop(0.0, 0.0, vals[7], vals[8]);
     //goAgain loop
     clear_LCD();
     delay_cycles(5);
