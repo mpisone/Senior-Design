@@ -129,33 +129,45 @@ void countVal(int lCount, int hCount, double vals){
       move_cursor(0, 0);
       Show("  Cannot Go Lower  ");
     }else if(temp == 1){
+      move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
       Show("         1         ");
     }else if(temp == 2){
+      move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
       Show("         2         ");
     }else if(temp == 3){
+      move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
       Show("         3         ");
     }else if(temp == 4){
+      move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
       Show("         4         ");
     }else if(temp == 5){
+      move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
       Show("         5         ");
     }else if(temp == 6){
+      move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
       Show("         6         ");
     }else if(temp == 7){
+      move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
       Show("         7         ");
     }else if(temp == 8){
+      move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
       Show("         8         ");
     }else if(temp == 9){
+      move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
       Show("         9         ");
     }else if(temp == 10){
+      move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
       Show("         10        ");
     }else if(temp == 11){
+      move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
       Show("         11        ");
     }else if(!BT_GetValue()){
-      vals = temp;
       temp++;
     }else if(!BB_GetValue()){
-      vals = temp;
       temp--;
+    }else if(!BC_GetValue()){
+      vals = temp;
+      break;
     }
   }
 }
@@ -1003,7 +1015,7 @@ int main(void)
       //ultoa(buffer, counter, 10);//convert int to unsigned char.
       Show("What shape to draw?");
       __delay_ms(500); //5 seconds
-      
+
       while(1){
         //move to next screen
         if(!BR_GetValue()){
