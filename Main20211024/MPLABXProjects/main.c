@@ -966,7 +966,7 @@ int main(void)
       Show("1.Triangle 2.Rect  ");
       move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
       Show("3.Square 4.Ellipse ");
-      __delay_ms(1500); //15 seconds
+      //__delay_ms(1500); //15 seconds
 
       //Buttons
       //BT = top,
