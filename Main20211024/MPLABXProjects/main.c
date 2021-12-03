@@ -138,10 +138,10 @@ double countDeg(int minDeg, int maxDeg){
       Show(" Cannot Go Higher  ");
     }else if(!BT_GetValue()){
       temp=temp+45;
-      __delay_ms(500); //15 seconds
+      __delay_ms(500); //5 seconds
     }else if(!BB_GetValue()){
       temp=temp-45;
-      __delay_ms(500); //15 seconds
+      __delay_ms(500); //5 seconds
     }else if(!BC_GetValue()){
       return(temp);
     }else if(temp == 0){
@@ -286,7 +286,7 @@ void rotate(void){
   reset_cursor(); //put cursor back to 0,0
   delay_cycles(5);
   Show("Pick Rotation Deg  ");
-  vals[2] = countDeg(4,6);
+  vals[2] = countDeg(0,360);
 
   printf("Rotation Deg: ");
   scanf("%f", &vals[2]);
