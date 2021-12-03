@@ -98,6 +98,7 @@ void validate(int whichShape, double vals[]);
 void rotate(void);
 void center(void);
 void HandW(void);
+void countVal(int lCount, int hCount, double vals);
 
 //Global Variables
 #define M_PI 3.14
@@ -114,14 +115,62 @@ double headingFrac, factor, ratInt, ratDec, Val, roundVal, countX, countY, tempV
 double a,b, ratGCD, tempA, tempB;
 _Bool directionX, directionY, clockwise, counter_clockwise; //0 for CW?, 1 for CCW?
 
+void countVal(int lCount, int hCount, double vals){
+  int temp;
+  //lCount = lowest value allowed
+  //hCount = highest value allowed
+  // use button to increment or decrement parameter value
+  move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
+  //start at 5 so user can increase or decrease
+  Show("         5         ");
+  temp = 5;
+  while (1){
+    if(temp == lCount){
+      move_cursor(0, 0);
+      Show("  Cannot Go Lower  ");
+    }else if(temp == 1){
+      Show("         1         ");
+    }else if(temp == 2){
+      Show("         2         ");
+    }else if(temp == 3){
+      Show("         3         ");
+    }else if(temp == 4){
+      Show("         4         ");
+    }else if(temp == 5){
+      Show("         5         ");
+    }else if(temp == 6){
+      Show("         6         ");
+    }else if(temp == 7){
+      Show("         7         ");
+    }else if(temp == 8){
+      Show("         8         ");
+    }else if(temp == 9){
+      Show("         9         ");
+    }else if(temp == 10){
+      Show("         10        ");
+    }else if(temp == 11){
+      Show("         11        ");
+    }else if(!BT_GetValue()){
+      vals = temp;
+      temp++;
+    }else if(!BB_GetValue()){
+      vals = temp;
+      temp--;
+    }
+  }
+}
+
 void HandW(void){
   //HEIGHT = Y radius = vals[0]
+
+
   clear_LCD();
   delay_cycles(5);
   reset_cursor(); //put cursor back to 0,0
   delay_cycles(5);
   Show("Pick Height Value  ");
-
+  countVal(1,8,vals[0]);
+  /*
   while(1){
     if(!BT_GetValue()){
       //triangle
@@ -248,7 +297,7 @@ void HandW(void){
       break;
     }
   }
-/*
+
   printf("Height: ");
   scanf("%f", &vals[0]);
   while(vals[0] >= 8.5|| vals[0] < 0){
