@@ -121,6 +121,7 @@ _Bool directionX, directionY, clockwise, counter_clockwise; //0 for CW?, 1 for C
  *****************************************************************/
 
 double countDeg(int minDeg, int maxDeg){
+    int temp;
   move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
   //start at 5 so user can increase or decrease
   Show("         0         ");
@@ -131,7 +132,7 @@ double countDeg(int minDeg, int maxDeg){
       move_cursor(0, 0);
       temp=temp+45;
       Show("  Cannot Go Lower  ");
-    }else if(temp > MaxDeg){
+    }else if(temp > maxDeg){
       move_cursor(0, 0);
       temp=temp-45;
       Show(" Cannot Go Higher  ");
