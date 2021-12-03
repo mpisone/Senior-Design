@@ -115,8 +115,7 @@ double a,b, ratGCD, tempA, tempB;
 _Bool directionX, directionY, clockwise, counter_clockwise; //0 for CW?, 1 for CCW?
 
 void HandW(void){
-  //Height = Y radius = vals[0]
-  //Width = X radius = vals[1]
+  //HEIGHT = Y radius = vals[0]
   clear_LCD();
   delay_cycles(5);
   reset_cursor(); //put cursor back to 0,0
@@ -130,10 +129,10 @@ void HandW(void){
       delay_cycles(5);
       reset_cursor(); //put cursor back to 0,0
       delay_cycles(5);
-      Show("Height = 4       ");
+      Show("Height = 2         ");
       __delay_ms(700); //15 seconds
 
-      vals[0] = 4;
+      vals[0] = 2;
       break;
     }else if(!BL_GetValue()){
       //rectangle
@@ -141,10 +140,10 @@ void HandW(void){
       delay_cycles(5);
       reset_cursor(); //put cursor back to 0,0
       delay_cycles(5);
-      Show("Height = 5       ");
+      Show("Height = 3         ");
       __delay_ms(700); //15 seconds
 
-      vals[0] = 5;
+      vals[0] = 3;
       break;
     }else if(!BC_GetValue()){
       //square
@@ -153,10 +152,10 @@ void HandW(void){
       delay_cycles(5);
       reset_cursor(); //put cursor back to 0,0
       delay_cycles(5);
-      Show("Height = 6       ");
+      Show("Height = 4         ");
       __delay_ms(700); //15 seconds
 
-      vals[0] = 6;
+      vals[0] = 4;
       break;
     }else if(!BR_GetValue()){
       //ellipse
@@ -164,10 +163,10 @@ void HandW(void){
       delay_cycles(5);
       reset_cursor(); //put cursor back to 0,0
       delay_cycles(5);
-      Show("Height = 7       ");
+      Show("Height = 5         ");
       __delay_ms(700); //15 seconds
 
-      vals[0] = 7;
+      vals[0] = 5;
       break;
     }else if(!BB_GetValue()){
       //ellipse
@@ -175,14 +174,80 @@ void HandW(void){
       delay_cycles(5);
       reset_cursor(); //put cursor back to 0,0
       delay_cycles(5);
-      Show("Height = 8       ");
+      Show("Height = 6         ");
       __delay_ms(700); //15 seconds
 
-      vals[0] = 8;
+      vals[0] = 6;
       break;
     }
   }
 
+  //WIDTH = X radius = vals[1]
+  clear_LCD();
+  delay_cycles(5);
+  reset_cursor(); //put cursor back to 0,0
+  delay_cycles(5);
+  Show("Pick Width Value   ");
+
+  while(1){
+    if(!BT_GetValue()){
+      //triangle
+      clear_LCD();
+      delay_cycles(5);
+      reset_cursor(); //put cursor back to 0,0
+      delay_cycles(5);
+      Show("Width = 2          ");
+      __delay_ms(700); //15 seconds
+
+      vals[1] = 2;
+      break;
+    }else if(!BL_GetValue()){
+      //rectangle
+      clear_LCD();
+      delay_cycles(5);
+      reset_cursor(); //put cursor back to 0,0
+      delay_cycles(5);
+      Show("Width = 3          ");
+      __delay_ms(700); //15 seconds
+
+      vals[1] = 3;
+      break;
+    }else if(!BC_GetValue()){
+      //square
+
+      clear_LCD();
+      delay_cycles(5);
+      reset_cursor(); //put cursor back to 0,0
+      delay_cycles(5);
+      Show("Width = 4          ");
+      __delay_ms(700); //15 seconds
+
+      vals[1] = 4;
+      break;
+    }else if(!BR_GetValue()){
+      //ellipse
+      clear_LCD();
+      delay_cycles(5);
+      reset_cursor(); //put cursor back to 0,0
+      delay_cycles(5);
+      Show("Width = 5          ");
+      __delay_ms(700); //15 seconds
+
+      vals[1] = 5;
+      break;
+    }else if(!BB_GetValue()){
+      //ellipse
+      clear_LCD();
+      delay_cycles(5);
+      reset_cursor(); //put cursor back to 0,0
+      delay_cycles(5);
+      Show("Width = 6          ");
+      __delay_ms(700); //15 seconds
+
+      vals[1] = 6;
+      break;
+    }
+  }
 /*
   printf("Height: ");
   scanf("%f", &vals[0]);
