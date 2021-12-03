@@ -128,6 +128,16 @@ void countVal(int lCount, int hCount, double vals){
     if(temp == lCount){
       move_cursor(0, 0);
       Show("  Cannot Go Lower  ");
+    }else if(temp == hCount){
+      move_cursor(0, 0);
+      Show(" Cannot Go Higher  ");
+    }else if(!BT_GetValue()){
+      temp++;
+    }else if(!BB_GetValue()){
+      temp--;
+    }else if(!BC_GetValue()){
+      vals = temp;
+      break;
     }else if(temp == 1){
       move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
       Show("         1         ");
@@ -161,13 +171,6 @@ void countVal(int lCount, int hCount, double vals){
     }else if(temp == 11){
       move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
       Show("         11        ");
-    }else if(!BT_GetValue()){
-      temp++;
-    }else if(!BB_GetValue()){
-      temp--;
-    }else if(!BC_GetValue()){
-      vals = temp;
-      break;
     }
   }
 }
@@ -181,7 +184,7 @@ void HandW(void){
   reset_cursor(); //put cursor back to 0,0
   delay_cycles(5);
   Show("Pick Height Value  ");
-  countVal(1,8,vals[0]);
+  countVal(1,11,vals[0]);
   /*
   while(1){
     if(!BT_GetValue()){
