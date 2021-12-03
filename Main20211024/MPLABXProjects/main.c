@@ -98,7 +98,8 @@ void validate(int whichShape, double vals[]);
 void rotate(void);
 void center(void);
 void HandW(void);
-double countVal(int lCount, int hCount, double vals);
+double countVal(int lCount, int hCount);
+double countDeg(int minDeg, int maxDeg);
 
 //Global Variables
 #define M_PI 3.14
@@ -115,6 +116,60 @@ double headingFrac, factor, ratInt, ratDec, Val, roundVal, countX, countY, tempV
 double a,b, ratGCD, tempA, tempB;
 _Bool directionX, directionY, clockwise, counter_clockwise; //0 for CW?, 1 for CCW?
 
+/******************************************************************
+ ***********************  FUNCTIONS *******************************
+ *****************************************************************/
+
+double countDeg(int minDeg, int maxDeg){
+  move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
+  //start at 5 so user can increase or decrease
+  Show("         0         ");
+  temp = 0;
+  while (1){
+
+    if(temp < minDeg){
+      move_cursor(0, 0);
+      temp=temp+45;
+      Show("  Cannot Go Lower  ");
+    }else if(temp > MaxDeg){
+      move_cursor(0, 0);
+      temp=temp-45;
+      Show(" Cannot Go Higher  ");
+    }else if(!BT_GetValue()){
+      temp=temp+45;
+      __delay_ms(500); //15 seconds
+    }else if(!BB_GetValue()){
+      temp=temp-45;
+      __delay_ms(500); //15 seconds
+    }else if(!BC_GetValue()){
+      return(temp);
+    }else if(temp == 0){
+      move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
+      Show("         0         ");
+    }else if(temp == 45){
+      move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
+      Show("         45        ");
+    }else if(temp == 90){
+      move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
+      Show("         90        ");
+    }else if(temp == 135){
+      move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
+      Show("        135        ");
+    }else if(temp == 180){
+      move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
+      Show("        180        ");
+    }else if(temp == 225){
+      move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
+      Show("        225        ");
+    }else if(temp == 270){
+      move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
+      Show("        270        ");
+    }else if(temp == 315){
+      move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
+      Show("        315        ");
+    }
+  }
+}
 double countVal(int lCount, int hCount, double vals){
   int temp;
   //lCount = lowest value allowed
@@ -188,7 +243,7 @@ void HandW(void){
   reset_cursor(); //put cursor back to 0,0
   delay_cycles(5);
   Show("Pick Height Value  ");
-  vals[0] = countVal(1,8,vals[0]);
+  vals[0] = countVal(1,8);
 
   __delay_ms(400);
 
@@ -198,7 +253,7 @@ void HandW(void){
   reset_cursor(); //put cursor back to 0,0
   delay_cycles(5);
   Show("Pick Width Value   ");
-  vals[1] = countVal(1,8,vals[1]);
+  vals[1] = countVal(1,8);
 
 }
 void center(void){
@@ -209,7 +264,7 @@ void center(void){
   reset_cursor(); //put cursor back to 0,0
   delay_cycles(5);
   Show("Pick Center X      ");
-  vals[3] = countVal(4,6,vals[3]);
+  vals[3] = countVal(4,6);
 
   __delay_ms(400);
 
@@ -219,11 +274,19 @@ void center(void){
   reset_cursor(); //put cursor back to 0,0
   delay_cycles(5);
   Show("Pick Center Y      ");
-  vals[4] = countVal(4,6,vals[4]);
+  vals[4] = countVal(4,6);
 
 }
 void rotate(void){
   //Rotation Degree = vals[2]
+  //CENTER Y = vals[4]
+  clear_LCD();
+  delay_cycles(5);
+  reset_cursor(); //put cursor back to 0,0
+  delay_cycles(5);
+  Show("Pick Rotation Deg  ");
+  vals[2] = countDeg(4,6);
+
   printf("Rotation Deg: ");
   scanf("%f", &vals[2]);
   while(vals[2] < 0 || vals[2] > 360){
@@ -305,6 +368,7 @@ void rectangleDeclare(int ifSquare){
     //RECTANGLE
     //find center points
     center();
+    __delay_ms(200);
     //Declare side lengths
     HandW();
     rotate();
@@ -313,15 +377,15 @@ void rectangleDeclare(int ifSquare){
     //SQUARE
     //find center points
     center();
+    __delay_ms(200);
     //Declare side length
     //Sides = vals[0]
-    printf("Side Length: ");
-    scanf("%f", &vals[0]);
-    while(vals[0] >= 8.5|| vals[0] < 0){
-      //The side length must be less than 8.5 inches.
-      printf("\nPlease enter a new value.");
-      scanf("%f", &vals[0]);
-    }
+    clear_LCD();
+    delay_cycles(5);
+    reset_cursor(); //put cursor back to 0,0
+    delay_cycles(5);
+    Show("Pick Side Length   ");
+    vals[0] = countVal(1,8,vals[0]);
     vals[1] = vals[0];
     rotate();
     validate(3, vals);
@@ -744,6 +808,9 @@ double round (double Val)
 }
 
 
+/******************************************************************
+ ***********************  MAIN ************************************
+ *****************************************************************/
 int main(void)
 {
     int shape, ifSquare;
