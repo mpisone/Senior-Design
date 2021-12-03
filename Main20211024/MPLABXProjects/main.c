@@ -134,6 +134,147 @@ void HandW(void){
 }
 void center(void){
   //Starting Coordinates
+  clear_LCD();
+  delay_cycles(5);
+  reset_cursor(); //put cursor back to 0,0
+  delay_cycles(5);
+  Show("Pick Center X      ");
+  //move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
+  //Show("3.Square 4.Ellipse ");
+  __delay_ms(1500); //15 seconds
+  //CENTER X
+  while(1){
+    if(!BT_GetValue()){
+      //triangle
+      clear_LCD();
+      delay_cycles(5);
+      reset_cursor(); //put cursor back to 0,0
+      delay_cycles(5);
+      Show("Center X = 4       ");
+      __delay_ms(700); //15 seconds
+
+      vals[3] = 4;
+      break;
+    }else if(!BL_GetValue()){
+      //rectangle
+      clear_LCD();
+      delay_cycles(5);
+      reset_cursor(); //put cursor back to 0,0
+      delay_cycles(5);
+      Show("Center X = 5       ");
+      __delay_ms(700); //15 seconds
+
+      vals[3] = 5;
+      break;
+    }else if(!BC_GetValue()){
+      //square
+
+      clear_LCD();
+      delay_cycles(5);
+      reset_cursor(); //put cursor back to 0,0
+      delay_cycles(5);
+      Show("Center X = 6       ");
+      __delay_ms(700); //15 seconds
+
+      vals[3] = 6;
+      break;
+    }else if(!BR_GetValue()){
+      //ellipse
+      clear_LCD();
+      delay_cycles(5);
+      reset_cursor(); //put cursor back to 0,0
+      delay_cycles(5);
+      Show("Center X = 7       ");
+      __delay_ms(700); //15 seconds
+
+      vals[3] = 7;
+      break;
+    }else if(!BB_GetValue()){
+      //ellipse
+      clear_LCD();
+      delay_cycles(5);
+      reset_cursor(); //put cursor back to 0,0
+      delay_cycles(5);
+      Show("Center X = 8       ");
+      __delay_ms(700); //15 seconds
+
+      vals[3] = 8;
+      break;
+  }
+}
+
+  clear_LCD();
+  delay_cycles(5);
+  reset_cursor(); //put cursor back to 0,0
+  delay_cycles(5);
+  Show("Pick Center Y      ");
+  //move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
+  //Show("3.Square 4.Ellipse ");
+  __delay_ms(1500); //15 seconds
+  //CENTER Y
+  while(1){
+    if(!BT_GetValue()){
+      //triangle
+      clear_LCD();
+      delay_cycles(5);
+      reset_cursor(); //put cursor back to 0,0
+      delay_cycles(5);
+      Show("Center Y = 4       ");
+      __delay_ms(700); //15 seconds
+
+      vals[4] = 4;
+      break;
+    }else if(!BL_GetValue()){
+      //rectangle
+      clear_LCD();
+      delay_cycles(5);
+      reset_cursor(); //put cursor back to 0,0
+      delay_cycles(5);
+      Show("Center Y = 5       ");
+      __delay_ms(700); //15 seconds
+
+      vals[4] = 5;
+      break;
+    }else if(!BC_GetValue()){
+      //square
+
+      clear_LCD();
+      delay_cycles(5);
+      reset_cursor(); //put cursor back to 0,0
+      delay_cycles(5);
+      Show("Center Y = 6       ");
+      __delay_ms(700); //15 seconds
+
+      vals[4] = 6;
+      break;
+    }else if(!BR_GetValue()){
+      //ellipse
+      clear_LCD();
+      delay_cycles(5);
+      reset_cursor(); //put cursor back to 0,0
+      delay_cycles(5);
+      Show("Center Y = 7       ");
+      __delay_ms(700); //15 seconds
+
+      vals[4] = 7;
+      break;
+    }else if(!BB_GetValue()){
+      //ellipse
+      clear_LCD();
+      delay_cycles(5);
+      reset_cursor(); //put cursor back to 0,0
+      delay_cycles(5);
+      Show("Center Y = 8       ");
+      __delay_ms(700); //15 seconds
+
+      vals[4] = 8;
+      break;
+
+      }
+    }
+
+
+
   printf("\nCX: ");
   scanf("%f", &vals[3]);
   printf("CY: ");
