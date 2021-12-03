@@ -210,7 +210,7 @@ void center(void){
   Show("Pick Center Y      ");
   //move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
   //Show("3.Square 4.Ellipse ");
-  __delay_ms(1500); //15 seconds
+  //__delay_ms(1500); //15 seconds
   //CENTER Y
   while(1){
     if(!BT_GetValue()){

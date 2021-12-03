@@ -251,13 +251,13 @@ section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x100              0x257a          0x3837  (14391)
 .const                      0x267a               0x25c           0x38a  (906)
-.text                       0x28d6               0xff8          0x17f4  (6132)
-.dinit                      0x38ce               0x17a           0x237  (567)
-.text                       0x3a48                0x6a            0x9f  (159)
-.init.delay32               0x3ab2                0x1c            0x2a  (42)
-.text                       0x3ace                0x2a            0x3f  (63)
+.text                       0x28d6               0xff2          0x17eb  (6123)
+.dinit                      0x38c8               0x17a           0x237  (567)
+.text                       0x3a42                0x6a            0x9f  (159)
+.init.delay32               0x3aac                0x1c            0x2a  (42)
+.text                       0x3ac8                0x2a            0x3f  (63)
 
-                 Total "program" memory used (bytes):         0x56f4  (22260) 8%
+                 Total "program" memory used (bytes):         0x56eb  (22251) 8%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x4000]
@@ -504,48 +504,48 @@ External Symbols in Program Memory (by address):
                   0x001d68                  __vfprintf_0
                   0x0028d6                  _HandW
                   0x002984                  _center
-                  0x002b76                  _rotate
-                  0x002bd0                  _validate
-                  0x00303e                  _triangleDeclare
-                  0x003050                  _rectangleDeclare
-                  0x0030d6                  _ellipseDeclare
-                  0x0030e8                  _update_direction1
-                  0x003106                  _pulse_ntimes1
-                  0x00312a                  _update_direction2
-                  0x003148                  _pulse_ntimes2
-                  0x00316c                  _pulse_simultaneous_ntimes
-                  0x003194                  _move_cursor
-                  0x0031c6                  _clear_LCD
-                  0x0031dc                  _reset_cursor
-                  0x0031f2                  _init_I2C
-                  0x003208                  _init_LCD
-                  0x00324e                  _delay_cycles
-                  0x003260                  _I2C_out
-                  0x0032b6                  _I2C_Start
-                  0x0032ce                  _I2C_Stop
-                  0x00330c                  _Show
-                  0x00333e                  _controlLoop
-                  0x0036b2                  _gcd
-                  0x003702                  _round
-                  0x00375c                  _main
-                  0x003a48                  _CLOCK_Initialize
-                  0x003a8e                  _PIN_MANAGER_Initialize
-                  0x003ab2                  ___delay32
-                  0x003ae6                  _SYSTEM_Initialize
-                  0x003af2                  _INTERRUPT_Initialize
+                  0x002b70                  _rotate
+                  0x002bca                  _validate
+                  0x003038                  _triangleDeclare
+                  0x00304a                  _rectangleDeclare
+                  0x0030d0                  _ellipseDeclare
+                  0x0030e2                  _update_direction1
+                  0x003100                  _pulse_ntimes1
+                  0x003124                  _update_direction2
+                  0x003142                  _pulse_ntimes2
+                  0x003166                  _pulse_simultaneous_ntimes
+                  0x00318e                  _move_cursor
+                  0x0031c0                  _clear_LCD
+                  0x0031d6                  _reset_cursor
+                  0x0031ec                  _init_I2C
+                  0x003202                  _init_LCD
+                  0x003248                  _delay_cycles
+                  0x00325a                  _I2C_out
+                  0x0032b0                  _I2C_Start
+                  0x0032c8                  _I2C_Stop
+                  0x003306                  _Show
+                  0x003338                  _controlLoop
+                  0x0036ac                  _gcd
+                  0x0036fc                  _round
+                  0x003756                  _main
+                  0x003a42                  _CLOCK_Initialize
+                  0x003a88                  _PIN_MANAGER_Initialize
+                  0x003aac                  ___delay32
+                  0x003ae0                  _SYSTEM_Initialize
+                  0x003aec                  _INTERRUPT_Initialize
                   0x02af00                  __FSEC.sec
 
 External Symbols in Program Memory (by name):
 
-                  0x003a48                  _CLOCK_Initialize
+                  0x003a42                  _CLOCK_Initialize
                   0x0028d6                  _HandW
-                  0x0032b6                  _I2C_Start
-                  0x0032ce                  _I2C_Stop
-                  0x003260                  _I2C_out
-                  0x003af2                  _INTERRUPT_Initialize
-                  0x003a8e                  _PIN_MANAGER_Initialize
-                  0x003ae6                  _SYSTEM_Initialize
-                  0x00330c                  _Show
+                  0x0032b0                  _I2C_Start
+                  0x0032c8                  _I2C_Stop
+                  0x00325a                  _I2C_out
+                  0x003aec                  _INTERRUPT_Initialize
+                  0x003a88                  _PIN_MANAGER_Initialize
+                  0x003ae0                  _SYSTEM_Initialize
+                  0x003306                  _Show
                   0x000246                  __AddressError
                   0x0002a6                  __DefaultInterrupt
                   0x02af00                  __FSEC.sec
@@ -555,7 +555,7 @@ External Symbols in Program Memory (by name):
                   0x000224                  __StackError
                   0x001648                  ___adddf3
                   0x000410                  ___addsf3
-                  0x003ab2                  ___delay32
+                  0x003aac                  ___delay32
                   0x001758                  ___divdf3
                   0x0004de                  ___divsf3
                   0x001744                  ___eqdf2
@@ -623,11 +623,11 @@ External Symbols in Program Memory (by name):
                   0x0013f8                  _atoi
                   0x0004ca                  _ceilf
                   0x002984                  _center
-                  0x0031c6                  _clear_LCD
-                  0x00333e                  _controlLoop
+                  0x0031c0                  _clear_LCD
+                  0x003338                  _controlLoop
                   0x0004da                  _cosf
-                  0x00324e                  _delay_cycles
-                  0x0030d6                  _ellipseDeclare
+                  0x003248                  _delay_cycles
+                  0x0030d0                  _ellipseDeclare
                   0x000ce0                  _exit
                   0x0009d4                  _expf
                   0x0015ec                  _fflush
@@ -637,34 +637,34 @@ External Symbols in Program Memory (by name):
                   0x000d9a                  _fputs
                   0x001944                  _frexp
                   0x001944                  _frexpl
-                  0x0036b2                  _gcd
-                  0x0031f2                  _init_I2C
-                  0x003208                  _init_LCD
+                  0x0036ac                  _gcd
+                  0x0031ec                  _init_I2C
+                  0x003202                  _init_LCD
                   0x0002aa                  _isalpha
                   0x0002be                  _isspace
                   0x0002ce                  _isupper
                   0x000bee                  _ldexpf
                   0x000c32                  _logf
-                  0x00375c                  _main
-                  0x003194                  _move_cursor
+                  0x003756                  _main
+                  0x00318e                  _move_cursor
                   0x00071e                  _powf
-                  0x003106                  _pulse_ntimes1
-                  0x003148                  _pulse_ntimes2
-                  0x00316c                  _pulse_simultaneous_ntimes
+                  0x003100                  _pulse_ntimes1
+                  0x003142                  _pulse_ntimes2
+                  0x003166                  _pulse_simultaneous_ntimes
                   0x000db6                  _puts
-                  0x003050                  _rectangleDeclare
-                  0x0031dc                  _reset_cursor
-                  0x002b76                  _rotate
-                  0x003702                  _round
+                  0x00304a                  _rectangleDeclare
+                  0x0031d6                  _reset_cursor
+                  0x002b70                  _rotate
+                  0x0036fc                  _round
                   0x0009b6                  _sinf
                   0x0013f2                  _strtod
                   0x001232                  _strtof
                   0x0002da                  _tolower
-                  0x00303e                  _triangleDeclare
+                  0x003038                  _triangleDeclare
                   0x0015ae                  _ungetc
-                  0x0030e8                  _update_direction1
-                  0x00312a                  _update_direction2
-                  0x002bd0                  _validate
+                  0x0030e2                  _update_direction1
+                  0x003124                  _update_direction2
+                  0x002bca                  _validate
 
 Memory Configuration
 
@@ -2725,52 +2725,52 @@ __c30_signature
 .const              0xa67a        0x25c load address 0x00267a  
  .const             0xa67a        0x25c build/default/production/main.o
 
-.text             0x0028d6        0xff8
- .text            0x0028d6        0xff8 build/default/production/main.o
+.text             0x0028d6        0xff2
+ .text            0x0028d6        0xff2 build/default/production/main.o
                   0x0028d6                  _HandW
                   0x002984                  _center
-                  0x002b76                  _rotate
-                  0x002bd0                  _validate
-                  0x00303e                  _triangleDeclare
-                  0x003050                  _rectangleDeclare
-                  0x0030d6                  _ellipseDeclare
-                  0x0030e8                  _update_direction1
-                  0x003106                  _pulse_ntimes1
-                  0x00312a                  _update_direction2
-                  0x003148                  _pulse_ntimes2
-                  0x00316c                  _pulse_simultaneous_ntimes
-                  0x003194                  _move_cursor
-                  0x0031c6                  _clear_LCD
-                  0x0031dc                  _reset_cursor
-                  0x0031f2                  _init_I2C
-                  0x003208                  _init_LCD
-                  0x00324e                  _delay_cycles
-                  0x003260                  _I2C_out
-                  0x0032b6                  _I2C_Start
-                  0x0032ce                  _I2C_Stop
-                  0x00330c                  _Show
-                  0x00333e                  _controlLoop
-                  0x0036b2                  _gcd
-                  0x003702                  _round
-                  0x00375c                  _main
+                  0x002b70                  _rotate
+                  0x002bca                  _validate
+                  0x003038                  _triangleDeclare
+                  0x00304a                  _rectangleDeclare
+                  0x0030d0                  _ellipseDeclare
+                  0x0030e2                  _update_direction1
+                  0x003100                  _pulse_ntimes1
+                  0x003124                  _update_direction2
+                  0x003142                  _pulse_ntimes2
+                  0x003166                  _pulse_simultaneous_ntimes
+                  0x00318e                  _move_cursor
+                  0x0031c0                  _clear_LCD
+                  0x0031d6                  _reset_cursor
+                  0x0031ec                  _init_I2C
+                  0x003202                  _init_LCD
+                  0x003248                  _delay_cycles
+                  0x00325a                  _I2C_out
+                  0x0032b0                  _I2C_Start
+                  0x0032c8                  _I2C_Stop
+                  0x003306                  _Show
+                  0x003338                  _controlLoop
+                  0x0036ac                  _gcd
+                  0x0036fc                  _round
+                  0x003756                  _main
 
-.dinit            0x0038ce        0x17a
- .dinit           0x0038ce        0x17a data_init
+.dinit            0x0038c8        0x17a
+ .dinit           0x0038c8        0x17a data_init
 
-.text             0x003a48         0x6a
- .text            0x003a48         0x46 build/default/production/mcc_generated_files/clock.o
-                  0x003a48                  _CLOCK_Initialize
- .text            0x003a8e         0x24 build/default/production/mcc_generated_files/pin_manager.o
-                  0x003a8e                  _PIN_MANAGER_Initialize
+.text             0x003a42         0x6a
+ .text            0x003a42         0x46 build/default/production/mcc_generated_files/clock.o
+                  0x003a42                  _CLOCK_Initialize
+ .text            0x003a88         0x24 build/default/production/mcc_generated_files/pin_manager.o
+                  0x003a88                  _PIN_MANAGER_Initialize
 
-.init.delay32     0x003ab2         0x1c
- .init.delay32    0x003ab2         0x1c c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libpic30-elf.a(delay32da.eo)
-                  0x003ab2                  ___delay32
+.init.delay32     0x003aac         0x1c
+ .init.delay32    0x003aac         0x1c c:/program files/microchip/xc16/v1.70/bin/bin/../../lib\libpic30-elf.a(delay32da.eo)
+                  0x003aac                  ___delay32
 
-.text             0x003ace         0x2a
- .text            0x003ace         0x18 build/default/production/mcc_generated_files/traps.o
-                  0x003ace                  _TRAPS_halt_on_error
- .text            0x003ae6          0xc build/default/production/mcc_generated_files/system.o
-                  0x003ae6                  _SYSTEM_Initialize
- .text            0x003af2          0x6 build/default/production/mcc_generated_files/interrupt_manager.o
-                  0x003af2                  _INTERRUPT_Initialize
+.text             0x003ac8         0x2a
+ .text            0x003ac8         0x18 build/default/production/mcc_generated_files/traps.o
+                  0x003ac8                  _TRAPS_halt_on_error
+ .text            0x003ae0          0xc build/default/production/mcc_generated_files/system.o
+                  0x003ae0                  _SYSTEM_Initialize
+ .text            0x003aec          0x6 build/default/production/mcc_generated_files/interrupt_manager.o
+                  0x003aec                  _INTERRUPT_Initialize
