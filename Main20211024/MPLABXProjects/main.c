@@ -98,8 +98,8 @@ void validate(int whichShape);
 void rotate(void);
 void center(void);
 void HandW(void);
-double countVal(int lCount, int hCount);
-double countDeg(int minDeg, int maxDeg);
+double countVal(double lCount, double hCount);
+double countDeg(double minDeg, double maxDeg);
 
 //Global Variables
 #define M_PI 3.14
@@ -120,8 +120,8 @@ _Bool directionX, directionY, clockwise, counter_clockwise; //0 for CW?, 1 for C
  ***********************  FUNCTIONS *******************************
  *****************************************************************/
 
-double countDeg(int minDeg, int maxDeg){
-    int temp;
+double countDeg(double minDeg, double maxDeg){
+    double temp;
   move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
   //start at 5 so user can increase or decrease
   Show("         0         ");
@@ -138,10 +138,10 @@ double countDeg(int minDeg, int maxDeg){
       Show(" Cannot Go Higher  ");
     }else if(!BT_GetValue()){
       temp=temp+45;
-      __delay_ms(500); //5 seconds
+      __delay_ms(400); //5 seconds
     }else if(!BB_GetValue()){
       temp=temp-45;
-      __delay_ms(500); //5 seconds
+      __delay_ms(400); //5 seconds
     }else if(!BC_GetValue()){
       return(temp);
     }else if(temp == 0){
@@ -171,8 +171,8 @@ double countDeg(int minDeg, int maxDeg){
     }
   }
 }
-double countVal(int lCount, int hCount){
-  int temp;
+double countVal(double lCount, double hCount){
+  double temp;
   //lCount = lowest value allowed
   //hCount = highest value allowed
   // use button to increment or decrement parameter value
@@ -192,11 +192,11 @@ double countVal(int lCount, int hCount){
       Show(" Cannot Go Higher  ");
     }else if(!BT_GetValue()){
       temp++;
-      __delay_ms(500); //15 seconds
+      __delay_ms(400); //15 seconds
 
     }else if(!BB_GetValue()){
       temp--;
-      __delay_ms(500); //15 seconds
+      __delay_ms(400); //15 seconds
 
     }else if(!BC_GetValue()){
       return(temp);
@@ -255,7 +255,6 @@ void HandW(void){
   delay_cycles(5);
   Show("Pick Width Value   ");
   vals[1] = countVal(1,8);
-
 }
 void center(void){
   //Starting Coordinates
@@ -303,24 +302,46 @@ void validate(int whichShape){
 
   if(whichShape == 1){
     //TRIANGLE
+    //Find initial triangle before Rotation
+    float A1x = cx;
+    float A1y = cy + (cy/2.0);
 
-    //convert to radians
-    a = a * (M_PI/180);
+    float B1x = cx - (cx/2.0);
+    float B1y = cy - (cy/2.0);
 
-    //point a before Rotation
-    double a1 = cx;
-    double a2 = cy + (h/2);
+    float C1x = cx + (cx/2.0);
+    float C1y = cy - (cy/2.0);
 
-    double Ax = cos(a)*cx - sin(a)*cy;
-    double Ay = (h/2)+cos(a)*cx + sin(a)*cy;
+    //convert degree to radians
+    a = a * (M_PI/180.0);
+    //Find points after rotation
+    float A2x = cos(a)*(A1x-cx)-sin(a)*(A1y-cy)+cx;
+    float A2y = sin(a)*(A1x-cx)+cos(a)*(A1y-cy)+cy;
 
-    double Bx = cx + cos(a)*(-h/2) - sin(a)*(-w/2);
-    double By = cy + cos(a)*(-h/2) + sin(a)*(-w/2);
+    float B2x = cos(a)*(B1x-cx)-sin(a)*(B1y-cy)+cx;
+    float B2y = sin(a)*(B1x-cx)+cos(a)*(B1y-cy)+cy;
 
-    double Cx = cx + cos(a)*(-h/2) - sin(a)*(w/2);
-    double Cy = cy + cos(a)*(-h/2) + sin(a)*(w/2);
+    float C2x = cos(a)*(C1x-cx)-sin(a)*(C1y-cy)+cx;
+    float C2y = sin(a)*(C1x-cx)+cos(a)*(C1y-cy)+cy;
 
-    printf("ax = %f\nay = %f\nbx = %f\nby = %f\ncx = %f\ncy = %f", Ax,Ay,Bx,By,Cx,Cy);
+    vals[5] = A2x;
+    vals[6] = A2y;
+    vals[7] = B2x;
+    vals[8] = B2y;
+    vals[9] = C2x;
+    vals[10] = C2y;
+
+    //go from center to starting point
+    //controlLoop(vals[3], vals[4], vals[5], vals[6]);
+
+    //actuate pen here, to put pen down and draw
+
+    //draw shape
+    //controlLoop(vals[5], vals[6], vals[7], vals[8]);
+    //controlLoop(vals[7], vals[8], vals[9], vals[10]);
+    //controlLoop(vals[9], vals[10], vals[5], vals[6]);
+
+    //printf("ax = %f\nay = %f\nbx = %f\nby = %f\ncx = %f\ncy = %f", Ax,Ay,Bx,By,Cx,Cy);
 
   }else if(whichShape == 2 || whichShape == 3){
     //Rectangle + Square
@@ -330,20 +351,20 @@ void validate(int whichShape){
     a = a * (M_PI/180);
 
     //top right vertex
-    double tRx = cx + ((w/2)*cos(a))-((h/2)*cos(a));
-    double tRy = cy + ((w/2)*cos(a))+((h/2)*cos(a));
+    float tRx = cx + ((w/2.0)*cos(a))-((h/2.0)*sin(a));
+    float tRy = cy + ((w/2.0)*sin(a))+((h/2.0)*cos(a));
 
     //top left vertex
-    double tLx = cx - ((w/2)*cos(a))-((h/2)*cos(a));
-    double tLy = cy - ((w/2)*cos(a))+((h/2)*cos(a));
+    float tLx = cx - ((w/2.0)*cos(a))-((h/2.0)*sin(a));
+    float tLy = cy - ((w/2.0)*sin(a))+((h/2.0)*cos(a));
 
     //bottom left vertex
-    double bLx = cx - ((w/2)*cos(a))+((h/2)*cos(a));
-    double bLy = cy - ((w/2)*cos(a))-((h/2)*cos(a));
+    float bLx = cx - ((w/2.0)*cos(a))+((h/2.0)*sin(a));
+    float bLy = cy - ((w/2.0)*sin(a))-((h/2.0)*cos(a));
 
     //bottom right vertex
-    double bRx = cx + ((w/2)*cos(a))+((h/2)*cos(a));
-    double bRy = cy + ((w/2)*cos(a))-((h/2)*cos(a));
+    float bRx = cx + ((w/2.0)*cos(a))+((h/2.0)*sin(a));
+    float bRy = cy + ((w/2.0)*sin(a))-((h/2.0)*cos(a));
 
     vals[5] = tRx;
     vals[6] = tRy;
@@ -353,7 +374,13 @@ void validate(int whichShape){
     vals[10] = bLy;
     vals[11] = bRx;
     vals[12] = bRy;
-    //controlLoop(vals[3], vals[4], vals[7], vals[8]);
+
+    //go from center to starting point
+    //controlLoop(vals[3], vals[4], vals[5], vals[6]);
+
+    //actuate pen here, to put pen down and draw
+
+    //draw shape
     //controlLoop(vals[5], vals[6], vals[7], vals[8]);
     //controlLoop(vals[7], vals[8], vals[9], vals[10]);
     //controlLoop(vals[9], vals[10], vals[11], vals[12]);
@@ -366,9 +393,32 @@ void triangleDeclare(void){
   //TRIANGLE
   //find center points
   center();
-  //Declare side lengths
-  HandW();
+  //Declare side length
+  __delay_ms(200);
+
+  //HEIGHT = Y radius = vals[0]
+  clear_LCD();
+  delay_cycles(5);
+  reset_cursor(); //put cursor back to 0,0
+  delay_cycles(5);
+  Show("Pick Height Value  ");
+  vals[0] = countVal(1,8);
+
+  __delay_ms(400);
+
+  //WIDTH = X radius = vals[1]
+  clear_LCD();
+  delay_cycles(5);
+  reset_cursor(); //put cursor back to 0,0
+  delay_cycles(5);
+  Show("Pick Base Value   ");
+  vals[1] = countVal(1,8);
+
+  __delay_ms(200);
+
   rotate();
+  __delay_ms(200);
+
   validate(1);
 }
 //For defining a rectangle OR square
@@ -934,7 +984,17 @@ int main(void)
         }
       }
     __delay_ms(700);
-
+    clear_LCD();
+    delay_cycles(5);
+    reset_cursor(); //put cursor back to 0,0
+    delay_cycles(5);
+    Show("Shape is Done      ");
+    while(1){
+      if(!BR_GetValue()){
+        break;
+      }
+    }
+    __delay_ms(700);
 
     //goAgain loop
     clear_LCD();

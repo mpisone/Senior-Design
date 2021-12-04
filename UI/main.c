@@ -4,11 +4,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "shape.h"
+//#include "shape.h"
 #include "shape.c"
-
-
-
 
 int main(void){
   int shape, ifSquare, goAgain = 1, options =4;
