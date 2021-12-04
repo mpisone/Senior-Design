@@ -178,7 +178,7 @@ void validate(int whichShape, float vals[]){
     vals[10] = bLy;
     vals[11] = bRx;
     vals[12] = bRy;
-
+    
     printf("tRx = %f\ntRy = %f\ntLx = %f\ntLy = %f\nbLx = %f\nbLy = %f\nbRx = %f\nbRy = %f\n", tRx, tRy, tLx, tLy, bLx, bLy, bRx, bRy);
   }
 }
