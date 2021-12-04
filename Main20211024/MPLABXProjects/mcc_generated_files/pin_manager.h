@@ -1078,6 +1078,152 @@
 #define IO_RB13_SetDigitalOutput() (_TRISB13 = 0)
 /**
   @Summary
+    Sets the GPIO pin, RB15, high using LATB15.
+
+  @Description
+    Sets the GPIO pin, RB15, high using LATB15.
+
+  @Preconditions
+    The RB15 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RB15 high (1)
+    L3_SetHigh();
+    </code>
+
+*/
+#define L3_SetHigh()          (_LATB15 = 1)
+/**
+  @Summary
+    Sets the GPIO pin, RB15, low using LATB15.
+
+  @Description
+    Sets the GPIO pin, RB15, low using LATB15.
+
+  @Preconditions
+    The RB15 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RB15 low (0)
+    L3_SetLow();
+    </code>
+
+*/
+#define L3_SetLow()           (_LATB15 = 0)
+/**
+  @Summary
+    Toggles the GPIO pin, RB15, using LATB15.
+
+  @Description
+    Toggles the GPIO pin, RB15, using LATB15.
+
+  @Preconditions
+    The RB15 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Toggle RB15
+    L3_Toggle();
+    </code>
+
+*/
+#define L3_Toggle()           (_LATB15 ^= 1)
+/**
+  @Summary
+    Reads the value of the GPIO pin, RB15.
+
+  @Description
+    Reads the value of the GPIO pin, RB15.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    uint16_t portValue;
+
+    // Read RB15
+    postValue = L3_GetValue();
+    </code>
+
+*/
+#define L3_GetValue()         _RB15
+/**
+  @Summary
+    Configures the GPIO pin, RB15, as an input.
+
+  @Description
+    Configures the GPIO pin, RB15, as an input.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RB15 as an input
+    L3_SetDigitalInput();
+    </code>
+
+*/
+#define L3_SetDigitalInput()  (_TRISB15 = 1)
+/**
+  @Summary
+    Configures the GPIO pin, RB15, as an output.
+
+  @Description
+    Configures the GPIO pin, RB15, as an output.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RB15 as an output
+    L3_SetDigitalOutput();
+    </code>
+
+*/
+#define L3_SetDigitalOutput() (_TRISB15 = 0)
+/**
+  @Summary
     Sets the GPIO pin, RB2, high using LATB2.
 
   @Description
@@ -1387,11 +1533,11 @@
   @Example
     <code>
     // Set RB4 high (1)
-    IO_RB4_SetHigh();
+    Sol_SetHigh();
     </code>
 
 */
-#define IO_RB4_SetHigh()          (_LATB4 = 1)
+#define Sol_SetHigh()          (_LATB4 = 1)
 /**
   @Summary
     Sets the GPIO pin, RB4, low using LATB4.
@@ -1411,11 +1557,11 @@
   @Example
     <code>
     // Set RB4 low (0)
-    IO_RB4_SetLow();
+    Sol_SetLow();
     </code>
 
 */
-#define IO_RB4_SetLow()           (_LATB4 = 0)
+#define Sol_SetLow()           (_LATB4 = 0)
 /**
   @Summary
     Toggles the GPIO pin, RB4, using LATB4.
@@ -1435,11 +1581,11 @@
   @Example
     <code>
     // Toggle RB4
-    IO_RB4_Toggle();
+    Sol_Toggle();
     </code>
 
 */
-#define IO_RB4_Toggle()           (_LATB4 ^= 1)
+#define Sol_Toggle()           (_LATB4 ^= 1)
 /**
   @Summary
     Reads the value of the GPIO pin, RB4.
@@ -1461,11 +1607,11 @@
     uint16_t portValue;
 
     // Read RB4
-    postValue = IO_RB4_GetValue();
+    postValue = Sol_GetValue();
     </code>
 
 */
-#define IO_RB4_GetValue()         _RB4
+#define Sol_GetValue()         _RB4
 /**
   @Summary
     Configures the GPIO pin, RB4, as an input.
@@ -1485,11 +1631,11 @@
   @Example
     <code>
     // Sets the RB4 as an input
-    IO_RB4_SetDigitalInput();
+    Sol_SetDigitalInput();
     </code>
 
 */
-#define IO_RB4_SetDigitalInput()  (_TRISB4 = 1)
+#define Sol_SetDigitalInput()  (_TRISB4 = 1)
 /**
   @Summary
     Configures the GPIO pin, RB4, as an output.
@@ -1509,11 +1655,11 @@
   @Example
     <code>
     // Sets the RB4 as an output
-    IO_RB4_SetDigitalOutput();
+    Sol_SetDigitalOutput();
     </code>
 
 */
-#define IO_RB4_SetDigitalOutput() (_TRISB4 = 0)
+#define Sol_SetDigitalOutput() (_TRISB4 = 0)
 /**
   @Summary
     Sets the GPIO pin, RB6, high using LATB6.
@@ -1825,11 +1971,11 @@
   @Example
     <code>
     // Set RB8 high (1)
-    IO_RB8_SetHigh();
+    L1_SetHigh();
     </code>
 
 */
-#define IO_RB8_SetHigh()          (_LATB8 = 1)
+#define L1_SetHigh()          (_LATB8 = 1)
 /**
   @Summary
     Sets the GPIO pin, RB8, low using LATB8.
@@ -1849,11 +1995,11 @@
   @Example
     <code>
     // Set RB8 low (0)
-    IO_RB8_SetLow();
+    L1_SetLow();
     </code>
 
 */
-#define IO_RB8_SetLow()           (_LATB8 = 0)
+#define L1_SetLow()           (_LATB8 = 0)
 /**
   @Summary
     Toggles the GPIO pin, RB8, using LATB8.
@@ -1873,11 +2019,11 @@
   @Example
     <code>
     // Toggle RB8
-    IO_RB8_Toggle();
+    L1_Toggle();
     </code>
 
 */
-#define IO_RB8_Toggle()           (_LATB8 ^= 1)
+#define L1_Toggle()           (_LATB8 ^= 1)
 /**
   @Summary
     Reads the value of the GPIO pin, RB8.
@@ -1899,11 +2045,11 @@
     uint16_t portValue;
 
     // Read RB8
-    postValue = IO_RB8_GetValue();
+    postValue = L1_GetValue();
     </code>
 
 */
-#define IO_RB8_GetValue()         _RB8
+#define L1_GetValue()         _RB8
 /**
   @Summary
     Configures the GPIO pin, RB8, as an input.
@@ -1923,11 +2069,11 @@
   @Example
     <code>
     // Sets the RB8 as an input
-    IO_RB8_SetDigitalInput();
+    L1_SetDigitalInput();
     </code>
 
 */
-#define IO_RB8_SetDigitalInput()  (_TRISB8 = 1)
+#define L1_SetDigitalInput()  (_TRISB8 = 1)
 /**
   @Summary
     Configures the GPIO pin, RB8, as an output.
@@ -1947,11 +2093,11 @@
   @Example
     <code>
     // Sets the RB8 as an output
-    IO_RB8_SetDigitalOutput();
+    L1_SetDigitalOutput();
     </code>
 
 */
-#define IO_RB8_SetDigitalOutput() (_TRISB8 = 0)
+#define L1_SetDigitalOutput() (_TRISB8 = 0)
 /**
   @Summary
     Sets the GPIO pin, RB9, high using LATB9.
@@ -1971,11 +2117,11 @@
   @Example
     <code>
     // Set RB9 high (1)
-    IO_RB9_SetHigh();
+    L2_SetHigh();
     </code>
 
 */
-#define IO_RB9_SetHigh()          (_LATB9 = 1)
+#define L2_SetHigh()          (_LATB9 = 1)
 /**
   @Summary
     Sets the GPIO pin, RB9, low using LATB9.
@@ -1995,11 +2141,11 @@
   @Example
     <code>
     // Set RB9 low (0)
-    IO_RB9_SetLow();
+    L2_SetLow();
     </code>
 
 */
-#define IO_RB9_SetLow()           (_LATB9 = 0)
+#define L2_SetLow()           (_LATB9 = 0)
 /**
   @Summary
     Toggles the GPIO pin, RB9, using LATB9.
@@ -2019,11 +2165,11 @@
   @Example
     <code>
     // Toggle RB9
-    IO_RB9_Toggle();
+    L2_Toggle();
     </code>
 
 */
-#define IO_RB9_Toggle()           (_LATB9 ^= 1)
+#define L2_Toggle()           (_LATB9 ^= 1)
 /**
   @Summary
     Reads the value of the GPIO pin, RB9.
@@ -2045,11 +2191,11 @@
     uint16_t portValue;
 
     // Read RB9
-    postValue = IO_RB9_GetValue();
+    postValue = L2_GetValue();
     </code>
 
 */
-#define IO_RB9_GetValue()         _RB9
+#define L2_GetValue()         _RB9
 /**
   @Summary
     Configures the GPIO pin, RB9, as an input.
@@ -2069,11 +2215,11 @@
   @Example
     <code>
     // Sets the RB9 as an input
-    IO_RB9_SetDigitalInput();
+    L2_SetDigitalInput();
     </code>
 
 */
-#define IO_RB9_SetDigitalInput()  (_TRISB9 = 1)
+#define L2_SetDigitalInput()  (_TRISB9 = 1)
 /**
   @Summary
     Configures the GPIO pin, RB9, as an output.
@@ -2093,11 +2239,11 @@
   @Example
     <code>
     // Sets the RB9 as an output
-    IO_RB9_SetDigitalOutput();
+    L2_SetDigitalOutput();
     </code>
 
 */
-#define IO_RB9_SetDigitalOutput() (_TRISB9 = 0)
+#define L2_SetDigitalOutput() (_TRISB9 = 0)
 
 /**
     Section: Function Prototypes
@@ -2133,6 +2279,67 @@
 */
 void PIN_MANAGER_Initialize (void);
 
+/**
+  @Summary
+    Callback for L1 Pin.
+
+  @Description
+    This routine is callback for L1 Pin
+
+  @Param
+    None.
+
+  @Returns
+    None
+ 
+ 
+  @Example 
+    <code>
+        L1_SetInterruptHandler(&L1_CallBack);
+    </code>
+*/
+void L1_CallBack(void);
+
+
+/**
+  @Summary
+    Assigns a function pointer with a callback address.
+
+  @Description
+    This routine assigns a function pointer with a callback address.
+
+  @Param
+    Address of the callback routine.
+
+  @Returns
+    None
+ 
+  @Example 
+    <code>
+        L1_SetInterruptHandler(&L1_CallBack);
+    </code>
+*/
+void L1_SetInterruptHandler(void (* InterruptHandler)(void));
+
+/**
+  @Summary
+    Assigns a function pointer with a callback address.
+
+  @Description
+    This routine assigns a function pointer with a callback address.
+
+  @Param
+    Address of the callback routine.
+
+  @Returns
+    None
+ 
+  @Example 
+    <code>
+        L1_SetIOCInterruptHandler(&L1_CallBack);
+    </code>
+*/
+void __attribute__((deprecated("\nThis will be removed in future MCC releases. \nUse L1_SetInterruptHandler instead."))) L1_SetIOCInterruptHandler(void *handler);
 
 
 #endif

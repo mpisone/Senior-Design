@@ -52,5 +52,13 @@
 */
 void INTERRUPT_Initialize (void)
 {
+    //    IOCI: IOC -  Interrupt On Change Interrupt
+    //    Priority: 1
+        IPC4bits.IOCIP = 1;
+            clear_LCD();
+            delay_cycles(5);
+            reset_cursor(); //put cursor back to 0,0
+            delay_cycles(5);
+            Show("Interrupt Flagged  ");
 
 }

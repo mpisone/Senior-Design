@@ -289,13 +289,7 @@ void rotate(void){
   delay_cycles(5);
   Show("Pick Rotation Deg  ");
   vals[2] = countDeg(0,360);
-
-  printf("Rotation Deg: ");
-  scanf("%f", &vals[2]);
-  while(vals[2] < 0 || vals[2] > 360){
-    printf("Please enter a valid input.\n");
-    scanf("%f", &vals[2]);
-  }
+  
 }
 void validate(int whichShape){
   double h = vals[0],w = vals[1], a = vals[2], cx = vals[3], cy = vals[4];
@@ -331,15 +325,16 @@ void validate(int whichShape){
     vals[9] = C2x;
     vals[10] = C2y;
 
-    //go from center to starting point
-    //controlLoop(vals[3], vals[4], vals[5], vals[6]);
+    //go from origin to starting point
+    controlLoop(0.0, 0.0, vals[3], vals[4]);
+    controlLoop(vals[3], vals[4], vals[5], vals[6]);
 
     //actuate pen here, to put pen down and draw
 
     //draw shape
-    //controlLoop(vals[5], vals[6], vals[7], vals[8]);
-    //controlLoop(vals[7], vals[8], vals[9], vals[10]);
-    //controlLoop(vals[9], vals[10], vals[5], vals[6]);
+    controlLoop(vals[5], vals[6], vals[7], vals[8]);
+    controlLoop(vals[7], vals[8], vals[9], vals[10]);
+    controlLoop(vals[9], vals[10], vals[5], vals[6]);
 
     //printf("ax = %f\nay = %f\nbx = %f\nby = %f\ncx = %f\ncy = %f", Ax,Ay,Bx,By,Cx,Cy);
 
@@ -366,25 +361,34 @@ void validate(int whichShape){
     float bRx = cx + ((w/2.0)*cos(a))+((h/2.0)*sin(a));
     float bRy = cy + ((w/2.0)*sin(a))-((h/2.0)*cos(a));
 
-    vals[5] = tRx;
-    vals[6] = tRy;
-    vals[7] = tLx;
-    vals[8] = tLy;
-    vals[9] = bLx;
-    vals[10] = bLy;
-    vals[11] = bRx;
-    vals[12] = bRy;
+    vals[5] = 11 - tRx;
+    vals[6] = 8.5 - tRy;
+    vals[7] = 11 - tLx;
+    vals[8] = 8.5 - tLy;
+    vals[9] = 11 - bLx;
+    vals[10] = 8.5 - bLy;
+    vals[11] = 11 - bRx;
+    vals[12] = 8.5 - bRy;
 
-    //go from center to starting point
-    //controlLoop(vals[3], vals[4], vals[5], vals[6]);
+    //go from origin to starting point
+    controlLoop(0.0, 0.0, vals[3], vals[4]);
+    controlLoop(vals[3], vals[4], vals[5], vals[6]);
 
     //actuate pen here, to put pen down and draw
-
+    Sol_Toggle(); //toggle solenoid to low
+    
     //draw shape
-    //controlLoop(vals[5], vals[6], vals[7], vals[8]);
-    //controlLoop(vals[7], vals[8], vals[9], vals[10]);
-    //controlLoop(vals[9], vals[10], vals[11], vals[12]);
-    //controlLoop(vals[11], vals[12], vals[5], vals[6]);
+    controlLoop(vals[5], vals[6], vals[7], vals[8]);
+    __delay_ms(250);
+    controlLoop(vals[7], vals[8], vals[9], vals[10]);
+    __delay_ms(250);
+    controlLoop(vals[9], vals[10], vals[11], vals[12]);
+    __delay_ms(250);
+    controlLoop(vals[11], vals[12], vals[5], vals[6]);
+    __delay_ms(250);
+    
+    //actuate pen here, finished with shape, bring pen up
+    Sol_Toggle(); //Toggle solenoid high
 
     //printf("tRx = %f\ntRy = %f\ntLx = %f\ntLy = %f\nbLx = %f\nbLy = %f\nbRx = %f\nbRy = %f\n", tRx, tRy, tLx, tLy, bLx, bLy, bRx, bRy);
   }
@@ -411,7 +415,7 @@ void triangleDeclare(void){
   delay_cycles(5);
   reset_cursor(); //put cursor back to 0,0
   delay_cycles(5);
-  Show("Pick Base Value   ");
+  Show("Pick Base Value    ");
   vals[1] = countVal(1,8);
 
   __delay_ms(200);
@@ -759,33 +763,52 @@ void controlLoop(double startX, double startY, double endX, double endY){
 		// convert heading in inches to be whole numbers (1/4 inch is smallest interval of shape placement)
 		// absolute value since direction is already set
 		//headingVectorInt = 4*abs(headingVector);
+        
+        if (countX > 0 && countY > 0)
+        {
 
-        numDP = 3;
-        headingFrac = round(countX/countY * pow(10,numDP-1))/ pow(10,numDP-1);
-        factor = pow(10,numDP);
-        ratInt = (double) floor(headingFrac);
-        ratDec = headingFrac - ratInt;
-        tempA = (ratDec*factor);
-        tempB = factor;
-        ratGCD = (double) gcd( (int) tempA, (int) tempB);
-        tempN = ratDec*factor/ratGCD;
-        tempD = factor/ratGCD;
-        headingVectorInt[0] = ratInt*tempD + tempN;
-        headingVectorInt[1] = tempD;
+            numDP = 3;
+            headingFrac = round(countX/countY * pow(10,numDP-1))/ pow(10,numDP-1);
+            factor = pow(10,numDP);
+            ratInt = (double) floor(headingFrac);
+            ratDec = headingFrac - ratInt;
+            tempA = (ratDec*factor);
+            tempB = factor;
+            ratGCD = (double) gcd( (int) tempA, (int) tempB);
+            tempN = ratDec*factor/ratGCD;
+            tempD = factor/ratGCD;
+            headingVectorInt[0] = ratInt*tempD + tempN;
+            headingVectorInt[1] = tempD;
+            
+            tempValA = countX/headingVectorInt[0];
+            tempValB = countY/headingVectorInt[1];
+            if (tempValA > tempValB)
+            {
+                tempVal = tempValA;
+            }
+            else
+            {
+                tempVal = tempValB;
+            }
+        
+        }
+        if (countX == 0)
+        {
+            headingVectorInt[0] = 0;
+            headingVectorInt[1] = countY;
+            tempVal = countY/headingVectorInt[1];
+        }
+        if (countY == 0)
+        {
+            headingVectorInt[0] = countX;
+            headingVectorInt[1] = 0;
+            tempVal = countX/headingVectorInt[0];
+        }
 
 
 
 		// cycle for the total number of steps necessary
-        tempValA = countX/headingVectorInt[0];
-        tempValB = countY/headingVectorInt[1];
-        if (tempValA > tempValB)
-        {
-            tempVal = tempValA;
-        }
-        else
-        {
-            tempVal = tempValB;
-        }
+        
 
         if (headingVectorInt[0] >= headingVectorInt[1])
         {
@@ -798,10 +821,10 @@ void controlLoop(double startX, double startY, double endX, double endY){
             tempValMax = headingVectorInt[1];
         }
 
-		for (ind = 1; ind < tempVal; ind = ind + 1)
+		for (ind = 0; ind < tempVal; ind = ind + 1)
 		{
 			// cycle thru several steps of only X motor
-			for (ind2 = 1; ind2 < tempValMin; ind2 = ind2 + 1)
+			for (ind2 = 0; ind2 < tempValMin; ind2 = ind2 + 1)
 			{
 				_RB6 = 1;
                 _RB10 = 1;
@@ -812,10 +835,10 @@ void controlLoop(double startX, double startY, double endX, double endY){
 			}
 
 			// cycle thru several steps of only Y motor
-			for (ind3 = 1; ind3 < tempValMax; ind3 = ind3 + 1)
+			for (ind3 = 0; ind3 < tempValMax; ind3 = ind3 + 1)
 			{
 
-                if (headingVectorInt[0] >= headingVectorInt[1])
+                if (headingVectorInt[0] > headingVectorInt[1])
                 {
                     _RB6 = 1;
                     __delay_ms(1);
@@ -880,6 +903,7 @@ int main(void)
     int shape, ifSquare;
     // initialize the device
     SYSTEM_Initialize();
+    INTERRUPT_GlobalEnable();
 
     i2c_delay = 2; //delay for i2c timing. Tweak as needed. Should be divisible by 2.
     buffer[20] = ""; //initialize buffer for writing out numbers.
@@ -912,7 +936,26 @@ int main(void)
           break;
         }
       }
-      */
+      
+    while(1){
+        if(!L1_GetValue()){
+            clear_LCD();
+            delay_cycles(5);
+            reset_cursor(); //put cursor back to 0,0
+            delay_cycles(5);
+            Show("L1 Pressed         ");
+            //Sol_Toggle();
+            
+        }else if(L1_GetValue()==1){
+            clear_LCD();
+            delay_cycles(5);
+            reset_cursor(); //put cursor back to 0,0
+            delay_cycles(5);
+            //Sol_Toggle();
+        }
+    }
+    */
+     //controlLoop(0.0, 0.0, 5.0, 0.0);
       clear_LCD();
       delay_cycles(5);
       reset_cursor(); //put cursor back to 0,0
@@ -1027,6 +1070,7 @@ int main(void)
       }
     }
     exit(0);
+    
 
 }
 
