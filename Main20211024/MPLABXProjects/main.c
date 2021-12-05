@@ -379,13 +379,13 @@ void validate(int whichShape){
     
     //draw shape
     controlLoop(vals[5], vals[6], vals[7], vals[8]);
-    __delay_ms(250);
+    __delay_ms(1000);
     controlLoop(vals[7], vals[8], vals[9], vals[10]);
-    __delay_ms(250);
+    __delay_ms(1000);
     controlLoop(vals[9], vals[10], vals[11], vals[12]);
-    __delay_ms(250);
+    __delay_ms(1000);
     controlLoop(vals[11], vals[12], vals[5], vals[6]);
-    __delay_ms(250);
+    __delay_ms(1000);
     
     //actuate pen here, finished with shape, bring pen up
     Sol_Toggle(); //Toggle solenoid high
@@ -903,7 +903,7 @@ int main(void)
     int shape, ifSquare;
     // initialize the device
     SYSTEM_Initialize();
-    INTERRUPT_GlobalEnable();
+    //INTERRUPT_GlobalEnable();
 
     i2c_delay = 2; //delay for i2c timing. Tweak as needed. Should be divisible by 2.
     buffer[20] = ""; //initialize buffer for writing out numbers.
@@ -921,40 +921,8 @@ int main(void)
     _RB11 = 0;
     _RB15 = 0;
 
-    //Get User inputs
-      /*
-      delay_cycles(5);
-      reset_cursor(); //put cursor back to 0,0
-      delay_cycles(5);
-      //ultoa(buffer, counter, 10);//convert int to unsigned char.
-      Show("What shape to draw?");
-      __delay_ms(500); //5 seconds
 
-      while(1){
-        //move to next screen
-        if(!BR_GetValue()){
-          break;
-        }
-      }
-      
-    while(1){
-        if(!L1_GetValue()){
-            clear_LCD();
-            delay_cycles(5);
-            reset_cursor(); //put cursor back to 0,0
-            delay_cycles(5);
-            Show("L1 Pressed         ");
-            //Sol_Toggle();
-            
-        }else if(L1_GetValue()==1){
-            clear_LCD();
-            delay_cycles(5);
-            reset_cursor(); //put cursor back to 0,0
-            delay_cycles(5);
-            //Sol_Toggle();
-        }
-    }
-    */
+    
      //controlLoop(0.0, 0.0, 5.0, 0.0);
       clear_LCD();
       delay_cycles(5);

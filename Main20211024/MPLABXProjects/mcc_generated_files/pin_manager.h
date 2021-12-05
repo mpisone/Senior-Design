@@ -2279,67 +2279,6 @@
 */
 void PIN_MANAGER_Initialize (void);
 
-/**
-  @Summary
-    Callback for L1 Pin.
-
-  @Description
-    This routine is callback for L1 Pin
-
-  @Param
-    None.
-
-  @Returns
-    None
- 
- 
-  @Example 
-    <code>
-        L1_SetInterruptHandler(&L1_CallBack);
-    </code>
-*/
-void L1_CallBack(void);
-
-
-/**
-  @Summary
-    Assigns a function pointer with a callback address.
-
-  @Description
-    This routine assigns a function pointer with a callback address.
-
-  @Param
-    Address of the callback routine.
-
-  @Returns
-    None
- 
-  @Example 
-    <code>
-        L1_SetInterruptHandler(&L1_CallBack);
-    </code>
-*/
-void L1_SetInterruptHandler(void (* InterruptHandler)(void));
-
-/**
-  @Summary
-    Assigns a function pointer with a callback address.
-
-  @Description
-    This routine assigns a function pointer with a callback address.
-
-  @Param
-    Address of the callback routine.
-
-  @Returns
-    None
- 
-  @Example 
-    <code>
-        L1_SetIOCInterruptHandler(&L1_CallBack);
-    </code>
-*/
-void __attribute__((deprecated("\nThis will be removed in future MCC releases. \nUse L1_SetInterruptHandler instead."))) L1_SetIOCInterruptHandler(void *handler);
 
 
 #endif

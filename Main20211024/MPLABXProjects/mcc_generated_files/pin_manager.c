@@ -54,11 +54,6 @@
 #include "pin_manager.h"
 
 /**
- Section: File specific functions
-*/
-void (*L1_InterruptHandler)(void) = NULL;
-
-/**
  Section: Driver Interface Function Definitions
 */
 void PIN_MANAGER_Initialize (void)
@@ -81,7 +76,7 @@ void PIN_MANAGER_Initialize (void)
     IOCPDA = 0x0000;
     IOCPDB = 0x0000;
     IOCPUA = 0x0000;
-    IOCPUB = 0x0100;
+    IOCPUB = 0x0000;
 
     /****************************************************************************
      * Setting the Open Drain SFR(s)
@@ -92,68 +87,7 @@ void PIN_MANAGER_Initialize (void)
     /****************************************************************************
      * Setting the Analog/Digital Configuration SFR(s)
      ***************************************************************************/
-    ANSA = 0x0000;
+    ANSA = 0x0008;
     ANSB = 0x4000;
-    
-    /****************************************************************************
-     * Interrupt On Change: negative
-     ***************************************************************************/
-    IOCNBbits.IOCNB8 = 1;    //Pin : RB8
-    /****************************************************************************
-     * Interrupt On Change: flag
-     ***************************************************************************/
-    IOCFBbits.IOCFB8 = 0;    //Pin : RB8
-    /****************************************************************************
-     * Interrupt On Change: config
-     ***************************************************************************/
-    PADCONbits.IOCON = 1;    //Config for PORTB
-    
-    /* Initialize IOC Interrupt Handler*/
-    L1_SetInterruptHandler(&L1_CallBack);
-    
-    /****************************************************************************
-     * Interrupt On Change: Interrupt Enable
-     ***************************************************************************/
-    IFS1bits.IOCIF = 0; //Clear IOCI interrupt flag
-    IEC1bits.IOCIE = 1; //Enable IOCI interrupt
-}
-
-void __attribute__ ((weak)) L1_CallBack(void)
-{
-
-}
-
-void L1_SetInterruptHandler(void (* InterruptHandler)(void))
-{ 
-    IEC1bits.IOCIE = 0; //Disable IOCI interrupt
-    L1_InterruptHandler = InterruptHandler; 
-    IEC1bits.IOCIE = 1; //Enable IOCI interrupt
-}
-
-void L1_SetIOCInterruptHandler(void *handler)
-{ 
-    L1_SetInterruptHandler(handler);
-}
-
-/* Interrupt service routine for the IOCI interrupt. */
-void __attribute__ (( interrupt, no_auto_psv )) _IOCInterrupt ( void )
-{
-    if(IFS1bits.IOCIF == 1)
-    {
-        if(IOCFBbits.IOCFB8 == 1)
-        {
-            if(L1_InterruptHandler) 
-            { 
-                L1_InterruptHandler(); 
-            }
-            
-            IOCFBbits.IOCFB8 = 0;  //Clear flag for Pin - RB8
-
-        }
-        
-        
-        // Clear the flag
-        IFS1bits.IOCIF = 0;
-    }
 }
 
