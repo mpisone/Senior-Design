@@ -110,10 +110,10 @@ int counter;
 unsigned char buffer[20];
 // Define parameters for motor control
 int headingVectorInt[2], ind, ind2, ind3, tempValA, tempValB, tempVal, tempValMin, tempValMax, numDP;
-int tempN, tempD;
+int tempN, tempD, i;
 double delayX, delayY, startX, startY, endX, endY, headingVector[2], Nx, Ny, pitch, stepSize; //delay in ms and start/end in inches
 double headingFrac, factor, ratInt, ratDec, Val, roundVal, countX, countY, tempValRound;
-double a,b, ratGCD, tempA, tempB;
+double a,b, ratGCD, tempA, tempB, setXOffset;
 _Bool directionX, directionY, clockwise, counter_clockwise; //0 for CW?, 1 for CCW?
 
 /******************************************************************
@@ -755,6 +755,9 @@ void controlLoop(double startX, double startY, double endX, double endY){
         {
             countY = -1.0*countY;
         }
+        
+        //printf("countX = %f \n", countX);
+        //printf("countY = %f \n", countY);
 
 
         // Motor Speed
@@ -772,9 +775,18 @@ void controlLoop(double startX, double startY, double endX, double endY){
             factor = pow(10,numDP);
             ratInt = (double) floor(headingFrac);
             ratDec = headingFrac - ratInt;
-            tempA = (ratDec*factor);
-            tempB = factor;
-            ratGCD = (double) gcd( (int) tempA, (int) tempB);
+            
+            if (ratDec > 0)
+            {
+                tempA = (ratDec*factor);
+                tempB = factor;
+                ratGCD = (double) gcd( (int) tempA, (int) tempB);
+            }
+            else
+            {
+                //ratGCD = (double) gcd( (int) ratInt*factor, (int) factor);
+                ratGCD = factor;
+            }
             tempN = ratDec*factor/ratGCD;
             tempD = factor/ratGCD;
             headingVectorInt[0] = ratInt*tempD + tempN;
@@ -804,6 +816,9 @@ void controlLoop(double startX, double startY, double endX, double endY){
             headingVectorInt[1] = 0;
             tempVal = countX/headingVectorInt[0];
         }
+        
+        //printf("headingVectorInt[0] = %f \n", headingVectorInt[0]);
+        //printf("headingVectorInt[1] = %f \n", headingVectorInt[1]);
 
 
 
@@ -835,7 +850,7 @@ void controlLoop(double startX, double startY, double endX, double endY){
 			}
 
 			// cycle thru several steps of only Y motor
-			for (ind3 = 0; ind3 < tempValMax; ind3 = ind3 + 1)
+			for (ind3 = 0; ind3 < tempValMax-tempValMin; ind3 = ind3 + 1)
 			{
 
                 if (headingVectorInt[0] > headingVectorInt[1])
@@ -894,6 +909,43 @@ double round (double Val)
     return roundVal;
 }
 
+void homeRobot(void)
+{
+    _RB7 = (_Bool) 0;
+    _RB11 = (_Bool) 0;
+    
+    while (_RB8 == 1)
+    {
+        _RB10 = 1;
+        __delay_ms(1);
+        _RB10 = 0;
+        __delay_ms(1);   
+    }
+    
+    __delay_ms(500);
+    
+    while (_RB9 == 1)
+    {
+        _RB6 = 1;
+        __delay_ms(1);
+        _RB6 = 0;
+        __delay_ms(1);   
+    }
+    
+    __delay_ms(500);
+    
+    setXOffset = 1.25*25.4*2*M_PI*1/1.25/(1.8*M_PI/180);
+    _RB7 = (_Bool) 1;
+    int i = 0;
+    for (i = 0; i < setXOffset; i = i+1)
+    {
+        _RB6 = 1;
+        __delay_ms(1);
+        _RB6 = 0;
+        __delay_ms(1);
+    }
+}
+
 
 /******************************************************************
  ***********************  MAIN ************************************
@@ -920,8 +972,31 @@ int main(void)
     _RB10 = 0;
     _RB11 = 0;
     _RB15 = 0;
+    
+    __delay_ms(5000);
+    homeRobot();
+    
+    __delay_ms(1000);
+    
+    /* Code Used For Video
+    controlLoop(0.0, 0.0, 3.0, 2.0);
+    
+    __delay_ms(1000);
+    Sol_Toggle();
+    __delay_ms(1000);
+    
+    controlLoop(3.0, 2.0, 3.0, 4.0);
+    __delay_ms(750);
+    controlLoop(3.0, 4.0, 6.0, 4.0);
+    __delay_ms(750);
+    controlLoop(6.0, 4.0, 6.0, 2.0);
+    __delay_ms(750);
+    controlLoop(6.0, 2.0, 3.0, 2.0);
+    __delay_ms(750);
+    
+    Sol_Toggle();
 
-
+    */
     
      //controlLoop(0.0, 0.0, 5.0, 0.0);
       clear_LCD();
