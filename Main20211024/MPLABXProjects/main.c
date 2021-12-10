@@ -244,7 +244,7 @@ void HandW(void){
   reset_cursor(); //put cursor back to 0,0
   delay_cycles(5);
   Show("Pick Height Value  ");
-  vals[0] = countVal(1,8);
+  vals[0] = countVal(1,6);
 
   __delay_ms(400);
 
@@ -254,7 +254,7 @@ void HandW(void){
   reset_cursor(); //put cursor back to 0,0
   delay_cycles(5);
   Show("Pick Width Value   ");
-  vals[1] = countVal(1,8);
+  vals[1] = countVal(1,6);
 }
 void center(void){
   //Starting Coordinates
@@ -264,7 +264,7 @@ void center(void){
   reset_cursor(); //put cursor back to 0,0
   delay_cycles(5);
   Show("Pick Center X      ");
-  vals[3] = countVal(4,6);
+  vals[3] = countVal(3,6);
 
   __delay_ms(400);
 
@@ -274,7 +274,7 @@ void center(void){
   reset_cursor(); //put cursor back to 0,0
   delay_cycles(5);
   Show("Pick Center Y      ");
-  vals[4] = countVal(4,6);
+  vals[4] = countVal(3,6);
 
   //controlLoop(0.0, 0.0, vals[3], vals[4]);
 
@@ -298,13 +298,13 @@ void validate(int whichShape){
     //TRIANGLE
     //Find initial triangle before Rotation
     float A1x = cx;
-    float A1y = cy + (cy/2.0);
+    float A1y = cy + (h/2.0);
 
-    float B1x = cx - (cx/2.0);
-    float B1y = cy - (cy/2.0);
+    float B1x = cx - (w/2.0);
+    float B1y = cy - (h/2.0);
 
-    float C1x = cx + (cx/2.0);
-    float C1y = cy - (cy/2.0);
+    float C1x = cx + (w/2.0);
+    float C1y = cy - (h/2.0);
 
     //convert degree to radians
     a = a * (M_PI/180.0);
@@ -318,23 +318,27 @@ void validate(int whichShape){
     float C2x = cos(a)*(C1x-cx)-sin(a)*(C1y-cy)+cx;
     float C2y = sin(a)*(C1x-cx)+cos(a)*(C1y-cy)+cy;
 
-    vals[5] = A2x;
-    vals[6] = A2y;
-    vals[7] = B2x;
-    vals[8] = B2y;
-    vals[9] = C2x;
-    vals[10] = C2y;
+    vals[5] = 11 - A2x;
+    vals[6] = 8.5 - A2y;
+    vals[7] = 11 - B2x;
+    vals[8] = 8.5 -  B2y;
+    vals[9] = 11 - C2x;
+    vals[10] = 8.5 - C2y;
 
     //go from origin to starting point
-    controlLoop(0.0, 0.0, vals[3], vals[4]);
-    controlLoop(vals[3], vals[4], vals[5], vals[6]);
+    controlLoop(0.0, 0.0, vals[5], vals[6]);
+    //controlLoop(vals[3], vals[4], vals[5], vals[6]);
 
     //actuate pen here, to put pen down and draw
-
+    Sol_Toggle(); //toggle solenoid to low
     //draw shape
     controlLoop(vals[5], vals[6], vals[7], vals[8]);
+    __delay_ms(1000);
     controlLoop(vals[7], vals[8], vals[9], vals[10]);
+    __delay_ms(1000);
     controlLoop(vals[9], vals[10], vals[5], vals[6]);
+    __delay_ms(1000);
+    Sol_Toggle(); //toggle solenoid to high
 
     //printf("ax = %f\nay = %f\nbx = %f\nby = %f\ncx = %f\ncy = %f", Ax,Ay,Bx,By,Cx,Cy);
 
@@ -371,8 +375,8 @@ void validate(int whichShape){
     vals[12] = 8.5 - bRy;
 
     //go from origin to starting point
-    controlLoop(0.0, 0.0, vals[3], vals[4]);
-    controlLoop(vals[3], vals[4], vals[5], vals[6]);
+    controlLoop(0.0, 0.0, vals[5], vals[6]);
+    //controlLoop(vals[3], vals[4], vals[5], vals[6]);
 
     //actuate pen here, to put pen down and draw
     Sol_Toggle(); //toggle solenoid to low
@@ -406,7 +410,7 @@ void triangleDeclare(void){
   reset_cursor(); //put cursor back to 0,0
   delay_cycles(5);
   Show("Pick Height Value  ");
-  vals[0] = countVal(1,8);
+  vals[0] = countVal(1,6);
 
   __delay_ms(400);
 
@@ -451,7 +455,7 @@ void rectangleDeclare(int ifSquare){
     reset_cursor(); //put cursor back to 0,0
     delay_cycles(5);
     Show("Pick Side Length   ");
-    vals[0] = countVal(1,8);
+    vals[0] = countVal(1,6);
     vals[1] = vals[0];
     __delay_ms(200);
     rotate();
@@ -973,12 +977,12 @@ int main(void)
     _RB11 = 0;
     _RB15 = 0;
     
-    __delay_ms(5000);
+    __delay_ms(500);
     homeRobot();
     
-    __delay_ms(1000);
+    __delay_ms(500);
     
-    /* Code Used For Video
+    /* //Code Used For Video
     controlLoop(0.0, 0.0, 3.0, 2.0);
     
     __delay_ms(1000);
@@ -995,8 +999,9 @@ int main(void)
     __delay_ms(750);
     
     Sol_Toggle();
+     */
 
-    */
+    
     
      //controlLoop(0.0, 0.0, 5.0, 0.0);
       clear_LCD();
@@ -1005,7 +1010,7 @@ int main(void)
       delay_cycles(5);
       Show("1.Triangle 2.Rect  ");
       move_cursor(1, 0); //move cursor to 1,0 (second line, position 0)
-      Show("3.Square 4.Ellipse ");
+      Show("3.Square           ");
       __delay_ms(1500); //15 seconds
 
       //Buttons
@@ -1069,19 +1074,20 @@ int main(void)
           break;
         }
       }
-    __delay_ms(700);
+      __delay_ms(700);
     clear_LCD();
     delay_cycles(5);
     reset_cursor(); //put cursor back to 0,0
     delay_cycles(5);
     Show("Shape is Done      ");
+    //homeRobot();
     while(1){
       if(!BR_GetValue()){
         break;
       }
     }
     __delay_ms(700);
-
+/*
     //goAgain loop
     clear_LCD();
     delay_cycles(5);
@@ -1113,7 +1119,7 @@ int main(void)
       }
     }
     exit(0);
-    
+    */
 
 }
 
